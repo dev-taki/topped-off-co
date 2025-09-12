@@ -17,7 +17,7 @@ const BUSINESS_ID = AuthService.getBusinessId();
 
 const SQUARE_CONFIG = {
   applicationId: 'sq0idp-kMtm2Q79PLnqxFMcwlTmcg',
-  locationId: 'LQ5KTGTBDE2YJ',
+  locationId: 'LBGJZKB82ED85',
 };
 
 const COUNTRIES = [
