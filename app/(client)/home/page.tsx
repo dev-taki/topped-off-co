@@ -13,7 +13,7 @@ export default function HomePage() {
   const { user } = useAppSelector((state) => state.auth);
   const { userSubscriptions, loading: subscriptionsLoading } = useAppSelector((state) => state.subscription);
 
-  const BUSINESS_ID = 'a16c462c-e0e8-45f9-81d4-a344874fc46c';
+  const BUSINESS_ID = '7feb534b-071f-4e58-9c3f-afdc9979d62a';
 
   useEffect(() => {
     // Check authentication first

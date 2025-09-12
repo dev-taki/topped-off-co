@@ -1,7 +1,7 @@
 // API Configuration
 export const API_CONFIG = {
   BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL || 'https://xwqm-zvzg-uzfr.n7e.xano.io/api:fjTsAN4K',
-  BUSINESS_ID: process.env.NEXT_PUBLIC_BUSINESS_ID || '13520775-cf07-4224-8bd9-999c8ddf850b',
+  BUSINESS_ID: process.env.NEXT_PUBLIC_BUSINESS_ID || '7feb534b-071f-4e58-9c3f-afdc9979d62a',
   TIMEOUT: parseInt(process.env.NEXT_PUBLIC_API_TIMEOUT || '10000'), // 10 seconds
   RETRY_ATTEMPTS: parseInt(process.env.NEXT_PUBLIC_API_RETRY_ATTEMPTS || '3'),
 } as const;
