@@ -7,8 +7,9 @@ import { useAuth, useAppDispatch } from '../store/hooks';
 import { signup, clearError } from '../store/slices/authSlice';
 import { ButtonLoader } from '../components/common/Loader';
 import { ErrorDisplay } from '../components/common/ErrorDisplay';
+import { Logo } from '../components/Logo';
 import { SignupData } from '../types';
-import { User, Mail, Lock, Eye, EyeOff, Sparkles, Check } from 'lucide-react';
+import { User, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { AuthService } from '../services/authService';
 
 export default function SignupPage() {
@@ -75,31 +76,24 @@ export default function SignupPage() {
   const isPasswordValid = formData.password.length >= 8;
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="px-6 py-8">
-        {/* Title and subtitle */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center mb-2">
-            <h1 className="text-3xl font-bold text-gray-900 mr-2">Create an account</h1>
-            <div className="flex space-x-1">
-              <Sparkles className="h-4 w-4 text-yellow-400" />
-              <Sparkles className="h-4 w-4 text-yellow-400" />
-            </div>
-          </div>
-          <p className="text-gray-600">Welcome! Please enter your details.</p>
+    <div className="min-h-screen bg-brand-white flex items-center justify-center px-6 py-8">
+      <div className="w-full max-w-md">
+        {/* Logo */}
+        <div className="text-center mb-12">
+          <Logo variant="default" showTagline={true} />
         </div>
         
         <ErrorDisplay error={error} onClear={handleClearError} className="mb-6" />
         
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-8" onSubmit={handleSubmit}>
           {/* Name field */}
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="name" className="block text-sm font-montserrat font-medium text-brand-black mb-3 uppercase tracking-wide">
               Name
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <User className="h-5 w-5 text-gray-400" />
+                <User className="h-5 w-5 text-brand-primary" />
               </div>
               <input
                 id="name"
@@ -109,7 +103,7 @@ export default function SignupPage() {
                 required
                 value={formData.name}
                 onChange={handleInputChange}
-                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="block w-full pl-10 pr-3 py-4 bg-brand-white border border-brand-primary rounded-xl focus:outline-none focus:ring-0 focus:border-brand-black transition-colors font-montserrat"
                 placeholder="Enter your name"
               />
             </div>
@@ -117,12 +111,12 @@ export default function SignupPage() {
 
           {/* Email field */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="email" className="block text-sm font-montserrat font-medium text-brand-black mb-3 uppercase tracking-wide">
               Email
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Mail className="h-5 w-5 text-gray-400" />
+                <Mail className="h-5 w-5 text-brand-primary" />
               </div>
               <input
                 id="email"
@@ -132,7 +126,7 @@ export default function SignupPage() {
                 required
                 value={formData.email}
                 onChange={handleInputChange}
-                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="block w-full pl-10 pr-3 py-4 bg-brand-white border border-brand-primary rounded-xl focus:outline-none focus:ring-0 focus:border-brand-black transition-colors font-montserrat"
                 placeholder="Enter your email"
               />
             </div>
@@ -140,12 +134,12 @@ export default function SignupPage() {
 
           {/* Password field */}
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="password" className="block text-sm font-montserrat font-medium text-brand-black mb-3 uppercase tracking-wide">
               Password
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Lock className="h-5 w-5 text-gray-400" />
+                <Lock className="h-5 w-5 text-brand-primary" />
               </div>
               <input
                 id="password"
@@ -155,7 +149,7 @@ export default function SignupPage() {
                 required
                 value={formData.password}
                 onChange={handleInputChange}
-                className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="block w-full pl-10 pr-12 py-4 bg-brand-white border border-brand-primary rounded-xl focus:outline-none focus:ring-0 focus:border-brand-black transition-colors font-montserrat"
                 placeholder="Enter your password"
               />
               <button
@@ -164,29 +158,24 @@ export default function SignupPage() {
                 className="absolute inset-y-0 right-0 pr-3 flex items-center"
               >
                 {showPassword ? (
-                  <EyeOff className="h-5 w-5 text-gray-400" />
+                  <EyeOff className="h-5 w-5 text-brand-primary" />
                 ) : (
-                  <Eye className="h-5 w-5 text-gray-400" />
+                  <Eye className="h-5 w-5 text-brand-primary" />
                 )}
               </button>
             </div>
-          </div>
-
-          {/* Password validation */}
-          <div className="flex items-center">
-            <div className={`flex items-center h-4 w-4 rounded ${isPasswordValid ? 'bg-green-500' : 'bg-gray-300'} mr-2`}>
-              {isPasswordValid && <Check className="h-3 w-3 text-white" />}
-            </div>
-            <span className="text-sm text-gray-600">Must be at least 8 characters</span>
+            <p className="mt-2 text-sm text-brand-primary font-montserrat">
+              Password must be at least 8 characters with letters
+            </p>
           </div>
 
           {/* Sign up button */}
           <button
             type="submit"
-            disabled={loading || !isPasswordValid}
-            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-[#8c52ff] hover:bg-[#7a47e6] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#8c52ff] disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={loading}
+            className="w-full flex justify-center py-4 px-4 border border-transparent rounded-lg text-sm font-montserrat font-medium text-brand-white bg-brand-black hover:bg-brand-primary focus:outline-none focus:ring-0 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wide"
           >
-                            {loading ? <ButtonLoader size="sm" /> : 'Sign Up'}
+            {loading ? <ButtonLoader size="sm" /> : 'Create Account'}
           </button>
         </form>
 
@@ -194,13 +183,13 @@ export default function SignupPage() {
 
         {/* Log in link */}
         <div className="mt-8 text-center">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-brand-primary font-montserrat">
             Already have an account?{' '}
             <Link
-                              href="/login"
-              className="font-medium text-blue-600 hover:text-blue-500"
+              href="/login"
+              className="text-brand-primary hover:text-brand-black font-montserrat"
             >
-              Log in
+              Sign in here
             </Link>
           </p>
         </div>

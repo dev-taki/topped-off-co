@@ -64,8 +64,8 @@ export const removeLocalStorage = (key: string): void => {
 
 // Storage keys constants
 export const STORAGE_KEYS = {
-  AUTH_TOKEN: 'side-quest',
-  USER_ROLE: 'side-quest_role',
+  AUTH_TOKEN: 'topped-off-co',
+  USER_ROLE: 'topped-off-co_role',
   PWA_INSTALL_DISMISSED: 'pwa-install-dismissed',
   USER_PREFERENCES: 'user-preferences',
   THEME: 'theme',

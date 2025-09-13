@@ -8,7 +8,7 @@ export const handleAuthError = (error: any, isAdmin: boolean = false) => {
     // Clear auth token
     if (typeof window !== 'undefined') {
       // Clear the cookie
-      document.cookie = 'side-quest=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;';
+      document.cookie = 'topped-off-co=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;';
       
       // Clear any stored auth data
       localStorage.removeItem('authToken');

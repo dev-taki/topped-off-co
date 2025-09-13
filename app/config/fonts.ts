@@ -1,4 +1,4 @@
-import { Young_Serif, Bitter } from "next/font/google";
+import { Young_Serif, Bitter, Montserrat } from "next/font/google";
 
 // Young Serif for logos and headings
 export const youngSerif = Young_Serif({
@@ -16,10 +16,20 @@ export const bitter = Bitter({
   display: "swap",
 });
 
+// Montserrat Classic for general text (non-heading)
+export const montserrat = Montserrat({
+  variable: "--font-montserrat",
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
+});
+
 // Font family definitions
 export const FONT_FAMILIES = {
   youngSerif: "var(--font-young-serif)",
   bitter: "var(--font-bitter)",
+  hattonUltralight: "var(--font-hatton-ultralight)",
+  montserrat: "var(--font-montserrat)",
 } as const;
 
 // Font weight definitions
@@ -37,8 +47,12 @@ export const FONT_WEIGHTS = {
 
 // Font utility classes
 export const FONT_CLASSES = {
+  // Hatton classes for brand logo
+  logo: "hatton-ultralight",
+  logoHatton: "hatton-ultralight",
+  
   // Young Serif classes for logos and headings
-  logo: "font-young-serif font-normal",
+  logoYoung: "font-young-serif font-normal",
   heading1: "font-young-serif font-bold text-4xl",
   heading2: "font-young-serif font-bold text-3xl", 
   heading3: "font-young-serif font-semibold text-2xl",
@@ -70,6 +84,8 @@ export const FONT_CLASSES = {
 export const FONT_CSS_VARS = {
   "--font-young-serif": FONT_FAMILIES.youngSerif,
   "--font-bitter": FONT_FAMILIES.bitter,
+  "--font-hatton-ultralight": FONT_FAMILIES.hattonUltralight,
+  "--font-montserrat": FONT_FAMILIES.montserrat,
 } as const;
 
 // Tailwind CSS configuration for fonts
@@ -77,6 +93,8 @@ export const TAILWIND_FONTS = {
   fontFamily: {
     'young-serif': [FONT_FAMILIES.youngSerif, 'serif'],
     'bitter': [FONT_FAMILIES.bitter, 'serif'],
+    'hatton-ultralight': [FONT_FAMILIES.hattonUltralight, 'sans-serif'],
+    'montserrat': [FONT_FAMILIES.montserrat, 'sans-serif'],
   },
   fontWeight: {
     'thin': FONT_WEIGHTS.thin,

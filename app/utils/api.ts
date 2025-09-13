@@ -13,10 +13,10 @@ if (typeof window !== 'undefined') {
       // Check for 401 errors
       if (response.status === 401) {
         // Clear auth tokens
-        document.cookie = 'side-quest=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-        document.cookie = 'side-quest_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-        localStorage.removeItem('side-quest');
-        localStorage.removeItem('side-quest_role');
+        document.cookie = 'topped-off-co=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+        document.cookie = 'topped-off-co_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+        localStorage.removeItem('topped-off-co');
+        localStorage.removeItem('topped-off-co_role');
         
         // Redirect to login
         window.location.href = '/login';
@@ -135,12 +135,12 @@ export const apiRequest = async <T>(
           // Clear auth tokens
           if (typeof window !== 'undefined') {
             // Clear cookies
-            document.cookie = 'side-quest=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-            document.cookie = 'side-quest_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+            document.cookie = 'topped-off-co=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+            document.cookie = 'topped-off-co_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
             
             // Clear localStorage if any
-            localStorage.removeItem('side-quest');
-            localStorage.removeItem('side-quest_role');
+            localStorage.removeItem('topped-off-co');
+            localStorage.removeItem('topped-off-co_role');
             
             // Redirect to login
             window.location.href = '/login';

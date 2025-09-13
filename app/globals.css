@@ -1,7 +1,65 @@
 @import "tailwindcss";
 
+/* Hatton Font Face Declarations */
+@font-face {
+  font-family: 'PP Hatton';
+  src: url('/fonts/PPHatton-Ultralight.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Hatton';
+  src: url('/fonts/PPHatton-UltralightItalic.otf') format('opentype');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Hatton';
+  src: url('/fonts/PPHatton-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Hatton';
+  src: url('/fonts/PPHatton-MediumItalic.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Hatton';
+  src: url('/fonts/PPHatton-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Hatton';
+  src: url('/fonts/PPHatton-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 @theme {
-  --color-primary: #8c52ff;
+  /* Brand Colors */
+  --color-brand-primary: #3B3B3B;
+  --color-brand-white: #FFFFFF;
+  --color-brand-black: #000000;
+  
+  /* Primary Colors */
+  --color-primary: #3B3B3B;
+  --color-primary-light: #4A4A4A;
+  --color-primary-dark: #2D2D2D;
+  --color-primary-hover: #333333;
   --color-white: #FFFFFF;
   --color-black: #000000;
   --color-gray-50: #fafafa;
@@ -14,6 +72,8 @@
   --color-gray-700: #404040;
   --color-gray-800: #262626;
   --color-gray-900: #171717;
+  --font-hatton-ultralight: 'PP Hatton', sans-serif;
+  --font-montserrat: 'Montserrat', sans-serif;
 }
 
 /* Custom scrollbar for webkit browsers */
@@ -91,17 +151,17 @@ h6 {
   font-style: normal;
 }
 
-/* All paragraph tags use Bitter Thin */
+/* All paragraph tags use Montserrat */
 p {
-  font-family: var(--font-bitter);
-  font-weight: 100; /* Thin weight for Bitter */
+  font-family: var(--font-montserrat);
+  font-weight: 400;
   line-height: 1.6;
 }
 
-/* Ensure all other elements use Bitter Light */
+/* Ensure all other elements use Montserrat */
 span, div, a, button, input, textarea, label, li, td, th {
-  font-family: var(--font-bitter);
-  font-weight: 300; /* Light weight */
+  font-family: var(--font-montserrat);
+  font-weight: 400;
 }
 
 /* Mobile touch improvements */
@@ -279,6 +339,15 @@ button {
   font-family: var(--font-bitter);
 }
 
+.hatton-ultralight {
+  font-family: var(--font-hatton-ultralight);
+  font-weight: 100;
+}
+
+.font-montserrat {
+  font-family: var(--font-montserrat);
+}
+
 .font-thin {
   font-weight: 100;
 }
@@ -313,6 +382,80 @@ button {
 
 .font-black {
   font-weight: 900;
+}
+
+/* Custom Animations for Floral Watermark */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(5deg); }
+}
+
+@keyframes float-medium {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(-5deg); }
+}
+
+@keyframes float-fast {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(10deg); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.animate-float-slow {
+  animation: float-slow 15s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: float-medium 12s ease-in-out infinite;
+}
+
+.animate-float-fast {
+  animation: float-fast 10s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+.animate-spin-reverse {
+  animation: spin-reverse 25s linear infinite;
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 12s ease-in-out infinite;
+}
+
+/* Animated Gradient Background */
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-flow {
+  background: linear-gradient(-45deg, var(--color-brand-primary), var(--color-brand-black), var(--color-brand-primary), var(--color-brand-black));
+  background-size: 400% 400%;
+  animation: gradient-flow 30s ease infinite;
 }
 
 

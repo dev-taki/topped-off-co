@@ -2,10 +2,10 @@
 export const COLORS = {
   // Primary Colors - Main brand colors
   primary: {
-    main: '#8c52ff',      // Main primary color - Purple
-    light: '#a366ff',     // Lighter shade
-    dark: '#6b3fd9',      // Darker shade
-    hover: '#7a47e6',     // Hover state
+    main: '#3B3B3B',      // Main primary color - Brand Dark Gray
+    light: '#4A4A4A',     // Lighter shade
+    dark: '#2D2D2D',      // Darker shade
+    hover: '#333333',     // Hover state
     text: '#FFFFFF',      // Text on primary background
   },
   
@@ -56,6 +56,13 @@ export const COLORS = {
     text: '#FFFFFF',
   },
   
+  // Brand Colors - Core brand palette
+  brand: {
+    primary: '#3B3B3B',    // Brand Dark Gray
+    white: '#FFFFFF',      // Brand White
+    black: '#000000',      // Brand Black
+  },
+  
   // Neutral Colors
   neutral: {
     white: '#FFFFFF',
@@ -76,22 +83,30 @@ export const COLORS = {
   
   // Background Colors
   background: {
-    primary: '#FFFFFF',
+    primary: '#FFFFFF',      // Brand White
     secondary: '#F9FAFB',
-    dark: '#1F2937',
+    dark: '#000000',         // Brand Black
+    brand: '#3B3B3B',        // Brand Dark Gray
   },
   
   // Text Colors
   text: {
-    primary: '#111827',
-    secondary: '#6B7280',
+    primary: '#000000',      // Brand Black
+    secondary: '#3B3B3B',    // Brand Dark Gray
     disabled: '#9CA3AF',
-    inverse: '#FFFFFF',
+    inverse: '#FFFFFF',      // Brand White
+    brand: '#3B3B3B',        // Brand Dark Gray
   },
 } as const;
 
 // CSS Custom Properties for use in CSS
 export const CSS_COLOR_VARS = {
+  // Brand Colors
+  '--color-brand-primary': COLORS.brand.primary,
+  '--color-brand-white': COLORS.brand.white,
+  '--color-brand-black': COLORS.brand.black,
+  
+  // Primary Colors
   '--color-primary': COLORS.primary.main,
   '--color-primary-light': COLORS.primary.light,
   '--color-primary-dark': COLORS.primary.dark,
@@ -123,6 +138,14 @@ export const CSS_COLOR_VARS = {
 
 // Tailwind CSS color configuration
 export const TAILWIND_COLORS = {
+  // Brand Colors
+  brand: {
+    primary: COLORS.brand.primary,
+    white: COLORS.brand.white,
+    black: COLORS.brand.black,
+  },
+  
+  // Primary Colors
   primary: {
     50: COLORS.primary.light,
     100: COLORS.primary.light,

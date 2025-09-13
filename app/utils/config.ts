@@ -46,7 +46,7 @@ export const isProduction = (): boolean => {
  * Get app name from environment variables
  */
 export const getAppName = (): string => {
-  return process.env.NEXT_PUBLIC_APP_NAME || 'Side Quest';
+  return process.env.NEXT_PUBLIC_APP_NAME || 'Topped Off Co.';
 };
 
 /**

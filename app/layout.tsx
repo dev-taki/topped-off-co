@@ -3,18 +3,19 @@ import { youngSerif, bitter } from "./config/fonts";
 import "./globals.css";
 import { Providers } from "./providers";
 import { clearPWADismissFlag } from "./components/PWAInstall";
+import PWAInstall from "./components/PWAInstall";
 import { Toaster } from "react-hot-toast";
 
 
 
 export const metadata: Metadata = {
-      title: "Side Quest - Your Adventure Begins Here",
-    description: "Join Side Quest and start your journey today. Secure authentication and comprehensive admin panel.",
+      title: "Topped Off Co. - Your Adventure Begins Here",
+    description: "Join Topped Off Co. and start your journey today. Secure authentication and comprehensive admin panel.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Side Quest",
+    title: "Topped Off Co.",
   },
   formatDetection: {
     telephone: false,
@@ -48,15 +49,16 @@ export default function RootLayout({
       <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Side Quest" />
+        <meta name="apple-mobile-web-app-title" content="Topped Off Co." />
         <meta name="mobile-web-app-capable" content="yes" />
-        <link rel="apple-touch-icon" href="/icon-192x192.svg" />
+        <link rel="apple-touch-icon" href="/mobile-icon.png" />
       </head>
       <body
         className={`${youngSerif.variable} ${bitter.variable} antialiased`}
       >
         <Providers>
           {children}
+          <PWAInstall showAfterAuth={true} />
         </Providers>
         <Toaster
           position="top-center"

@@ -12,6 +12,7 @@ import AdminHeader from '../../components/AdminHeader';
 import { CardLoader, ButtonLoader, InlineLoader } from '../../components/common/Loader';
 import { showToast } from '../../utils/toast';
 import { ErrorDisplay } from '../../components/common/ErrorDisplay';
+import { COLORS } from '../../config/colors';
 
 const BUSINESS_ID = AuthService.getBusinessId();
 
@@ -1106,14 +1107,14 @@ export default function MembersManagementPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: COLORS.background.secondary }}>
         <ErrorDisplay error={error} />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen" style={{ backgroundColor: COLORS.background.secondary }}>
       {/* Admin Header */}
       <AdminHeader 
         title="Members" 
@@ -1126,7 +1127,10 @@ export default function MembersManagementPage() {
         <div className="mb-6 space-y-3">
           <button
             onClick={() => handleCreateSubscriptionWithCard()}
-            className="w-full bg-[#8c52ff] text-white py-3 px-4 rounded-xl font-medium hover:bg-[#7a47e6] transition-colors flex items-center justify-center"
+            className="w-full py-3 px-4 rounded-xl font-medium transition-colors flex items-center justify-center"
+            style={{ backgroundColor: COLORS.primary.main, color: COLORS.primary.text }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
           >
             <CreditCard className="h-5 w-5 mr-2" />
             Create Subscription with Card
@@ -1134,7 +1138,10 @@ export default function MembersManagementPage() {
           
           <button
             onClick={() => handleCreateSubscriptionWithoutCard()}
-            className="w-full bg-green-600 text-white py-3 px-4 rounded-xl font-medium hover:bg-green-700 transition-colors flex items-center justify-center"
+            className="w-full py-3 px-4 rounded-xl font-medium transition-colors flex items-center justify-center"
+            style={{ backgroundColor: COLORS.success.main, color: COLORS.success.text }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.success.dark}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.success.main}
           >
             <Plus className="h-5 w-5 mr-2" />
             Create Subscription without Card
@@ -1161,14 +1168,20 @@ export default function MembersManagementPage() {
             </div>
             <button
               onClick={handleSearch}
-              className="px-4 py-3 bg-[#8c52ff] text-white rounded-xl font-medium hover:bg-[#7a47e6] transition-colors"
+              className="px-4 py-3 rounded-xl font-medium transition-colors"
+              style={{ backgroundColor: COLORS.primary.main, color: COLORS.primary.text }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
             >
               Search
             </button>
             {searchEmail && (
               <button
                 onClick={handleClearSearch}
-                className="px-4 py-3 bg-gray-500 text-white rounded-xl font-medium hover:bg-gray-600 transition-colors"
+                className="px-4 py-3 rounded-xl font-medium transition-colors"
+                style={{ backgroundColor: COLORS.neutral.gray[500], color: COLORS.neutral.gray[100] }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.neutral.gray[600]}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.neutral.gray[500]}
               >
                 Clear
               </button>
@@ -1186,23 +1199,23 @@ export default function MembersManagementPage() {
         {/* Subscriptions List */}
         <div className="space-y-4">
           {filteredSubscriptions.map((subscription) => (
-            <div key={subscription.id} className="bg-white rounded-xl shadow-sm p-4 border border-gray-200">
+            <div key={subscription.id} className="rounded-xl shadow-sm p-4 border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
               <div className="flex justify-between items-start mb-4">
                 <div className="flex-1">
                   <div className="flex items-center space-x-2 mb-2">
-                    <User className="h-5 w-5 text-gray-600" />
-                    <h3 className="font-semibold text-gray-900">{subscription.email}</h3>
+                    <User className="h-5 w-5" style={{ color: COLORS.text.secondary }} />
+                    <h3 className="font-semibold" style={{ color: COLORS.text.primary }}>{subscription.email}</h3>
                     <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(subscription.status)}`}>
                       {subscription.status}
                     </span>
                   </div>
-                  <p className="text-sm text-gray-600 mb-2">
+                  <p className="text-sm mb-2" style={{ color: COLORS.text.secondary }}>
                     User ID: {subscription.user_id}
                   </p>
-                  <p className="text-sm text-gray-600 mb-2">
+                  <p className="text-sm mb-2" style={{ color: COLORS.text.secondary }}>
                     Subscription ID: {subscription.object_id}
                   </p>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm" style={{ color: COLORS.text.secondary }}>
                     Created: {formatDate(subscription.created_at)}
                   </p>
                 </div>
@@ -1642,7 +1655,10 @@ export default function MembersManagementPage() {
                       <button
                         type="button"
                         onClick={handleUserSearch}
-                        className="px-3 py-2 bg-[#8c52ff] text-white rounded-lg font-medium hover:bg-[#7a47e6] transition-colors text-sm"
+                        className="px-3 py-2 rounded-lg font-medium transition-colors text-sm"
+                        style={{ backgroundColor: COLORS.primary.main, color: COLORS.primary.text }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
                       >
                         Search
                       </button>

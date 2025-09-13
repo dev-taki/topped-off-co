@@ -6,7 +6,7 @@ export interface RedeemItem {
   created_at: number;
   business_id: string;
   charged_credit: number;
-  gift_charge_credit: number;
+  gift_charge_credit: number; // Keep for backward compatibility with API
   order_id: string;
   user_id: string;
   plan_variation_name: string;
@@ -14,7 +14,7 @@ export interface RedeemItem {
 
 export interface AddRedeemData {
   business_id: string;
-  button_number: number;
+  button_number: number; // Always 1 for normal redemption
 }
 
 export interface RedeemResponse {
@@ -22,7 +22,7 @@ export interface RedeemResponse {
   created_at: number;
   business_id: string;
   charged_credit: number;
-  gift_charge_credit: number;
+  gift_charge_credit: number; // Keep for backward compatibility with API
   order_id: string;
   user_id: string;
   plan_variation_name: string;

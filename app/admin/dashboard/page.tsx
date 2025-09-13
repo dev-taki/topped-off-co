@@ -12,6 +12,7 @@ import AdminBottomNav from '../../components/AdminBottomNav';
 import PWAInstall from '../../components/PWAInstall';
 import { CardLoader } from '../../components/common/Loader';
 import { ErrorDisplay } from '../../components/common/ErrorDisplay';
+import { COLORS } from '../../config/colors';
 
 export default function AdminDashboardPage() {
   const router = useRouter();
@@ -59,51 +60,41 @@ export default function AdminDashboardPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: COLORS.background.secondary }}>
         <ErrorDisplay error={error} />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen" style={{ backgroundColor: COLORS.background.secondary }}>
       {/* Main Content */}
       <main className="p-4 pb-24">
         {/* Centered Title */}
         <div className="text-center mb-8 pt-8">
           <div className="flex justify-center mb-4">
-            <h1 className="text-3xl font-bold text-[#3B3B3B]">Admin Dashboard</h1>
+            <h1 className="text-3xl font-bold" style={{ color: COLORS.text.primary }}>Admin Dashboard</h1>
           </div>
-          <p className="text-gray-600 text-sm">Vendor Management</p>
+          <p className="text-sm" style={{ color: COLORS.text.secondary }}>Vendor Management</p>
         </div>
 
         {/* Statistics */}
         <div className="mb-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Subscription Overview</h3>
+          <h3 className="text-lg font-semibold mb-4" style={{ color: COLORS.text.primary }}>Subscription Overview</h3>
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-700">Subscribers</p>
-                  <p className="text-2xl font-bold text-[#3B3B3B]">{subscriptionStats.totalUsers}</p>
-                </div>
-                <div className="p-3 bg-blue-100 rounded-lg">
-                  <Users className="h-6 w-6 text-blue-600" />
-                </div>
+            <div className="rounded-xl p-4 shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+              <div>
+                <p className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Subscribers</p>
+                <p className="text-2xl font-bold" style={{ color: COLORS.primary.main }}>{subscriptionStats.totalUsers}</p>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-700">Revenue</p>
-                  <p className="text-2xl font-bold text-green-600">
-                    ${(subscriptionStats.totalAmount / 100).toFixed(2)}
-                  </p>
-                </div>
-                <div className="p-3 bg-green-100 rounded-lg">
-                  <DollarSign className="h-6 w-6 text-green-600" />
-                </div>
+            <div className="rounded-xl p-4 shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+              <div>
+                <p className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Revenue</p>
+                <p className="text-2xl font-bold" style={{ color: COLORS.success.main }}>
+                  ${(subscriptionStats.totalAmount / 100).toFixed(2)}
+                </p>
               </div>
             </div>
           </div>
@@ -111,53 +102,57 @@ export default function AdminDashboardPage() {
 
         {/* Quick Actions */}
         <div className="mb-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+          <h3 className="text-lg font-semibold mb-4" style={{ color: COLORS.text.primary }}>Quick Actions</h3>
           <div className="grid grid-cols-2 gap-4">
             <button 
               onClick={() => router.push('/admin/users')}
-              className="bg-white rounded-xl shadow-sm p-4 border border-gray-200 hover:shadow-md transition-shadow"
+              className="rounded-xl shadow-sm p-4 border hover:shadow-md transition-shadow"
+              style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}
             >
               <div className="flex flex-col items-center text-center">
-                <div className="p-3 bg-[#f5f5f5] rounded-lg mb-3">
-                  <User className="h-6 w-6 text-[#3B3B3B]" />
+                <div className="p-3 rounded-lg mb-3" style={{ backgroundColor: COLORS.neutral.gray[100] }}>
+                  <User className="h-6 w-6" style={{ color: COLORS.primary.main }} />
                 </div>
-                <span className="text-sm font-medium text-gray-700">Users</span>
+                <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Users</span>
               </div>
             </button>
 
             <button 
               onClick={() => router.push('/admin/members')}
-              className="bg-white rounded-xl shadow-sm p-4 border border-gray-200 hover:shadow-md transition-shadow"
+              className="rounded-xl shadow-sm p-4 border hover:shadow-md transition-shadow"
+              style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}
             >
               <div className="flex flex-col items-center text-center">
-                <div className="p-3 bg-[#f5f5f5] rounded-lg mb-3">
-                  <Users className="h-6 w-6 text-[#3B3B3B]" />
+                <div className="p-3 rounded-lg mb-3" style={{ backgroundColor: COLORS.neutral.gray[100] }}>
+                  <Users className="h-6 w-6" style={{ color: COLORS.primary.main }} />
                 </div>
-                <span className="text-sm font-medium text-gray-700">Manage Members</span>
+                <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Manage Members</span>
               </div>
             </button>
 
             <button 
               onClick={() => router.push('/admin/redeem')}
-              className="bg-white rounded-xl shadow-sm p-4 border border-gray-200 hover:shadow-md transition-shadow"
+              className="rounded-xl shadow-sm p-4 border hover:shadow-md transition-shadow"
+              style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}
             >
               <div className="flex flex-col items-center text-center">
-                <div className="p-3 bg-[#f5f5f5] rounded-lg mb-3">
-                  <Gift className="h-6 w-6 text-[#3B3B3B]" />
+                <div className="p-3 rounded-lg mb-3" style={{ backgroundColor: COLORS.neutral.gray[100] }}>
+                  <Gift className="h-6 w-6" style={{ color: COLORS.primary.main }} />
                 </div>
-                <span className="text-sm font-medium text-gray-700">Redemption</span>
+                <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Redemption</span>
               </div>
             </button>
 
             <button 
               onClick={() => router.push('/plans')}
-              className="bg-white rounded-xl shadow-sm p-4 border border-gray-200 hover:shadow-md transition-shadow"
+              className="rounded-xl shadow-sm p-4 border hover:shadow-md transition-shadow"
+              style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}
             >
               <div className="flex flex-col items-center text-center">
-                <div className="p-3 bg-[#f5f5f5] rounded-lg mb-3">
-                  <BarChart3 className="h-6 w-6 text-[#3B3B3B]" />
+                <div className="p-3 rounded-lg mb-3" style={{ backgroundColor: COLORS.neutral.gray[100] }}>
+                  <BarChart3 className="h-6 w-6" style={{ color: COLORS.primary.main }} />
                 </div>
-                <span className="text-sm font-medium text-gray-700">Client View</span>
+                <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Client View</span>
               </div>
             </button>
           </div>

@@ -12,6 +12,7 @@ import AdminHeader from '../../components/AdminHeader';
 import { CardLoader, ButtonLoader } from '../../components/common/Loader';
 import { showToast } from '../../utils/toast';
 import { ErrorDisplay } from '../../components/common/ErrorDisplay';
+import { COLORS } from '../../config/colors';
 
 const BUSINESS_ID = AuthService.getBusinessId();
 
@@ -129,8 +130,8 @@ export default function AdminUsersPage() {
           const loginResult = await loginResponse.json();
           
           // Store auth tokens
-          document.cookie = `side-quest=${loginResult.token}; path=/; max-age=86400; secure; samesite=strict`;
-          document.cookie = `side-quest_role=${loginResult.role}; path=/; max-age=86400; secure; samesite=strict`;
+          document.cookie = `topped-off-co=${loginResult.token}; path=/; max-age=86400; secure; samesite=strict`;
+          document.cookie = `topped-off-co_role=${loginResult.role}; path=/; max-age=86400; secure; samesite=strict`;
           
           showToast.success('User created and logged in successfully! Redirecting to plans...');
           
@@ -239,14 +240,14 @@ export default function AdminUsersPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: COLORS.background.secondary }}>
         <ErrorDisplay error={error} />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen" style={{ backgroundColor: COLORS.background.secondary }}>
       {/* Admin Header */}
       <AdminHeader 
         title="Users" 
@@ -259,7 +260,10 @@ export default function AdminUsersPage() {
         <div className="mb-6">
           <button
             onClick={() => setShowCreateForm(true)}
-            className="bg-[#8c52ff] text-white px-4 py-2 rounded-xl hover:bg-[#7a47e6] transition-colors flex items-center"
+            className="px-4 py-2 rounded-xl transition-colors flex items-center"
+            style={{ backgroundColor: COLORS.primary.main, color: COLORS.primary.text }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
           >
             <Plus className="h-4 w-4 mr-2" />
             Create User
@@ -276,24 +280,43 @@ export default function AdminUsersPage() {
                 onChange={(e) => setSearchEmail(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
                 placeholder="Search by email..."
-                className="w-full px-4 py-3 pl-10 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#3B3B3B] focus:border-transparent"
+                className="w-full px-4 py-3 pl-10 border rounded-xl focus:ring-2 focus:border-transparent"
+                style={{ 
+                  borderColor: COLORS.neutral.gray[300],
+                  backgroundColor: COLORS.background.primary,
+                  color: COLORS.text.primary
+                }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = COLORS.primary.main;
+                  e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = COLORS.neutral.gray[300];
+                  e.target.style.boxShadow = 'none';
+                }}
               />
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5" style={{ color: COLORS.neutral.gray[400] }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
             </div>
             <button
               onClick={handleSearch}
-              className="px-4 py-3 bg-[#8c52ff] text-white rounded-xl font-medium hover:bg-[#7a47e6] transition-colors"
+              className="px-4 py-3 rounded-xl font-medium transition-colors"
+              style={{ backgroundColor: COLORS.primary.main, color: COLORS.primary.text }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
             >
               Search
             </button>
             {searchEmail && (
               <button
                 onClick={handleClearSearch}
-                className="px-4 py-3 bg-gray-500 text-white rounded-xl font-medium hover:bg-gray-600 transition-colors"
+                className="px-4 py-3 rounded-xl font-medium transition-colors"
+                style={{ backgroundColor: COLORS.neutral.gray[500], color: COLORS.neutral.gray[100] }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.neutral.gray[600]}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.neutral.gray[500]}
               >
                 Clear
               </button>
@@ -306,13 +329,16 @@ export default function AdminUsersPage() {
         {/* Users List */}
         <div className="space-y-4">
           {filteredUsers.length === 0 ? (
-            <div className="bg-white rounded-xl p-8 text-center shadow-sm border border-gray-100">
-              <User className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-xl font-medium text-gray-900 mb-2">No Users Found</h3>
-              <p className="text-gray-600 mb-4">Create your first user account to get started.</p>
+            <div className="rounded-xl p-8 text-center shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+              <User className="h-16 w-16 mx-auto mb-4" style={{ color: COLORS.neutral.gray[400] }} />
+              <h3 className="text-xl font-medium mb-2" style={{ color: COLORS.text.primary }}>No Users Found</h3>
+              <p className="mb-4" style={{ color: COLORS.text.secondary }}>Create your first user account to get started.</p>
               <button
                 onClick={() => setShowCreateForm(true)}
-                className="bg-[#3B3B3B] text-white px-6 py-3 rounded-xl hover:bg-[#525252] transition-colors"
+                className="px-6 py-3 rounded-xl transition-colors"
+                style={{ backgroundColor: COLORS.primary.main, color: COLORS.primary.text }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
               >
                 Create First User
               </button>

@@ -12,6 +12,7 @@ import { showToast } from '../../utils/toast';
 import { useAdmin, useAppDispatch } from '../../store/hooks';
 import { fetchAllUsers, fetchAllUserSubscriptions, getAllRedeemItems, clearAdminError } from '../../store/slices/adminSlice';
 import { logout } from '../../store/slices/authSlice';
+import { COLORS } from '../../config/colors';
 
 export default function AdminProfilePage() {
   const router = useRouter();
@@ -199,19 +200,22 @@ export default function AdminProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen" style={{ backgroundColor: COLORS.background.secondary }}>
       {/* Main Content */}
       <main className="p-4 pb-24">
         {/* Profile Card */}
-        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200 mb-6">
+        <div className="rounded-xl shadow-sm p-6 border mb-6" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-gray-900">Profile Information</h2>
+            <h2 className="text-xl font-bold" style={{ color: COLORS.text.primary }}>Profile Information</h2>
             {!isEditing && (
               <button
                 onClick={() => setIsEditing(true)}
-                className="bg-[#8c52ff] text-white p-2 rounded-lg hover:bg-[#7a47e6] transition-colors"
+                className="p-2 rounded-lg transition-colors"
+                style={{ backgroundColor: COLORS.primary.main, color: COLORS.primary.text }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
               >
-                <Edit className="h-5 w-5 text-white" />
+                <Edit className="h-5 w-5" />
               </button>
             )}
           </div>
@@ -219,36 +223,36 @@ export default function AdminProfilePage() {
           {!isEditing ? (
             <>
               <div className="text-center mb-6">
-                <div className="w-20 h-20 bg-[#f5f5f5] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <User className="h-10 w-10 text-[#3B3B3B]" />
+                <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: COLORS.neutral.gray[100] }}>
+                  <User className="h-10 w-10" style={{ color: COLORS.primary.main }} />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">{adminProfile?.name || 'Admin User'}</h3>
-                <p className="text-gray-600 text-sm">{adminProfile?.role || 'Administrator'}</p>
+                <h3 className="text-lg font-semibold mb-1" style={{ color: COLORS.text.primary }}>{adminProfile?.name || 'Admin User'}</h3>
+                <p className="text-sm" style={{ color: COLORS.text.secondary }}>{adminProfile?.role || 'Administrator'}</p>
               </div>
 
               {/* Profile Information */}
               <div className="space-y-4">
-                <div className="flex items-center p-3 bg-gray-50 rounded-lg">
-                  <Mail className="h-5 w-5 text-gray-600 mr-3" />
+                <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: COLORS.neutral.gray[50] }}>
+                  <Mail className="h-5 w-5 mr-3" style={{ color: COLORS.text.secondary }} />
                   <div>
-                    <p className="text-sm text-gray-600">Email</p>
-                    <p className="font-medium text-gray-900">{adminProfile?.email || 'admin@example.com'}</p>
+                    <p className="text-sm" style={{ color: COLORS.text.secondary }}>Email</p>
+                    <p className="font-medium" style={{ color: COLORS.text.primary }}>{adminProfile?.email || 'admin@example.com'}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center p-3 bg-gray-50 rounded-lg">
-                  <Shield className="h-5 w-5 text-gray-600 mr-3" />
+                <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: COLORS.neutral.gray[50] }}>
+                  <Shield className="h-5 w-5 mr-3" style={{ color: COLORS.text.secondary }} />
                   <div>
-                    <p className="text-sm text-gray-600">Role</p>
-                    <p className="font-medium text-gray-900">{adminProfile?.role || 'Administrator'}</p>
+                    <p className="text-sm" style={{ color: COLORS.text.secondary }}>Role</p>
+                    <p className="font-medium" style={{ color: COLORS.text.primary }}>{adminProfile?.role || 'Administrator'}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center p-3 bg-gray-50 rounded-lg">
-                  <Calendar className="h-5 w-5 text-gray-600 mr-3" />
+                <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: COLORS.neutral.gray[50] }}>
+                  <Calendar className="h-5 w-5 mr-3" style={{ color: COLORS.text.secondary }} />
                   <div>
-                    <p className="text-sm text-gray-600">Member Since</p>
-                    <p className="font-medium text-gray-900">
+                    <p className="text-sm" style={{ color: COLORS.text.secondary }}>Member Since</p>
+                    <p className="font-medium" style={{ color: COLORS.text.primary }}>
                       {adminProfile?.created_at ? 
                         new Date(adminProfile.created_at).toLocaleDateString() : 
                         'N/A'
@@ -261,7 +265,7 @@ export default function AdminProfilePage() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.secondary }}>
                   Full Name
                 </label>
                 <input
@@ -269,14 +273,27 @@ export default function AdminProfilePage() {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8c52ff] focus:border-transparent"
+                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent"
+                  style={{ 
+                    borderColor: COLORS.neutral.gray[300],
+                    backgroundColor: COLORS.background.primary,
+                    color: COLORS.text.primary
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = COLORS.primary.main;
+                    e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = COLORS.neutral.gray[300];
+                    e.target.style.boxShadow = 'none';
+                  }}
                   placeholder="Enter your full name"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.secondary }}>
                   Email Address
                 </label>
                 <input
@@ -284,14 +301,27 @@ export default function AdminProfilePage() {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8c52ff] focus:border-transparent"
+                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent"
+                  style={{ 
+                    borderColor: COLORS.neutral.gray[300],
+                    backgroundColor: COLORS.background.primary,
+                    color: COLORS.text.primary
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = COLORS.primary.main;
+                    e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = COLORS.neutral.gray[300];
+                    e.target.style.boxShadow = 'none';
+                  }}
                   placeholder="Enter your email address"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.secondary }}>
                   New Password (leave blank to keep current)
                 </label>
                 <input
@@ -299,14 +329,27 @@ export default function AdminProfilePage() {
                   name="password"
                   value={formData.password}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8c52ff] focus:border-transparent"
+                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent"
+                  style={{ 
+                    borderColor: COLORS.neutral.gray[300],
+                    backgroundColor: COLORS.background.primary,
+                    color: COLORS.text.primary
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = COLORS.primary.main;
+                    e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = COLORS.neutral.gray[300];
+                    e.target.style.boxShadow = 'none';
+                  }}
                   placeholder="Enter new password"
                 />
               </div>
 
               {formData.password && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.secondary }}>
                     Confirm New Password
                   </label>
                   <input
@@ -314,7 +357,20 @@ export default function AdminProfilePage() {
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8c52ff] focus:border-transparent"
+                    className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent"
+                    style={{ 
+                      borderColor: COLORS.neutral.gray[300],
+                      backgroundColor: COLORS.background.primary,
+                      color: COLORS.text.primary
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = COLORS.primary.main;
+                      e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = COLORS.neutral.gray[300];
+                      e.target.style.boxShadow = 'none';
+                    }}
                     placeholder="Confirm new password"
                   />
                 </div>
@@ -324,7 +380,13 @@ export default function AdminProfilePage() {
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className="flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded-lg font-medium hover:bg-gray-300 transition-colors flex items-center justify-center"
+                  className="flex-1 py-2 px-4 rounded-lg font-medium transition-colors flex items-center justify-center"
+                  style={{ 
+                    backgroundColor: COLORS.neutral.gray[200], 
+                    color: COLORS.neutral.gray[800] 
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.neutral.gray[300]}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.neutral.gray[200]}
                 >
                   <X className="h-4 w-4 mr-2" />
                   Cancel
@@ -332,7 +394,21 @@ export default function AdminProfilePage() {
                 <button
                   type="submit"
                   disabled={updateLoading}
-                  className="flex-1 bg-[#8c52ff] text-white py-2 px-4 rounded-lg font-medium hover:bg-[#7a47e6] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="flex-1 py-2 px-4 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                  style={{ 
+                    backgroundColor: COLORS.primary.main, 
+                    color: COLORS.primary.text 
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!updateLoading) {
+                      e.currentTarget.style.backgroundColor = COLORS.primary.hover;
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!updateLoading) {
+                      e.currentTarget.style.backgroundColor = COLORS.primary.main;
+                    }
+                  }}
                 >
                   {updateLoading ? (
                     <>
@@ -356,7 +432,13 @@ export default function AdminProfilePage() {
         {/* Logout Button */}
         <button
           onClick={handleLogout}
-          className="w-full bg-red-600 text-white py-4 px-4 rounded-xl font-medium hover:bg-red-700 transition-colors flex items-center justify-center"
+          className="w-full py-4 px-4 rounded-xl font-medium transition-colors flex items-center justify-center"
+          style={{ 
+            backgroundColor: COLORS.error.main, 
+            color: COLORS.error.text 
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.error.dark}
+          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.error.main}
         >
           <LogOut className="h-5 w-5 mr-2" />
           Logout

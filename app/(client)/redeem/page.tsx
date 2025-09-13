@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { Gift, Plus, Calendar, Clock, AlertCircle, User, Home } from 'lucide-react';
+import { CreditCard, Plus, Calendar, Clock, AlertCircle, User, Home } from 'lucide-react';
 
 import { RedeemService, RedeemItem, AddRedeemData } from '../../services/redeemService';
 import { AuthService } from '../../services/authService';
@@ -10,6 +10,7 @@ import { CardLoader, InlineLoader, ButtonLoader } from '../../components/common/
 import { showToast } from '../../utils/toast';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { fetchUserSubscriptions } from '../../store/slices/subscriptionSlice';
+import { COLORS } from '../../config/colors';
 
 export default function RedeemPage() {
   const router = useRouter();
@@ -26,7 +27,7 @@ export default function RedeemPage() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  const [redeemType, setRedeemType] = useState<'normal' | 'guest' | null>(null);
+  const [redeemType, setRedeemType] = useState<'normal' | null>(null);
   const [updatingCredits, setUpdatingCredits] = useState(false);
 
   const observer = useRef<IntersectionObserver | undefined>(undefined);
@@ -56,9 +57,6 @@ export default function RedeemPage() {
   // Clear redeem type selection when credits become 0
   useEffect(() => {
     if (redeemType === 'normal' && !canRedeemNormal()) {
-      setRedeemType(null);
-    }
-    if (redeemType === 'guest' && !canRedeemGuest()) {
       setRedeemType(null);
     }
   }, [userSubscriptions, redeemType]);
@@ -105,40 +103,15 @@ export default function RedeemPage() {
     return userSubscriptions.reduce((total, sub) => total + sub.available_credit, 0);
   };
 
-  const getTotalGiftCredits = () => {
-    return userSubscriptions.reduce((total, sub) => total + sub.gift_credit, 0);
-  };
-
   const canRedeem = () => {
-    return getTotalCredits() > 0 || getTotalGiftCredits() > 0;
+    return getTotalCredits() > 0;
   };
 
   const canRedeemNormal = () => {
     return getTotalCredits() > 0;
   };
 
-  const canRedeemGuest = () => {
-    return getTotalGiftCredits() > 0;
-  };
-
   const handleAddRedeem = async () => {
-    
-    if (!redeemType) {
-      showToast.error('Please select a redeem type');
-      return;
-    }
-
-    // Check if the selected redeem type has available credits
-    if (redeemType === 'normal' && !canRedeemNormal()) {
-      showToast.error('You need available credits to create a normal redeem request');
-      return;
-    }
-
-    if (redeemType === 'guest' && !canRedeemGuest()) {
-      showToast.error('You need gift credits to create a guest redeem request');
-      return;
-    }
-
     if (!canRedeem()) {
       showToast.error('You need credits to create a redeem request');
       return;
@@ -149,7 +122,7 @@ export default function RedeemPage() {
     try {
       const redeemData: AddRedeemData = {
         business_id: BUSINESS_ID,
-        button_number: redeemType === 'normal' ? 1 : 2
+        button_number: 1 // Always use button 1 for normal redemption
       };
 
       await RedeemService.addRedeem(redeemData);
@@ -201,71 +174,46 @@ export default function RedeemPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: COLORS.background.secondary }}>
         <CardLoader text="Loading redeem items..." />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: COLORS.background.secondary }}>
       {/* Main Content */}
       <div className="pb-20">
         <div className="p-6 space-y-6">
         {/* Header */}
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Redeem</h1>
-          <p className="text-gray-600">Redeem your credits for rewards and services</p>
+          <h1 className="text-2xl font-bold mb-2" style={{ color: COLORS.text.primary }}>Redeem</h1>
+          <p style={{ color: COLORS.text.secondary }}>Redeem your credits for rewards and services</p>
         </div>
 
         {/* Credit Balance Display */}
-        <div className="grid grid-cols-2 gap-4 mb-6">
-          <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-            <div className="flex items-center space-x-3 mb-3">
-              <div className="w-10 h-10 bg-[#8c52ff] rounded-lg flex items-center justify-center">
-                <Gift className="h-5 w-5 text-white" />
+        <div className="flex justify-center mb-6">
+          <div className="rounded-xl p-6 shadow-sm border max-w-sm w-full" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+            <div className="flex items-center space-x-4 mb-4">
+              <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: COLORS.primary.main }}>
+                <CreditCard className="h-6 w-6" style={{ color: COLORS.primary.text }} />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900">Available Credits</h3>
-                <p className="text-sm text-gray-600">Subscriber credits</p>
+                <h3 className="text-lg font-semibold" style={{ color: COLORS.text.primary }}>Available Credits</h3>
+                <p className="text-sm" style={{ color: COLORS.text.secondary }}>Your subscription credits</p>
               </div>
             </div>
             <div className="text-center">
               {updatingCredits ? (
-                <div className="text-2xl font-bold text-[#3B3B3B] animate-pulse">...</div>
+                <div className="text-3xl font-bold animate-pulse" style={{ color: COLORS.primary.main }}>...</div>
               ) : (
-                <div className={`text-2xl font-bold ${getTotalCredits() === 0 ? 'text-red-500' : 'text-[#3B3B3B]'}`}>
+                <div className={`text-3xl font-bold ${getTotalCredits() === 0 ? 'text-red-500' : ''}`} style={{ color: getTotalCredits() === 0 ? COLORS.error.main : COLORS.primary.main }}>
                   {getTotalCredits()}
                 </div>
               )}
-              <div className="text-xs text-gray-500">credits</div>
+              <div className="text-sm mt-1" style={{ color: COLORS.text.secondary }}>credits available</div>
               {getTotalCredits() === 0 && (
-                <div className="text-xs text-red-500 mt-1">No credits available</div>
-              )}
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-            <div className="flex items-center space-x-3 mb-3">
-              <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
-                <Gift className="h-5 w-5 text-white" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900">Gift Credits</h3>
-                <p className="text-sm text-gray-600">Guest credits</p>
-              </div>
-            </div>
-            <div className="text-center">
-              {updatingCredits ? (
-                <div className="text-2xl font-bold text-green-600 animate-pulse">...</div>
-              ) : (
-                <div className={`text-2xl font-bold ${getTotalGiftCredits() === 0 ? 'text-red-500' : 'text-green-600'}`}>
-                  {getTotalGiftCredits()}
-                </div>
-              )}
-              <div className="text-xs text-gray-500">credits</div>
-              {getTotalGiftCredits() === 0 && (
-                <div className="text-xs text-red-500 mt-1">No gift credits available</div>
+                <div className="text-sm mt-2" style={{ color: COLORS.error.main }}>No credits available for redemption</div>
               )}
             </div>
           </div>
@@ -276,26 +224,24 @@ export default function RedeemPage() {
           {canRedeem() ? (
             <button
               onClick={() => setShowAddForm(true)}
-              className="bg-[#8c52ff] text-white px-6 py-3 rounded-xl font-medium hover:bg-[#7a47e6] transition-colors flex items-center"
+              className="px-6 py-3 rounded-xl font-medium transition-colors flex items-center"
+              style={{ 
+                backgroundColor: COLORS.primary.main, 
+                color: COLORS.primary.text 
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
             >
               <Plus className="h-5 w-5 mr-2" />
               New Redeem Request
             </button>
           ) : (
-            <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-center">
+            <div className="rounded-xl p-4 text-center" style={{ backgroundColor: COLORS.warning.light, borderColor: COLORS.warning.main, border: '1px solid' }}>
               <div className="flex items-center justify-center space-x-2 mb-2">
-                <AlertCircle className="h-5 w-5 text-red-500" />
-                <span className="text-red-700 font-medium">No Credits Available</span>
+                <AlertCircle className="h-5 w-5" style={{ color: COLORS.warning.main }} />
+                <span className="font-medium" style={{ color: COLORS.warning.dark }}>No Credits Available</span>
               </div>
-              <p className="text-sm text-red-600">You need credits to create redeem requests. Please check your subscription plans.</p>
-              <div className="mt-3 text-xs text-red-500 space-y-1">
-                {getTotalCredits() === 0 && (
-                  <div>• No available credits from subscriptions</div>
-                )}
-                {getTotalGiftCredits() === 0 && (
-                  <div>• No gift credits available</div>
-                )}
-              </div>
+              <p className="text-sm" style={{ color: COLORS.warning.dark }}>You need subscription credits to create redeem requests. Please check your subscription plans.</p>
             </div>
           )}
         </div>
@@ -305,64 +251,54 @@ export default function RedeemPage() {
         {/* Redeem Items List */}
         <div className="space-y-4">
           {redeemItems.length === 0 ? (
-            <div className="bg-white rounded-xl p-8 text-center shadow-sm border border-gray-100">
-              <Gift className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-xl font-medium text-gray-900 mb-2">No Redeem Items</h3>
-              <p className="text-gray-600">Start by creating your first redeem request.</p>
+            <div className="rounded-xl p-8 text-center shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+              <CreditCard className="h-16 w-16 mx-auto mb-4" style={{ color: COLORS.neutral.gray[400] }} />
+              <h3 className="text-xl font-medium mb-2" style={{ color: COLORS.text.primary }}>No Redeem Requests</h3>
+              <p style={{ color: COLORS.text.secondary }}>Start by creating your first redeem request.</p>
             </div>
           ) : (
             redeemItems.map((item, index) => (
               <div
                 key={item.id}
                 ref={index === redeemItems.length - 1 ? lastRedeemElementRef : null}
-                className="bg-white rounded-xl p-6 shadow-sm border border-gray-100"
+                className="rounded-xl p-6 shadow-sm border"
+                style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}
               >
                 <div className="space-y-3">
                   {/* Header */}
                   <div className="flex items-center space-x-3">
-                    <Gift className="h-5 w-5 text-[#3B3B3B]" />
-                    <h3 className="text-lg font-semibold text-gray-900">
+                    <CreditCard className="h-5 w-5" style={{ color: COLORS.primary.main }} />
+                    <h3 className="text-lg font-semibold" style={{ color: COLORS.text.primary }}>
                       Redeem Request #{item.id}
                     </h3>
                   </div>
 
                   {/* Order ID */}
                   <div className="text-sm">
-                    <span className="text-gray-500">Order ID:</span>
-                    <span className="ml-2 font-mono text-gray-700">{item.order_id}</span>
+                    <span style={{ color: COLORS.text.secondary }}>Order ID:</span>
+                    <span className="ml-2 font-mono" style={{ color: COLORS.text.primary }}>{item.order_id}</span>
                   </div>
 
                   {/* Date */}
-                  <div className="flex items-center text-sm text-gray-600">
+                  <div className="flex items-center text-sm" style={{ color: COLORS.text.secondary }}>
                     <Calendar className="h-4 w-4 mr-2" />
                     <span>{formatDate(item.created_at)}</span>
                   </div>
 
-                  {/* Credits */}
-                  <div className="space-y-2">
-                    {item.charged_credit > 0 && (
-                      <div className="flex items-center text-sm text-gray-600">
-                        <Clock className="h-4 w-4 mr-2" />
-                        <span>Subscriber Credits: {item.charged_credit}</span>
-                      </div>
-                    )}
-                    {item.gift_charge_credit > 0 && (
-                      <div className="flex items-center text-sm text-green-600">
-                        <Gift className="h-4 w-4 mr-2" />
-                        <span>Gift Credits: {item.gift_charge_credit}</span>
-                      </div>
-                    )}
-                  </div>
+                  {/* Credits Used */}
+                  {item.charged_credit > 0 && (
+                    <div className="flex items-center text-sm" style={{ color: COLORS.text.secondary }}>
+                      <Clock className="h-4 w-4 mr-2" />
+                      <span>Credits Used: {item.charged_credit}</span>
+                    </div>
+                  )}
 
                   {/* Plan Variation */}
-                  <div className="flex items-center text-sm text-gray-600">
-                    <Gift className="h-4 w-4 mr-2" />
+                  <div className="flex items-center text-sm" style={{ color: COLORS.text.secondary }}>
+                    <CreditCard className="h-4 w-4 mr-2" />
                     <span>{item.plan_variation_name}</span>
                   </div>
                 </div>
-
-
-
               </div>
             ))
           )}
@@ -377,191 +313,108 @@ export default function RedeemPage() {
 
         {/* Add Redeem Modal */}
         {showAddForm && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 pb-12 z-50">
-            <div className="bg-white rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
-              <div className="p-6 border-b border-gray-200 flex justify-between items-center">
-                <h2 className="text-xl font-bold text-gray-900">New Redeem Request</h2>
+          <div className="fixed inset-0 flex items-center justify-center p-4 pb-12 z-50" style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
+            <div className="rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto" style={{ backgroundColor: COLORS.background.primary }}>
+              <div className="p-6 border-b flex justify-between items-center" style={{ borderColor: COLORS.neutral.gray[200] }}>
+                <h2 className="text-xl font-bold" style={{ color: COLORS.text.primary }}>New Redeem Request</h2>
                 <button
                   onClick={() => setShowAddForm(false)}
-                  className="p-2 text-gray-600 hover:text-gray-900"
+                  className="p-2 transition-colors"
+                  style={{ color: COLORS.neutral.gray[400] }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = COLORS.neutral.gray[600]}
+                  onMouseLeave={(e) => e.currentTarget.style.color = COLORS.neutral.gray[400]}
                 >
                   ✕
                 </button>
               </div>
 
-              <form onSubmit={(e) => { e.preventDefault(); handleAddRedeem(); }} className="p-6 space-y-4">
+              <div className="p-6 space-y-4">
                 <div className="text-center mb-4">
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Gift className="h-8 w-8 text-green-600" />
+                  <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: `${COLORS.primary.main}1A` }}>
+                    <CreditCard className="h-8 w-8" style={{ color: COLORS.primary.main }} />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Create Redeem Request</h3>
-                  <p className="text-gray-600">Select the type of redeem you want to create.</p>
+                  <h3 className="text-lg font-semibold mb-2" style={{ color: COLORS.text.primary }}>Create Redeem Request</h3>
+                  <p style={{ color: COLORS.text.secondary }}>Use your available credits to create a redeem request.</p>
                 </div>
 
-                {/* Redeem Type Selection */}
-                <div className="space-y-3">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Redeem Type *
-                  </label>
-                  
-                  {/* Warning message when no credits are available */}
-                  {!canRedeem() && (
-                    <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-3">
-                      <div className="flex items-center space-x-2">
-                        <AlertCircle className="h-4 w-4 text-red-500" />
-                        <span className="text-sm text-red-700 font-medium">No credits available</span>
-                      </div>
-                      <p className="text-xs text-red-600 mt-1">You need credits to create redeem requests. Please check your subscription plans.</p>
+                {/* Credit Information */}
+                <div className="rounded-lg p-4 mb-4" style={{ backgroundColor: COLORS.neutral.gray[50] }}>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm" style={{ color: COLORS.text.secondary }}>Available Credits:</span>
+                    <span className="text-lg font-semibold" style={{ color: COLORS.primary.main }}>{getTotalCredits()}</span>
+                  </div>
+                </div>
+
+                {/* Warning message when no credits are available */}
+                {!canRedeem() && (
+                  <div className="border rounded-lg p-3 mb-4" style={{ backgroundColor: COLORS.warning.light, borderColor: COLORS.warning.main }}>
+                    <div className="flex items-center space-x-2">
+                      <AlertCircle className="h-4 w-4" style={{ color: COLORS.warning.main }} />
+                      <span className="text-sm font-medium" style={{ color: COLORS.warning.dark }}>No credits available</span>
                     </div>
-                  )}
-                  
-                  <div className="grid grid-cols-2 gap-3">
-                    <button
-                      type="button"
-                      onClick={() => setRedeemType('normal')}
-                      disabled={!canRedeemNormal()}
-                      className={`p-4 border-2 rounded-xl font-medium transition-colors ${
-                        redeemType === 'normal'
-                          ? 'border-[#8c52ff] bg-[#8c52ff] text-white'
-                          : canRedeemNormal()
-                            ? 'border-gray-300 text-gray-700 hover:border-gray-400'
-                            : 'border-gray-200 text-gray-400 cursor-not-allowed'
-                      }`}
-                    >
-                      <div className="text-center">
-                        <div className="text-lg font-semibold mb-1">Normal</div>
-                        <div className="text-xs opacity-80">
-                          {canRedeemNormal() ? 'Uses available credits' : 'No available credits'}
-                        </div>
-                      </div>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setRedeemType('guest')}
-                      disabled={!canRedeemGuest()}
-                      className={`p-4 border-2 rounded-xl font-medium transition-colors ${
-                        redeemType === 'guest'
-                          ? 'border-[#8c52ff] bg-[#8c52ff] text-white'
-                          : canRedeemGuest()
-                            ? 'border-gray-300 text-gray-700 hover:border-gray-400'
-                            : 'border-gray-200 text-gray-400 cursor-not-allowed'
-                      }`}
-                    >
-                      <div className="text-center">
-                        <div className="text-lg font-semibold mb-1">Guest</div>
-                        <div className="text-xs opacity-80">
-                          {canRedeemGuest() ? 'Uses gift credits' : 'No gift credits'}
-                        </div>
-                      </div>
-                    </button>
+                    <p className="text-xs mt-1" style={{ color: COLORS.warning.dark }}>You need subscription credits to create redeem requests. Please check your subscription plans.</p>
                   </div>
-                  
-                  {/* Help text for redeem types */}
-                  <div className="text-xs text-gray-500 space-y-1">
-                    {!canRedeemNormal() && (
-                      <div className="flex items-center space-x-2">
-                        <AlertCircle className="h-3 w-3 text-red-500" />
-                        <span>Normal redeem requires available credits from your subscription</span>
-                      </div>
-                    )}
-                    {!canRedeemGuest() && (
-                      <div className="flex items-center space-x-2">
-                        <AlertCircle className="h-3 w-3 text-red-500" />
-                        <span>Guest redeem requires gift credits</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-
+                )}
 
                 <div className="flex space-x-3 pt-4">
                   <button
                     type="button"
                     onClick={() => setShowAddForm(false)}
-                    className="flex-1 border border-gray-300 text-gray-700 py-3 px-4 rounded-xl font-medium hover:bg-gray-50 transition-colors"
+                    className="flex-1 border py-3 px-4 rounded-xl font-medium transition-colors"
+                    style={{ 
+                      borderColor: COLORS.neutral.gray[300], 
+                      color: COLORS.text.secondary,
+                      backgroundColor: 'transparent'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.neutral.gray[50]}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                   >
                     Cancel
                   </button>
                   <button
-                    type="submit"
-                    disabled={submitting || !redeemType || (redeemType === 'normal' && !canRedeemNormal()) || (redeemType === 'guest' && !canRedeemGuest())}
-                    className="flex-1 bg-[#8c52ff] text-white py-3 px-4 rounded-xl font-medium hover:bg-[#7a47e6] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                    onClick={handleAddRedeem}
+                    disabled={submitting || !canRedeem()}
+                    className="flex-1 py-3 px-4 rounded-xl font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                    style={{ 
+                      backgroundColor: canRedeem() ? COLORS.primary.main : COLORS.neutral.gray[300], 
+                      color: canRedeem() ? COLORS.primary.text : COLORS.neutral.gray[500]
+                    }}
+                    onMouseEnter={(e) => {
+                      if (canRedeem() && !submitting) {
+                        e.currentTarget.style.backgroundColor = COLORS.primary.hover;
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (canRedeem() && !submitting) {
+                        e.currentTarget.style.backgroundColor = COLORS.primary.main;
+                      }
+                    }}
                   >
                     {submitting ? (
                       <>
                         <ButtonLoader size="sm" />
                         Creating...
                       </>
-                      ) : !redeemType || (redeemType === 'normal' && !canRedeemNormal()) || (redeemType === 'guest' && !canRedeemGuest()) ? (
-                        <>
-                          <AlertCircle className="h-5 w-5 mr-2" />
-                          No Credits Available
-                        </>
-                      ) : (
-                        <>
-                          <Gift className="h-5 w-5 mr-2" />
-                          Create Redeem
-                        </>
-                      )}
+                    ) : !canRedeem() ? (
+                      <>
+                        <AlertCircle className="h-5 w-5 mr-2" />
+                        No Credits Available
+                      </>
+                    ) : (
+                      <>
+                        <CreditCard className="h-5 w-5 mr-2" />
+                        Create Redeem
+                      </>
+                    )}
                   </button>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         )}
         </div>
       </div>
 
-      {/* Fixed Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-4 z-50">
-        <div className="flex justify-around items-center">
-          <button
-            onClick={() => router.push('/home')}
-            className="flex flex-col items-center space-y-1 text-gray-400"
-          >
-            <Home className="h-6 w-6 text-gray-400" />
-            <span className="text-xs font-medium">Home</span>
-          </button>
-
-          <button
-            onClick={() => router.push('/plans')}
-            className="flex flex-col items-center space-y-1 text-gray-400"
-          >
-            <Calendar className="h-6 w-6 text-gray-400" />
-            <span className="text-xs font-medium">Plans</span>
-          </button>
-
-          <button
-            onClick={() => router.push('/schedule')}
-            className="flex flex-col items-center space-y-1 text-gray-400"
-          >
-            <Clock className="h-6 w-6 text-gray-400" />
-            <span className="text-xs font-medium">Schedule</span>
-          </button>
-
-          <button
-            onClick={() => router.push('/redeem')}
-            className="flex flex-col items-center space-y-1 text-[#8c52ff]"
-          >
-            <Gift className="h-6 w-6 text-[#8c52ff]" />
-            <span className="text-xs font-medium">Redeem</span>
-          </button>
-
-          <button
-            onClick={() => {
-              // Check if user is admin and route accordingly
-              const isAdmin = user?.role === 'admin' || user?.role === 'super_admin' || user?.role === 'owner';
-              const profilePath = isAdmin ? '/admin/profile' : '/profile';
-              router.push(profilePath);
-            }}
-            className="flex flex-col items-center space-y-1 text-gray-400"
-          >
-            <User className="h-6 w-6 text-gray-400" />
-            <span className="text-xs font-medium">Profile</span>
-          </button>
-        </div>
-      </div>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { COLORS } from './colors';
 // App Configuration
 export const APP_CONFIG = {
   // App Information
-  name: 'Side Quest',
+  name: 'Topped Off Co.',
   description: 'A modern, scalable Next.js template with Redux Toolkit',
   version: '1.0.0',
   
@@ -53,8 +53,8 @@ export const APP_CONFIG = {
   
   // Storage Configuration
   storage: {
-    authTokenKey: 'side-quest',
-    userRoleKey: 'side-quest_role',
+    authTokenKey: 'topped-off-co',
+    userRoleKey: 'topped-off-co_role',
     themeKey: 'theme',
     preferencesKey: 'user-preferences',
   },
@@ -68,9 +68,9 @@ export const APP_CONFIG = {
   
   // PWA Configuration
   pwa: {
-    name: 'Side Quest',
-    shortName: 'SideQuest',
-    description: 'Side Quest App',
+    name: 'Topped Off Co.',
+    shortName: 'ToppedOffCo',
+    description: 'Topped Off Co. App',
     themeColor: COLORS.primary.main,
     backgroundColor: COLORS.background.primary,
     display: 'standalone',

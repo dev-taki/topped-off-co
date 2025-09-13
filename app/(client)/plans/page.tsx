@@ -10,6 +10,7 @@ import { showToast } from '../../utils/toast';
 import { AuthService } from '../../services/authService';
 import SquarePaymentForm from '../../components/SquarePaymentForm';
 import { fetchUserSubscriptions } from '../../store/slices/subscriptionSlice';
+import { COLORS } from '../../config/colors';
 
 export default function PlansPage() {
   const router = useRouter();
@@ -119,28 +120,25 @@ export default function PlansPage() {
   }
 
     return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: COLORS.background.secondary }}>
       {/* Main Content */}
       <div className="pb-20">
         <div className="p-6 space-y-6">
-        {/* Header */}
-        <div className="text-center mb-6">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Choose Your Plan</h1>
-          <p className="text-gray-600">Select the perfect subscription plan for your adventure</p>
-        </div>
 
         {/* Active Subscription Warning */}
         {hasActiveSubscription() && (
-          <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+          <div className="mb-6 p-6 rounded-xl shadow-sm" style={{ backgroundColor: COLORS.warning.light, borderColor: COLORS.warning.main }}>
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <CreditCard className="h-5 w-5 text-yellow-600" />
+                <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: COLORS.warning.main }}>
+                  <CreditCard className="h-5 w-5" style={{ color: COLORS.warning.text }} />
+                </div>
               </div>
-              <div className="ml-3">
-                <h3 className="text-sm font-medium text-yellow-800">
+              <div className="ml-4">
+                <h3 className="text-lg font-semibold" style={{ color: COLORS.warning.dark }}>
                   Active Subscription Detected
                 </h3>
-                <p className="text-sm text-yellow-700 mt-1">
+                <p className="mt-1" style={{ color: COLORS.warning.dark }}>
                   You already have an active subscription. Please cancel your current subscription before subscribing to a new plan.
                 </p>
               </div>
@@ -151,14 +149,22 @@ export default function PlansPage() {
         {/* Plans with Variations */}
         {plans.length > 0 && (
           <div className="space-y-8">
-            {plans.map((plan) => (
-              <div key={plan.object_id} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            {plans.map((plan, planIndex) => (
+              <div key={plan.object_id} className="rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
                 {/* Plan Header */}
-                <div className="bg-gradient-to-r from-[#8c52ff] to-[#7a47e6] p-6 text-white">
-                  <h2 className="text-2xl font-bold mb-2">{plan.name}</h2>
-                  <p className="text-gray-200 text-sm">
-                    {getPlanVariations(plan.object_id).length} variation{getPlanVariations(plan.object_id).length !== 1 ? 's' : ''} available
-                  </p>
+                <div className="p-8 relative overflow-hidden" style={{ backgroundColor: planIndex % 2 === 0 ? COLORS.primary.main : COLORS.accent.purple }}>
+                  <div className="absolute inset-0" style={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}></div>
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-between mb-3">
+                      <h2 className="text-3xl font-bold" style={{ color: COLORS.primary.text }}>{plan.name}</h2>
+                      <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}>
+                        <Star className="h-6 w-6" style={{ color: COLORS.primary.text }} />
+                      </div>
+                    </div>
+                    <p className="text-lg" style={{ color: COLORS.primary.text, opacity: 0.9 }}>
+                      {getPlanVariations(plan.object_id).length} variation{getPlanVariations(plan.object_id).length !== 1 ? 's' : ''} available
+                    </p>
+                  </div>
                 </div>
 
                 {/* Plan Variations */}
@@ -166,26 +172,32 @@ export default function PlansPage() {
                   {getPlanVariations(plan.object_id).map((variation, index) => (
                     <div
                       key={`${plan.object_id}-${variation.object_id}-${index}`}
-                      className="border border-gray-100 rounded-lg p-4 hover:shadow-md transition-shadow"
+                      className="rounded-xl p-6 hover:shadow-lg transition-all duration-300 border"
+                      style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}
                     >
-                      <div className="mb-4">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                          {variation.name}
-                        </h3>
+                      <div className="mb-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <h3 className="text-xl font-bold" style={{ color: COLORS.text.primary }}>
+                            {variation.name}
+                          </h3>
+                          <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: COLORS.accent.blue }}>
+                            <Calendar className="h-4 w-4" style={{ color: COLORS.primary.text }} />
+                          </div>
+                        </div>
                         
                         {/* Price and Billing Info */}
-                        <div className="bg-gray-50 rounded-lg p-3 mb-3">
-                          <div className="flex items-center justify-between mb-2">
-                            <span className="text-sm text-gray-600">Monthly Price:</span>
-                            <span className="text-lg font-bold text-gray-900">${(variation.amount / 100).toFixed(2)}</span>
+                        <div className="rounded-xl p-5 mb-4" style={{ backgroundColor: COLORS.neutral.gray[50], borderColor: COLORS.neutral.gray[200] }}>
+                          <div className="flex items-center justify-between mb-3">
+                            <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Monthly Price:</span>
+                            <span className="text-2xl font-bold" style={{ color: COLORS.primary.main }}>${(variation.amount / 100).toFixed(2)}</span>
                           </div>
-                          <div className="flex items-center justify-between mb-2">
-                            <span className="text-sm text-gray-600">Billing Cycle:</span>
-                            <span className="text-sm font-medium text-gray-700 capitalize">{variation.cadence.toLowerCase()}</span>
+                          <div className="flex items-center justify-between mb-3">
+                            <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Billing Cycle:</span>
+                            <span className="text-sm font-semibold px-3 py-1 rounded-full" style={{ backgroundColor: COLORS.accent.blue, color: COLORS.primary.text }}>{variation.cadence.toLowerCase()}</span>
                           </div>
                           <div className="flex items-center justify-between">
-                            <span className="text-sm text-gray-600">Credits per Month:</span>
-                            <span className="text-sm font-medium text-green-600">{variation.credit} credits</span>
+                            <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Credits per Month:</span>
+                            <span className="text-lg font-bold" style={{ color: COLORS.accent.green }}>{variation.credit} credits</span>
                           </div>
                         </div>
 
@@ -194,7 +206,8 @@ export default function PlansPage() {
 
                       {variation.description && (
                         <div 
-                          className="plan-description text-gray-600 mb-4"
+                          className="plan-description mb-4"
+                          style={{ color: COLORS.text.secondary }}
                           dangerouslySetInnerHTML={{ __html: variation.description }}
                         />
                       )}
@@ -203,11 +216,22 @@ export default function PlansPage() {
                       <button
                         onClick={() => handleSubscribe(variation)}
                         disabled={hasActiveSubscription()}
-                        className={`w-full py-3 px-6 rounded-xl font-medium flex items-center justify-center transition-colors ${
-                          hasActiveSubscription()
-                            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                            : 'bg-[#8c52ff] text-white hover:bg-[#7a47e6]'
-                        }`}
+                        className="w-full py-4 px-6 rounded-xl font-semibold flex items-center justify-center transition-all duration-300"
+                        style={{
+                          backgroundColor: hasActiveSubscription() ? COLORS.neutral.gray[300] : COLORS.primary.main,
+                          color: hasActiveSubscription() ? COLORS.neutral.gray[500] : COLORS.primary.text,
+                          cursor: hasActiveSubscription() ? 'not-allowed' : 'pointer',
+                        }}
+                        onMouseEnter={(e) => {
+                          if (!hasActiveSubscription()) {
+                            e.currentTarget.style.backgroundColor = COLORS.primary.hover;
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (!hasActiveSubscription()) {
+                            e.currentTarget.style.backgroundColor = COLORS.primary.main;
+                          }
+                        }}
                       >
                         <CreditCard className="h-5 w-5 mr-2" />
                         {hasActiveSubscription() ? 'Already Subscribed' : 'Subscribe Now'}
@@ -222,10 +246,12 @@ export default function PlansPage() {
 
         {/* No Plans Available */}
         {plans.length === 0 && !loading && (
-          <div className="text-center py-12">
-            <CreditCard className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-xl font-medium text-gray-900 mb-2">No Plans Available</h3>
-            <p className="text-gray-600">Check back later for subscription plans</p>
+          <div className="text-center py-16">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6" style={{ backgroundColor: COLORS.neutral.gray[100] }}>
+              <CreditCard className="h-10 w-10" style={{ color: COLORS.neutral.gray[400] }} />
+            </div>
+            <h3 className="text-2xl font-bold mb-3" style={{ color: COLORS.text.primary }}>No Plans Available</h3>
+            <p className="text-lg" style={{ color: COLORS.text.secondary }}>Check back later for subscription plans</p>
           </div>
         )}
         </div>
@@ -233,27 +259,41 @@ export default function PlansPage() {
 
       {/* Payment Form Modal - Higher Priority */}
       {showPaymentForm && selectedVariation && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[9999]">
-          <div className="bg-white rounded-xl max-w-md w-full max-h-[80vh] overflow-y-auto shadow-2xl">
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold text-gray-900">
-                  Subscribe to {selectedVariation.name}
-                </h3>
+        <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999]" style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
+          <div className="rounded-2xl max-w-md w-full max-h-[80vh] overflow-y-auto shadow-2xl" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[100] }}>
+            <div className="p-8">
+              <div className="flex justify-between items-center mb-6">
+                <div className="flex items-center">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3" style={{ backgroundColor: COLORS.primary.main }}>
+                    <CreditCard className="h-5 w-5" style={{ color: COLORS.primary.text }} />
+                  </div>
+                  <h3 className="text-xl font-bold" style={{ color: COLORS.text.primary }}>
+                    Subscribe to {selectedVariation.name}
+                  </h3>
+                </div>
                 <button
                   onClick={handlePaymentCancel}
-                  className="text-gray-400 hover:text-gray-600"
+                  className="p-2 rounded-full transition-colors"
+                  style={{ color: COLORS.neutral.gray[400] }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.neutral.gray[100]}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                 >
                   ✕
                 </button>
               </div>
               
-              <div className="mb-4 p-3 bg-gray-50 rounded-lg">
-                <div className="text-sm text-gray-600">
-                  <div className="font-medium">Plan Details:</div>
-                  <div>Price: ${(selectedVariation.amount / 100).toFixed(2)}/{selectedVariation.cadence.toLowerCase()}</div>
+              <div className="mb-6 p-5 rounded-xl" style={{ backgroundColor: COLORS.neutral.gray[50], borderColor: COLORS.neutral.gray[200] }}>
+                <div className="text-sm" style={{ color: COLORS.text.secondary }}>
+                  <div className="font-semibold mb-2" style={{ color: COLORS.text.primary }}>Plan Details:</div>
+                  <div className="flex justify-between items-center mb-2">
+                    <span>Price:</span>
+                    <span className="font-bold" style={{ color: COLORS.primary.main }}>${(selectedVariation.amount / 100).toFixed(2)}/{selectedVariation.cadence.toLowerCase()}</span>
+                  </div>
                   {selectedVariation.credit > 0 && (
-                    <div>Credits: {selectedVariation.credit} per {selectedVariation.cadence.toLowerCase()}</div>
+                    <div className="flex justify-between items-center">
+                      <span>Credits:</span>
+                      <span className="font-bold" style={{ color: COLORS.accent.green }}>{selectedVariation.credit} per {selectedVariation.cadence.toLowerCase()}</span>
+                    </div>
                   )}
                 </div>
               </div>
@@ -269,55 +309,6 @@ export default function PlansPage() {
         </div>
       )}
 
-      {/* Fixed Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-4 z-50">
-        <div className="flex justify-around items-center">
-          <button
-            onClick={() => router.push('/home')}
-            className="flex flex-col items-center space-y-1 text-gray-400"
-          >
-            <Home className="h-6 w-6 text-gray-400" />
-            <span className="text-xs font-medium">Home</span>
-          </button>
-
-          <button
-            onClick={() => router.push('/plans')}
-            className="flex flex-col items-center space-y-1 text-[#8c52ff]"
-          >
-            <Calendar className="h-6 w-6 text-[#8c52ff]" />
-            <span className="text-xs font-medium">Plans</span>
-          </button>
-
-          <button
-            onClick={() => router.push('/schedule')}
-            className="flex flex-col items-center space-y-1 text-gray-400"
-          >
-            <Clock className="h-6 w-6 text-gray-400" />
-            <span className="text-xs font-medium">Schedule</span>
-          </button>
-
-          <button
-            onClick={() => router.push('/redeem')}
-            className="flex flex-col items-center space-y-1 text-gray-400"
-          >
-            <Gift className="h-6 w-6 text-gray-400" />
-            <span className="text-xs font-medium">Redeem</span>
-          </button>
-
-          <button
-            onClick={() => {
-              // Check if user is admin and route accordingly
-              const isAdmin = user?.role === 'admin' || user?.role === 'super_admin' || user?.role === 'owner';
-              const profilePath = isAdmin ? '/admin/profile' : '/profile';
-              router.push(profilePath);
-            }}
-            className="flex flex-col items-center space-y-1 text-gray-400"
-          >
-            <User className="h-6 w-6 text-gray-400" />
-            <span className="text-xs font-medium">Profile</span>
-          </button>
-        </div>
-      </div>
     </div>
   );
 }

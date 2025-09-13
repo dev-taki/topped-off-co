@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { AdminAuthService } from '../services/adminAuthService';
 import { PageLoader } from '../components/common/Loader';
+import { COLORS } from '../config/colors';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -39,7 +40,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   // For login page, don't check authentication
   if (pathname === '/login') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="min-h-screen" style={{ backgroundColor: COLORS.background.secondary }}>
         {children}
       </div>
     );
@@ -48,7 +49,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   // For authenticated admin pages
   if (isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen" style={{ backgroundColor: COLORS.background.secondary }}>
         {/* Main Content */}
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {children}

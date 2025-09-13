@@ -9,6 +9,7 @@ import { CardLoader } from '../../components/common/Loader';
 import { ErrorDisplay } from '../../components/common/ErrorDisplay';
 import { showToast } from '../../utils/toast';
 import { AuthService } from '../../services/authService';
+import { COLORS } from '../../config/colors';
 
 export default function ClientProfilePage() {
   const router = useRouter();
@@ -59,76 +60,78 @@ export default function ClientProfilePage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: COLORS.background.secondary }}>
         <ErrorDisplay error={error} />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: COLORS.background.secondary }}>
       {/* Main Content */}
       <div className="p-6 pb-24">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <div className="w-20 h-20 bg-[#8c52ff] rounded-full flex items-center justify-center">
-              <User className="h-10 w-10 text-white" />
+            <div className="w-20 h-20 rounded-full flex items-center justify-center" style={{ backgroundColor: COLORS.primary.main }}>
+              <User className="h-10 w-10" style={{ color: COLORS.primary.text }} />
             </div>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Profile</h1>
-          <p className="text-gray-600 text-sm">Manage your account</p>
+          <h1 className="text-2xl font-bold mb-2" style={{ color: COLORS.text.primary }}>Profile</h1>
+          <p className="text-sm" style={{ color: COLORS.text.secondary }}>Manage your account</p>
         </div>
 
         {/* User Info Card */}
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mb-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Account Information</h3>
+        <div className="rounded-xl p-6 shadow-sm border mb-6" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+          <h3 className="text-lg font-semibold mb-4" style={{ color: COLORS.text.primary }}>Account Information</h3>
           <div className="space-y-4">
             <div>
-              <label className="text-sm font-medium text-gray-700">Name</label>
-              <p className="text-gray-900 mt-1">{user.name || 'Not provided'}</p>
+              <label className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Name</label>
+              <p className="mt-1" style={{ color: COLORS.text.primary }}>{user.name || 'Not provided'}</p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-700">Email</label>
-              <p className="text-gray-900 mt-1">{user.email}</p>
+              <label className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Email</label>
+              <p className="mt-1" style={{ color: COLORS.text.primary }}>{user.email}</p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-700">Role</label>
-              <p className="text-gray-900 mt-1 capitalize">{user.role || 'User'}</p>
+              <label className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Role</label>
+              <p className="mt-1 capitalize" style={{ color: COLORS.text.primary }}>{user.role || 'User'}</p>
             </div>
           </div>
         </div>
 
         {/* Quick Actions */}
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Quick Actions</h3>
+          <h3 className="text-lg font-semibold" style={{ color: COLORS.text.primary }}>Quick Actions</h3>
           
           <button
             onClick={() => router.push('/plans')}
-            className="w-full bg-white rounded-xl p-4 shadow-sm border border-gray-200 hover:shadow-md transition-shadow flex items-center justify-between"
+            className="w-full rounded-xl p-4 shadow-sm border hover:shadow-md transition-shadow flex items-center justify-between"
+            style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}
           >
             <div className="flex items-center">
-              <div className="p-2 bg-blue-100 rounded-lg mr-4">
-                <CreditCard className="h-6 w-6 text-blue-600" />
+              <div className="p-2 rounded-lg mr-4" style={{ backgroundColor: COLORS.accent.blue + '1A' }}>
+                <CreditCard className="h-6 w-6" style={{ color: COLORS.accent.blue }} />
               </div>
               <div className="text-left">
-                <p className="font-medium text-gray-900">Subscription Plans</p>
-                <p className="text-sm text-gray-600">View and manage your subscriptions</p>
+                <p className="font-medium" style={{ color: COLORS.text.primary }}>Subscription Plans</p>
+                <p className="text-sm" style={{ color: COLORS.text.secondary }}>View and manage your subscriptions</p>
               </div>
             </div>
           </button>
 
           <button
             onClick={() => router.push('/redeem')}
-            className="w-full bg-white rounded-xl p-4 shadow-sm border border-gray-200 hover:shadow-md transition-shadow flex items-center justify-between"
+            className="w-full rounded-xl p-4 shadow-sm border hover:shadow-md transition-shadow flex items-center justify-between"
+            style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}
           >
             <div className="flex items-center">
-              <div className="p-2 bg-green-100 rounded-lg mr-4">
-                <Calendar className="h-6 w-6 text-green-600" />
+              <div className="p-2 rounded-lg mr-4" style={{ backgroundColor: COLORS.success.light }}>
+                <Calendar className="h-6 w-6" style={{ color: COLORS.success.main }} />
               </div>
               <div className="text-left">
-                <p className="font-medium text-gray-900">Redeem Items</p>
-                <p className="text-sm text-gray-600">Use your credits to redeem rewards</p>
+                <p className="font-medium" style={{ color: COLORS.text.primary }}>Redeem Items</p>
+                <p className="text-sm" style={{ color: COLORS.text.secondary }}>Use your credits to redeem rewards</p>
               </div>
             </div>
           </button>
@@ -136,19 +139,20 @@ export default function ClientProfilePage() {
 
         {/* Account Actions */}
         <div className="mt-8 space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Account</h3>
+          <h3 className="text-lg font-semibold" style={{ color: COLORS.text.primary }}>Account</h3>
           
           <button
             onClick={() => router.push('/settings')}
-            className="w-full bg-white rounded-xl p-4 shadow-sm border border-gray-200 hover:shadow-md transition-shadow flex items-center justify-between"
+            className="w-full rounded-xl p-4 shadow-sm border hover:shadow-md transition-shadow flex items-center justify-between"
+            style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}
           >
             <div className="flex items-center">
-              <div className="p-2 bg-gray-100 rounded-lg mr-4">
-                <Settings className="h-6 w-6 text-gray-600" />
+              <div className="p-2 rounded-lg mr-4" style={{ backgroundColor: COLORS.neutral.gray[100] }}>
+                <Settings className="h-6 w-6" style={{ color: COLORS.neutral.gray[600] }} />
               </div>
               <div className="text-left">
-                <p className="font-medium text-gray-900">Settings</p>
-                <p className="text-sm text-gray-600">Manage your preferences</p>
+                <p className="font-medium" style={{ color: COLORS.text.primary }}>Settings</p>
+                <p className="text-sm" style={{ color: COLORS.text.secondary }}>Manage your preferences</p>
               </div>
             </div>
           </button>
@@ -156,70 +160,22 @@ export default function ClientProfilePage() {
           <button
             onClick={handleLogout}
             disabled={isLoading}
-            className="w-full bg-red-50 rounded-xl p-4 shadow-sm border border-red-200 hover:shadow-md transition-shadow flex items-center justify-between"
+            className="w-full rounded-xl p-4 shadow-sm border hover:shadow-md transition-shadow flex items-center justify-between"
+            style={{ backgroundColor: COLORS.error.light, borderColor: COLORS.error.main }}
           >
             <div className="flex items-center">
-              <div className="p-2 bg-red-100 rounded-lg mr-4">
-                <LogOut className="h-6 w-6 text-red-600" />
+              <div className="p-2 rounded-lg mr-4" style={{ backgroundColor: COLORS.error.main + '1A' }}>
+                <LogOut className="h-6 w-6" style={{ color: COLORS.error.main }} />
               </div>
               <div className="text-left">
-                <p className="font-medium text-red-900">Logout</p>
-                <p className="text-sm text-red-600">Sign out of your account</p>
+                <p className="font-medium" style={{ color: COLORS.error.dark }}>Logout</p>
+                <p className="text-sm" style={{ color: COLORS.error.dark }}>Sign out of your account</p>
               </div>
             </div>
           </button>
         </div>
       </div>
 
-      {/* Fixed Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-4 z-50">
-        <div className="flex justify-around items-center">
-          <button
-            onClick={() => router.push('/home')}
-            className="flex flex-col items-center space-y-1 text-gray-400"
-          >
-            <Home className="h-6 w-6 text-gray-400" />
-            <span className="text-xs font-medium">Home</span>
-          </button>
-
-          <button
-            onClick={() => router.push('/plans')}
-            className="flex flex-col items-center space-y-1 text-gray-400"
-          >
-            <Calendar className="h-6 w-6 text-gray-400" />
-            <span className="text-xs font-medium">Plans</span>
-          </button>
-
-          <button
-            onClick={() => router.push('/schedule')}
-            className="flex flex-col items-center space-y-1 text-gray-400"
-          >
-            <Clock className="h-6 w-6 text-gray-400" />
-            <span className="text-xs font-medium">Schedule</span>
-          </button>
-
-          <button
-            onClick={() => router.push('/redeem')}
-            className="flex flex-col items-center space-y-1 text-gray-400"
-          >
-            <Gift className="h-6 w-6 text-gray-400" />
-            <span className="text-xs font-medium">Redeem</span>
-          </button>
-
-          <button
-            onClick={() => {
-              // Check if user is admin and route accordingly
-              const isAdmin = user?.role === 'admin' || user?.role === 'super_admin' || user?.role === 'owner';
-              const profilePath = isAdmin ? '/admin/profile' : '/profile';
-              router.push(profilePath);
-            }}
-            className="flex flex-col items-center space-y-1 text-[#8c52ff]"
-          >
-            <User className="h-6 w-6 text-[#8c52ff]" />
-            <span className="text-xs font-medium">Profile</span>
-          </button>
-        </div>
-      </div>
     </div>
   );
 }

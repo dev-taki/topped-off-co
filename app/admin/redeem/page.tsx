@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Gift, CheckCircle, XCircle, Clock, User, Calendar } from 'lucide-react';
+import { CreditCard, CheckCircle, XCircle, Clock, User, Calendar } from 'lucide-react';
 import { AdminAuthService } from '../../services/adminAuthService';
 import { AuthService } from '../../services/authService';
 import { AdminService } from '../../services/adminService';
@@ -12,6 +12,7 @@ import AdminHeader from '../../components/AdminHeader';
 import { CardLoader, ButtonLoader } from '../../components/common/Loader';
 import { ErrorDisplay } from '../../components/common/ErrorDisplay';
 import { showToast } from '../../utils/toast';
+import { COLORS } from '../../config/colors';
 
 interface RedemptionRequest {
   id: string;
@@ -125,7 +126,7 @@ export default function AdminRedeemPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen" style={{ backgroundColor: COLORS.background.secondary }}>
       {/* Admin Header */}
       <AdminHeader 
         title="Redemption Management" 
@@ -138,45 +139,30 @@ export default function AdminRedeemPage() {
         {/* Statistics */}
         <div className="mb-6">
           <div className="grid grid-cols-3 gap-4">
-            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-700">Pending</p>
-                  <p className="text-2xl font-bold text-yellow-600">
-                    {redemptionRequests.filter(r => r.status === 'pending').length}
-                  </p>
-                </div>
-                <div className="p-3 bg-yellow-100 rounded-lg">
-                  <Clock className="h-6 w-6 text-yellow-600" />
-                </div>
+            <div className="rounded-xl p-4 shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+              <div>
+                <p className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Pending</p>
+                <p className="text-2xl font-bold" style={{ color: COLORS.warning.main }}>
+                  {redemptionRequests.filter(r => r.status === 'pending').length}
+                </p>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-700">Approved</p>
-                  <p className="text-2xl font-bold text-green-600">
-                    {redemptionRequests.filter(r => r.status === 'approved').length}
-                  </p>
-                </div>
-                <div className="p-3 bg-green-100 rounded-lg">
-                  <CheckCircle className="h-6 w-6 text-green-600" />
-                </div>
+            <div className="rounded-xl p-4 shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+              <div>
+                <p className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Approved</p>
+                <p className="text-2xl font-bold" style={{ color: COLORS.success.main }}>
+                  {redemptionRequests.filter(r => r.status === 'approved').length}
+                </p>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-700">Total</p>
-                  <p className="text-2xl font-bold text-[#3B3B3B]">
-                    {redemptionRequests.length}
-                  </p>
-                </div>
-                <div className="p-3 bg-blue-100 rounded-lg">
-                  <Gift className="h-6 w-6 text-blue-600" />
-                </div>
+            <div className="rounded-xl p-4 shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+              <div>
+                <p className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Total</p>
+                <p className="text-2xl font-bold" style={{ color: COLORS.primary.main }}>
+                  {redemptionRequests.length}
+                </p>
               </div>
             </div>
           </div>
@@ -184,20 +170,20 @@ export default function AdminRedeemPage() {
 
         {/* Redemption Requests */}
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Redemption Requests</h3>
+          <h3 className="text-lg font-semibold" style={{ color: COLORS.text.primary }}>Redemption Requests</h3>
           
           {redemptionRequests.length === 0 ? (
-            <div className="bg-white rounded-xl p-8 text-center shadow-sm border border-gray-200">
-              <Gift className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-500">No redemption requests found</p>
+            <div className="rounded-xl p-8 text-center shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+              <CreditCard className="h-12 w-12 mx-auto mb-4" style={{ color: COLORS.neutral.gray[400] }} />
+              <p style={{ color: COLORS.text.secondary }}>No redemption requests found</p>
             </div>
           ) : (
             redemptionRequests.map((request) => (
-              <div key={request.id} className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+              <div key={request.id} className="rounded-xl p-6 shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <h4 className="text-lg font-semibold text-gray-900">{request.item_name}</h4>
+                      <h4 className="text-lg font-semibold" style={{ color: COLORS.text.primary }}>{request.item_name}</h4>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1 ${getStatusColor(request.status)}`}>
                         {getStatusIcon(request.status)}
                         {request.status.charAt(0).toUpperCase() + request.status.slice(1)}
@@ -206,35 +192,49 @@ export default function AdminRedeemPage() {
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                       <div>
-                        <p className="text-gray-600 mb-1">User</p>
-                        <p className="font-medium">{request.user_name}</p>
-                        <p className="text-gray-500">{request.user_email}</p>
+                        <p className="mb-1" style={{ color: COLORS.text.secondary }}>User</p>
+                        <p className="font-medium" style={{ color: COLORS.text.primary }}>{request.user_name}</p>
+                        <p style={{ color: COLORS.text.secondary }}>{request.user_email}</p>
                       </div>
                       
                       <div>
-                        <p className="text-gray-600 mb-1">Details</p>
-                        <p className="font-medium">-</p>
+                        <p className="mb-1" style={{ color: COLORS.text.secondary }}>Details</p>
+                        <p className="font-medium" style={{ color: COLORS.text.primary }}>-</p>
                       </div>
                       
                       <div>
-                        <p className="text-gray-600 mb-1">Credits Used</p>
-                        <p className="font-medium text-[#8c52ff]">{request.credits_used} credits</p>
+                        <p className="mb-1" style={{ color: COLORS.text.secondary }}>Credits Used</p>
+                        <p className="font-medium" style={{ color: COLORS.primary.main }}>{request.credits_used} credits</p>
                       </div>
                       
                       <div>
-                        <p className="text-gray-600 mb-1">Requested</p>
-                        <p className="font-medium">{formatDate(request.created_at)}</p>
+                        <p className="mb-1" style={{ color: COLORS.text.secondary }}>Requested</p>
+                        <p className="font-medium" style={{ color: COLORS.text.primary }}>{formatDate(request.created_at)}</p>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 {request.status === 'pending' && (
-                  <div className="flex gap-3 pt-4 border-t border-gray-200">
+                  <div className="flex gap-3 pt-4 border-t" style={{ borderColor: COLORS.neutral.gray[200] }}>
                     <button
                       onClick={() => handleApprove(request.id)}
                       disabled={processingId === request.id}
-                      className="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      className="flex-1 py-2 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      style={{ 
+                        backgroundColor: COLORS.success.main, 
+                        color: COLORS.success.text 
+                      }}
+                      onMouseEnter={(e) => {
+                        if (processingId !== request.id) {
+                          e.currentTarget.style.backgroundColor = COLORS.success.dark;
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (processingId !== request.id) {
+                          e.currentTarget.style.backgroundColor = COLORS.success.main;
+                        }
+                      }}
                     >
                       {processingId === request.id ? (
                         <ButtonLoader size="sm" />
@@ -249,7 +249,21 @@ export default function AdminRedeemPage() {
                     <button
                       onClick={() => handleReject(request.id)}
                       disabled={processingId === request.id}
-                      className="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      className="flex-1 py-2 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      style={{ 
+                        backgroundColor: COLORS.error.main, 
+                        color: COLORS.error.text 
+                      }}
+                      onMouseEnter={(e) => {
+                        if (processingId !== request.id) {
+                          e.currentTarget.style.backgroundColor = COLORS.error.dark;
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (processingId !== request.id) {
+                          e.currentTarget.style.backgroundColor = COLORS.error.main;
+                        }
+                      }}
                     >
                       {processingId === request.id ? (
                         <ButtonLoader size="sm" />

@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { Download, X } from 'lucide-react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { COLORS } from '../config/colors';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<void>;
@@ -9,7 +12,6 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 interface PWAInstallProps {
-  showOnAuth?: boolean; // Show during authentication flows
   showAfterAuth?: boolean; // Show after successful authentication
 }
 
@@ -20,18 +22,23 @@ export const clearPWADismissFlag = (): void => {
   }
 };
 
-export default function PWAInstall({ showOnAuth = false, showAfterAuth = false }: PWAInstallProps) {
+export default function PWAInstall({ showAfterAuth = false }: PWAInstallProps) {
   const [showInstallPrompt, setShowInstallPrompt] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  
+  // Get authentication state from Redux
+  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const user = useSelector((state: RootState) => state.auth.user);
 
   useEffect(() => {
+    // Only show if user is authenticated and showAfterAuth is true
+    if (!isAuthenticated || !showAfterAuth || !user) {
+      return;
+    }
+
     // Check if user has dismissed the prompt before
     const hasDismissed = localStorage.getItem('pwa-install-dismissed');
-    
-    // Show if:
-    // 1. We're in auth flow and user hasn't dismissed before, OR
-    // 2. We're showing after auth and user hasn't dismissed before
-    if ((!showOnAuth && !showAfterAuth) || hasDismissed === 'true') {
+    if (hasDismissed === 'true') {
       return;
     }
 
@@ -46,7 +53,7 @@ export default function PWAInstall({ showOnAuth = false, showAfterAuth = false }
     return () => {
       window.removeEventListener('beforeinstallprompt', handler as EventListener);
     };
-  }, [showOnAuth, showAfterAuth]);
+  }, [isAuthenticated, showAfterAuth, user]);
 
   const handleInstallClick = async () => {
     if (!deferredPrompt) return;
@@ -75,20 +82,23 @@ export default function PWAInstall({ showOnAuth = false, showAfterAuth = false }
 
   return (
     <div className="fixed bottom-4 left-4 right-4 z-50">
-      <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-4">
+      <div className="rounded-xl shadow-lg border p-4" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center">
-            <div className="w-10 h-10 bg-[#f5f5f5] rounded-lg flex items-center justify-center mr-3">
-              <Download className="h-5 w-5 text-[#3B3B3B]" />
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center mr-3" style={{ backgroundColor: COLORS.neutral.gray[100] }}>
+              <Download className="h-5 w-5" style={{ color: COLORS.primary.main }} />
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-gray-900">Install Side Quest</h3>
-              <p className="text-xs text-gray-600">Add to home screen for quick access</p>
+              <h3 className="text-sm font-semibold" style={{ color: COLORS.text.primary }}>Install Topped Off Co.</h3>
+              <p className="text-xs" style={{ color: COLORS.text.secondary }}>Add to home screen for quick access</p>
             </div>
           </div>
           <button
             onClick={handleDismiss}
-            className="p-1 text-gray-400 hover:text-gray-600"
+            className="p-1 transition-colors"
+            style={{ color: COLORS.neutral.gray[400] }}
+            onMouseEnter={(e) => e.currentTarget.style.color = COLORS.neutral.gray[600]}
+            onMouseLeave={(e) => e.currentTarget.style.color = COLORS.neutral.gray[400]}
           >
             <X className="h-4 w-4" />
           </button>
@@ -96,13 +106,27 @@ export default function PWAInstall({ showOnAuth = false, showAfterAuth = false }
         <div className="flex space-x-2">
           <button
             onClick={handleInstallClick}
-            className="flex-1 bg-[#8c52ff] text-white text-sm font-medium py-2 px-4 rounded-lg hover:bg-[#7a47e6] transition-colors"
+            className="flex-1 text-sm font-medium py-2 px-4 rounded-lg transition-colors"
+            style={{ 
+              backgroundColor: COLORS.primary.main, 
+              color: COLORS.primary.text 
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
           >
             Install
           </button>
           <button
             onClick={handleDismiss}
-            className="flex-1 border border-gray-300 text-gray-700 text-sm font-medium py-2 px-4 rounded-lg hover:bg-gray-50 transition-colors"
+            className="flex-1 text-sm font-medium py-2 px-4 rounded-lg transition-colors"
+            style={{ 
+              backgroundColor: 'transparent',
+              color: COLORS.text.secondary,
+              borderColor: COLORS.neutral.gray[300],
+              border: '1px solid'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.neutral.gray[50]}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
           >
             Not Now
           </button>

@@ -11,13 +11,21 @@ const config: Config = {
       fontFamily: {
         'young-serif': ['var(--font-young-serif)', 'serif'],
         'bitter': ['var(--font-bitter)', 'serif'],
+        'hatton-ultralight': ['var(--font-hatton-ultralight)', 'sans-serif'],
+        'montserrat': ['var(--font-montserrat)', 'sans-serif'],
       },
       colors: {
+        // Brand Colors
+        brand: {
+          primary: '#3B3B3B',
+          white: '#FFFFFF',
+          black: '#000000',
+        },
         primary: {
-          main: '#8c52ff',
-          light: '#a366ff',
-          dark: '#6b3fd9',
-          hover: '#7a47e6',
+          main: '#3B3B3B',
+          light: '#4A4A4A',
+          dark: '#2D2D2D',
+          hover: '#333333',
         },
       },
     },

@@ -3,8 +3,18 @@ const urlsToCache = [
   '/',
   '/login',
   '/signup',
+  '/home',
+  '/plans',
+  '/redeem',
+  '/profile',
   '/admin',
-  '/manifest.json'
+  '/admin/dashboard',
+  '/admin/profile',
+  '/admin/redeem',
+  '/admin/users',
+  '/admin/members',
+  '/manifest.json',
+  '/mobile-icon.svg'
 ];
 
 // Install event

@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { PageLoader } from '../components/common/Loader';
+import { COLORS } from '../config/colors';
 
 export default function AdminPage() {
   const router = useRouter();
