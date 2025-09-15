@@ -185,6 +185,22 @@ export default function PlansPage() {
                           </div>
                         </div>
                         
+                        {/* Plan Variation Image - Only show if image_link exists */}
+                        {variation.image_link && (
+                          <div className="mb-4">
+                            <img
+                              src={variation.image_link}
+                              alt={`${variation.name} plan image`}
+                              className="w-full h-48 object-cover rounded-xl"
+                              style={{ borderColor: COLORS.neutral.gray[200] }}
+                              onError={(e) => {
+                                // Hide image if it fails to load
+                                e.currentTarget.style.display = 'none';
+                              }}
+                            />
+                          </div>
+                        )}
+                        
                         {/* Price and Billing Info */}
                         <div className="rounded-xl p-5 mb-4" style={{ backgroundColor: COLORS.neutral.gray[50], borderColor: COLORS.neutral.gray[200] }}>
                           <div className="flex items-center justify-between mb-3">

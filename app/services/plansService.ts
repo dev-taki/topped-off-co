@@ -27,6 +27,7 @@ export interface PlanVariation {
   credit: number;
   credit_charge_amount: number;
   description: string;
+  image_link?: string;
 }
 
 export interface PlansResponse {
