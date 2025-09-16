@@ -211,10 +211,10 @@ export default function PlansPage() {
                             <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Billing Cycle:</span>
                             <span className="text-sm font-semibold px-3 py-1 rounded-full" style={{ backgroundColor: COLORS.accent.blue, color: COLORS.primary.text }}>{variation.cadence.toLowerCase()}</span>
                           </div>
-                          <div className="flex items-center justify-between">
+                          {/* <div className="flex items-center justify-between">
                             <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Credits per Month:</span>
                             <span className="text-lg font-bold" style={{ color: COLORS.accent.green }}>{variation.credit} credits</span>
-                          </div>
+                          </div> */}
                         </div>
 
 
