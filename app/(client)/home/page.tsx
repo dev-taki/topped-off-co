@@ -135,7 +135,7 @@ export default function HomePage() {
             className="rounded-xl p-4 shadow-sm border hover:shadow-md transition-shadow w-full text-left"
             style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
             onMouseEnter={(e) => e.currentTarget.style.borderColor = COLORS.primary.main}
-            onMouseLeave={(e) => e.currentTarget.style.borderColor = '#e5e5e5'}
+            onMouseLeave={(e) => e.currentTarget.style.borderColor = COLORS.border.primary}
           >
             <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-3" style={{ backgroundColor: COLORS.primary.main }}>
               <Plus className="h-6 w-6" style={{ color: COLORS.success.text }} />
@@ -149,7 +149,7 @@ export default function HomePage() {
             className="rounded-xl p-4 shadow-sm border hover:shadow-md transition-shadow w-full text-left"
             style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
             onMouseEnter={(e) => e.currentTarget.style.borderColor = COLORS.secondary.main}
-            onMouseLeave={(e) => e.currentTarget.style.borderColor = '#e5e5e5'}
+            onMouseLeave={(e) => e.currentTarget.style.borderColor = COLORS.border.primary}
           >
             <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-3" style={{ backgroundColor: COLORS.secondary.main }}>
               <Calendar className="h-6 w-6" style={{ color: COLORS.success.text }} />

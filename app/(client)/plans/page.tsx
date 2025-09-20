@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { CreditCard, Star, Calendar, Gift, User, Home, Clock } from 'lucide-react';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import AuthenticatedLayout from '../../components/AuthenticatedLayout';
 import { PlansService, SubscriptionPlan, PlanVariation } from '../../services/plansService';
 import { showToast } from '../../utils/toast';
 import { AuthService } from '../../services/authService';
@@ -15,7 +14,6 @@ import { COLORS } from '../../config/colors';
 export default function PlansPage() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.auth);
   const { userSubscriptions } = useAppSelector((state) => state.subscription);
   const [plans, setPlans] = useState<SubscriptionPlan[]>([]);
   const [planVariations, setPlanVariations] = useState<PlanVariation[]>([]);
@@ -202,7 +200,7 @@ export default function PlansPage() {
                         )}
                         
                         {/* Price and Billing Info */}
-                        <div className="rounded-xl p-5 mb-4 border" style={{ backgroundColor: '#fafafa', borderColor: COLORS.border.primary }}>
+                        <div className="rounded-xl p-5 mb-4 border" style={{ backgroundColor: COLORS.background.secondary, borderColor: COLORS.border.primary }}>
                           <div className="flex items-center justify-between mb-3">
                             <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Monthly Price:</span>
                             <span className="text-2xl font-bold" style={{ color: COLORS.primary.main }}>${(variation.amount / 100).toFixed(2)}</span>
@@ -234,8 +232,8 @@ export default function PlansPage() {
                         disabled={hasActiveSubscription()}
                         className="w-full py-4 px-6 rounded-xl font-semibold flex items-center justify-center transition-all duration-300"
                         style={{
-                          backgroundColor: hasActiveSubscription() ? '#d4d4d4' : COLORS.primary.main,
-                          color: hasActiveSubscription() ? '#737373' : COLORS.success.text,
+                          backgroundColor: hasActiveSubscription() ? COLORS.primary.disabled : COLORS.primary.main,
+                          color: hasActiveSubscription() ? COLORS.text.secondary : COLORS.success.text,
                           cursor: hasActiveSubscription() ? 'not-allowed' : 'pointer',
                         }}
                         onMouseEnter={(e) => {
@@ -263,8 +261,8 @@ export default function PlansPage() {
         {/* No Plans Available */}
         {plans.length === 0 && !loading && (
           <div className="text-center py-16">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6" style={{ backgroundColor: '#f5f5f5' }}>
-              <CreditCard className="h-10 w-10" style={{ color: '#a3a3a3' }} />
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6" style={{ backgroundColor: COLORS.border.light }}>
+              <CreditCard className="h-10 w-10" style={{ color: COLORS.text.secondary }} />
             </div>
             <h3 className="text-2xl font-bold mb-3" style={{ color: COLORS.text.primary }}>No Plans Available</h3>
             <p className="text-lg" style={{ color: COLORS.text.secondary }}>Check back later for subscription plans</p>
@@ -290,15 +288,15 @@ export default function PlansPage() {
                 <button
                   onClick={handlePaymentCancel}
                   className="p-2 rounded-full transition-colors"
-                  style={{ color: '#a3a3a3' }}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                  style={{ color: COLORS.text.secondary }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.border.light}
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                 >
                   ✕
                 </button>
               </div>
               
-              <div className="mb-6 p-5 rounded-xl border" style={{ backgroundColor: '#fafafa', borderColor: COLORS.border.primary }}>
+              <div className="mb-6 p-5 rounded-xl border" style={{ backgroundColor: COLORS.background.secondary, borderColor: COLORS.border.primary }}>
                 <div className="text-sm" style={{ color: COLORS.text.secondary }}>
                   <div className="font-semibold mb-2" style={{ color: COLORS.text.primary }}>Plan Details:</div>
                   <div className="flex justify-between items-center mb-2">

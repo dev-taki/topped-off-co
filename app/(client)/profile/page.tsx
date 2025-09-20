@@ -110,8 +110,8 @@ export default function ClientProfilePage() {
             style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
           >
             <div className="flex items-center">
-              <div className="p-2 rounded-lg mr-4" style={{ backgroundColor: '#EFF6FF' }}>
-                <CreditCard className="h-6 w-6" style={{ color: '#3B82F6' }} />
+              <div className="p-2 rounded-lg mr-4" style={{ backgroundColor: COLORS.border.light }}>
+                <CreditCard className="h-6 w-6" style={{ color: COLORS.primary.main }} />
               </div>
               <div className="text-left">
                 <p className="font-medium" style={{ color: COLORS.text.primary }}>Subscription Plans</p>
@@ -126,7 +126,7 @@ export default function ClientProfilePage() {
             style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
           >
             <div className="flex items-center">
-              <div className="p-2 rounded-lg mr-4" style={{ backgroundColor: '#DCFCE7' }}>
+              <div className="p-2 rounded-lg mr-4" style={{ backgroundColor: COLORS.border.light }}>
                 <Calendar className="h-6 w-6" style={{ color: COLORS.success.main }} />
               </div>
               <div className="text-left">
@@ -147,7 +147,7 @@ export default function ClientProfilePage() {
             style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
           >
             <div className="flex items-center">
-              <div className="p-2 rounded-lg mr-4" style={{ backgroundColor: '#f5f5f5' }}>
+              <div className="p-2 rounded-lg mr-4" style={{ backgroundColor: COLORS.border.light }}>
                 <Settings className="h-6 w-6" style={{ color: COLORS.text.secondary }} />
               </div>
               <div className="text-left">
@@ -161,10 +161,10 @@ export default function ClientProfilePage() {
             onClick={handleLogout}
             disabled={isLoading}
             className="w-full rounded-xl p-4 shadow-sm border hover:shadow-md transition-shadow flex items-center justify-between"
-            style={{ backgroundColor: '#FEF2F2', borderColor: COLORS.error.main }}
+            style={{ backgroundColor: COLORS.background.secondary, borderColor: COLORS.error.main }}
           >
             <div className="flex items-center">
-              <div className="p-2 rounded-lg mr-4" style={{ backgroundColor: '#FEF2F2' }}>
+              <div className="p-2 rounded-lg mr-4" style={{ backgroundColor: COLORS.border.light }}>
                 <LogOut className="h-6 w-6" style={{ color: COLORS.error.main }} />
               </div>
               <div className="text-left">

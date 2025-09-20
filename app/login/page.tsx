@@ -75,7 +75,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-brand-white flex items-center justify-center px-6 py-8">
+    <div className="min-h-screen flex items-center justify-center px-6 py-8" style={{ backgroundColor: COLORS.background.primary }}>
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-12">
@@ -87,12 +87,12 @@ export default function LoginPage() {
         <form className="space-y-8" onSubmit={handleSubmit}>
           {/* Email field */}
           <div>
-            <label htmlFor="email" className="block text-sm font-montserrat font-medium text-brand-black mb-3 uppercase tracking-wide">
+            <label htmlFor="email" className="block text-sm font-montserrat font-medium mb-3 uppercase tracking-wide" style={{ color: COLORS.text.primary }}>
               Email
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Mail className="h-5 w-5 text-brand-primary" />
+                <Mail className="h-5 w-5" style={{ color: COLORS.primary.main }} />
               </div>
               <input
                 id="email"
@@ -102,7 +102,10 @@ export default function LoginPage() {
                 required
                 value={formData.email}
                 onChange={handleInputChange}
-                className="block w-full pl-10 pr-3 py-4 bg-brand-white border border-brand-primary rounded-xl focus:outline-none focus:ring-0 focus:border-brand-black transition-colors font-montserrat"
+                className="block w-full pl-10 pr-3 py-4 border rounded-xl focus:outline-none focus:ring-0 transition-colors font-montserrat"
+                style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
+                onFocus={(e) => e.target.style.borderColor = COLORS.primary.main}
+                onBlur={(e) => e.target.style.borderColor = COLORS.border.primary}
                 placeholder="Enter your email"
               />
             </div>
@@ -110,12 +113,12 @@ export default function LoginPage() {
 
           {/* Password field */}
           <div>
-            <label htmlFor="password" className="block text-sm font-montserrat font-medium text-brand-black mb-3 uppercase tracking-wide">
+            <label htmlFor="password" className="block text-sm font-montserrat font-medium mb-3 uppercase tracking-wide" style={{ color: COLORS.text.primary }}>
               Password
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Lock className="h-5 w-5 text-brand-primary" />
+                <Lock className="h-5 w-5" style={{ color: COLORS.primary.main }} />
               </div>
               <input
                 id="password"
@@ -125,7 +128,10 @@ export default function LoginPage() {
                 required
                 value={formData.password}
                 onChange={handleInputChange}
-                className="block w-full pl-10 pr-12 py-4 bg-brand-white border border-brand-primary rounded-xl focus:outline-none focus:ring-0 focus:border-brand-black transition-colors font-montserrat"
+                className="block w-full pl-10 pr-12 py-4 border rounded-xl focus:outline-none focus:ring-0 transition-colors font-montserrat"
+                style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
+                onFocus={(e) => e.target.style.borderColor = COLORS.primary.main}
+                onBlur={(e) => e.target.style.borderColor = COLORS.border.primary}
                 placeholder="Enter your password"
               />
               <button
@@ -134,13 +140,13 @@ export default function LoginPage() {
                 className="absolute inset-y-0 right-0 pr-3 flex items-center"
               >
                 {showPassword ? (
-                  <EyeOff className="h-5 w-5 text-brand-primary" />
+                  <EyeOff className="h-5 w-5" style={{ color: COLORS.primary.main }} />
                 ) : (
-                  <Eye className="h-5 w-5 text-brand-primary" />
+                  <Eye className="h-5 w-5" style={{ color: COLORS.primary.main }} />
                 )}
               </button>
             </div>
-            <p className="mt-2 text-sm text-brand-primary font-montserrat">
+            <p className="mt-2 text-sm font-montserrat" style={{ color: COLORS.text.secondary }}>
               Password must be at least 8 characters with letters
             </p>
           </div>
@@ -150,9 +156,20 @@ export default function LoginPage() {
             type="submit"
             disabled={loading}
             className="w-full flex justify-center py-4 px-4 border border-transparent rounded-lg text-sm font-montserrat font-medium focus:outline-none focus:ring-0 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wide"
-            style={{ backgroundColor: COLORS.primary.main, color: COLORS.success.text }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
-            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
+            style={{ 
+              backgroundColor: loading ? COLORS.primary.disabled : COLORS.primary.main, 
+              color: COLORS.success.text 
+            }}
+            onMouseEnter={(e) => {
+              if (!loading) {
+                e.currentTarget.style.backgroundColor = COLORS.primary.hover;
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!loading) {
+                e.currentTarget.style.backgroundColor = COLORS.primary.main;
+              }
+            }}
           >
             {loading ? <ButtonLoader size="sm" /> : 'Sign In'}
           </button>
@@ -162,11 +179,14 @@ export default function LoginPage() {
 
         {/* Sign up link */}
         <div className="mt-8 text-center">
-          <p className="text-sm text-brand-primary font-montserrat">
+          <p className="text-sm font-montserrat" style={{ color: COLORS.text.secondary }}>
             Don't have an account?{' '}
             <Link
               href="/signup"
-              className="text-brand-primary hover:text-brand-black font-montserrat"
+              className="font-montserrat transition-colors"
+              style={{ color: COLORS.primary.main }}
+              onMouseEnter={(e) => e.currentTarget.style.color = COLORS.text.primary}
+              onMouseLeave={(e) => e.currentTarget.style.color = COLORS.primary.main}
             >
               Sign up here
             </Link>

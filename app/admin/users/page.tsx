@@ -314,9 +314,9 @@ export default function AdminUsersPage() {
               <button
                 onClick={handleClearSearch}
                 className="px-4 py-3 rounded-xl font-medium transition-colors"
-                style={{ backgroundColor: '#737373', color: '#f5f5f5' }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#525252'}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#737373'}
+                style={{ backgroundColor: COLORS.secondary.main, color: COLORS.success.text }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.secondary.hover}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.secondary.main}
               >
                 Clear
               </button>
@@ -330,7 +330,7 @@ export default function AdminUsersPage() {
         <div className="space-y-4">
           {filteredUsers.length === 0 ? (
             <div className="rounded-xl p-8 text-center shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}>
-              <User className="h-16 w-16 mx-auto mb-4" style={{ color: '#9ca3af' }} />
+              <User className="h-16 w-16 mx-auto mb-4" style={{ color: COLORS.text.secondary }} />
               <h3 className="text-xl font-medium mb-2" style={{ color: COLORS.text.primary }}>No Users Found</h3>
               <p className="mb-4" style={{ color: COLORS.text.secondary }}>Create your first user account to get started.</p>
               <button
@@ -345,26 +345,36 @@ export default function AdminUsersPage() {
             </div>
           ) : (
             filteredUsers.map((user) => (
-              <div key={user.id} className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+              <div key={user.id} className="rounded-xl shadow-sm p-6 border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.light }}>
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-2">
-                      <User className="h-5 w-5 text-[#3B3B3B]" />
-                      <h3 className="text-lg font-semibold text-gray-900">{user.name}</h3>
-                      <span className={`px-2 py-1 text-xs rounded-full ${
-                        user.role === 'admin' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'
-                      }`}>
+                      <User className="h-5 w-5" style={{ color: COLORS.primary.main }} />
+                      <h3 className="text-lg font-semibold" style={{ color: COLORS.text.primary }}>{user.name}</h3>
+                      <span className="px-2 py-1 text-xs rounded-full" style={{
+                        backgroundColor: user.role === 'admin' ? COLORS.border.light : COLORS.border.light,
+                        color: user.role === 'admin' ? COLORS.primary.main : COLORS.text.secondary
+                      }}>
                         {user.role}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-600 mb-2">{user.email}</p>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm mb-2" style={{ color: COLORS.text.secondary }}>{user.email}</p>
+                    <p className="text-sm" style={{ color: COLORS.text.secondary }}>
                       Created: {formatDate(user.created_at)}
                     </p>
                   </div>
                   <button
                     onClick={() => handleEditUser(user)}
-                    className="p-2 text-gray-600 hover:text-[#3B3B3B] hover:bg-gray-100 rounded-lg transition-colors"
+                    className="p-2 rounded-lg transition-colors"
+                    style={{ color: COLORS.text.secondary }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = COLORS.primary.main;
+                      e.currentTarget.style.backgroundColor = COLORS.border.light;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = COLORS.text.secondary;
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                    }}
                   >
                     <Edit className="h-5 w-5" />
                   </button>
@@ -380,13 +390,16 @@ export default function AdminUsersPage() {
       {/* Create User Modal */}
       {showCreateForm && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+          <div className="rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto" style={{ backgroundColor: COLORS.background.primary }}>
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold text-gray-900">Create New User</h2>
+                <h2 className="text-xl font-bold" style={{ color: COLORS.text.primary }}>Create New User</h2>
                 <button
                   onClick={() => setShowCreateForm(false)}
-                  className="p-2 text-gray-600 hover:text-gray-900"
+                  className="p-2 transition-colors"
+                  style={{ color: COLORS.text.secondary }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = COLORS.text.primary}
+                  onMouseLeave={(e) => e.currentTarget.style.color = COLORS.text.secondary}
                 >
                   <X className="h-6 w-6" />
                 </button>
@@ -394,7 +407,7 @@ export default function AdminUsersPage() {
 
               <form onSubmit={handleCreateUser} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>
                     Full Name *
                   </label>
                   <input
@@ -402,13 +415,22 @@ export default function AdminUsersPage() {
                     value={createFormData.name}
                     onChange={(e) => setCreateFormData({...createFormData, name: e.target.value})}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#3B3B3B] focus:border-transparent"
+                    className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
+                    style={{ borderColor: COLORS.border.secondary }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = COLORS.primary.main;
+                      e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = COLORS.border.secondary;
+                      e.target.style.boxShadow = 'none';
+                    }}
                     placeholder="Enter full name"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>
                     Email Address *
                   </label>
                   <input
@@ -416,13 +438,22 @@ export default function AdminUsersPage() {
                     value={createFormData.email}
                     onChange={(e) => setCreateFormData({...createFormData, email: e.target.value})}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#3B3B3B] focus:border-transparent"
+                    className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
+                    style={{ borderColor: COLORS.border.secondary }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = COLORS.primary.main;
+                      e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = COLORS.border.secondary;
+                      e.target.style.boxShadow = 'none';
+                    }}
                     placeholder="Enter email address"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>
                     Password *
                   </label>
                   <input
@@ -431,17 +462,29 @@ export default function AdminUsersPage() {
                     onChange={(e) => setCreateFormData({...createFormData, password: e.target.value})}
                     required
                     minLength={8}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#3B3B3B] focus:border-transparent"
+                    className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
+                    style={{ borderColor: COLORS.border.secondary }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = COLORS.primary.main;
+                      e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = COLORS.border.secondary;
+                      e.target.style.boxShadow = 'none';
+                    }}
                     placeholder="Enter password (min 8 characters)"
                   />
-                  <p className="text-xs text-gray-500 mt-1">Password must be at least 8 characters long</p>
+                  <p className="text-xs mt-1" style={{ color: COLORS.text.secondary }}>Password must be at least 8 characters long</p>
                 </div>
 
                 <div className="flex space-x-3 pt-4">
                   <button
                     type="button"
                     onClick={() => setShowCreateForm(false)}
-                    className="flex-1 border border-gray-300 text-gray-700 py-3 px-4 rounded-xl font-medium hover:bg-gray-50 transition-colors"
+                    className="flex-1 border py-3 px-4 rounded-xl font-medium transition-colors"
+                    style={{ borderColor: COLORS.border.secondary, color: COLORS.text.primary }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.background.secondary}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                   >
                     Cancel
                   </button>
@@ -475,16 +518,19 @@ export default function AdminUsersPage() {
       {/* Edit User Modal */}
       {showEditForm && selectedUser && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+          <div className="rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto" style={{ backgroundColor: COLORS.background.primary }}>
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold text-gray-900">Edit User</h2>
+                <h2 className="text-xl font-bold" style={{ color: COLORS.text.primary }}>Edit User</h2>
                 <button
                   onClick={() => {
                     setShowEditForm(false);
                     setSelectedUser(null);
                   }}
-                  className="p-2 text-gray-600 hover:text-gray-900"
+                  className="p-2 transition-colors"
+                  style={{ color: COLORS.text.secondary }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = COLORS.text.primary}
+                  onMouseLeave={(e) => e.currentTarget.style.color = COLORS.text.secondary}
                 >
                   <X className="h-6 w-6" />
                 </button>
@@ -492,7 +538,7 @@ export default function AdminUsersPage() {
 
               <form onSubmit={handleUpdateUser} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>
                     Full Name *
                   </label>
                   <input
@@ -500,13 +546,22 @@ export default function AdminUsersPage() {
                     value={editFormData.name}
                     onChange={(e) => setEditFormData({...editFormData, name: e.target.value})}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#3B3B3B] focus:border-transparent"
+                    className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
+                    style={{ borderColor: COLORS.border.secondary }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = COLORS.primary.main;
+                      e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = COLORS.border.secondary;
+                      e.target.style.boxShadow = 'none';
+                    }}
                     placeholder="Enter full name"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>
                     Email Address *
                   </label>
                   <input
@@ -514,20 +569,38 @@ export default function AdminUsersPage() {
                     value={editFormData.email}
                     onChange={(e) => setEditFormData({...editFormData, email: e.target.value})}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#3B3B3B] focus:border-transparent"
+                    className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
+                    style={{ borderColor: COLORS.border.secondary }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = COLORS.primary.main;
+                      e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = COLORS.border.secondary;
+                      e.target.style.boxShadow = 'none';
+                    }}
                     placeholder="Enter email address"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>
                     Role *
                   </label>
                   <select
                     value={editFormData.role}
                     onChange={(e) => setEditFormData({...editFormData, role: e.target.value})}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#3B3B3B] focus:border-transparent"
+                    className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
+                    style={{ borderColor: COLORS.border.secondary }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = COLORS.primary.main;
+                      e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = COLORS.border.secondary;
+                      e.target.style.boxShadow = 'none';
+                    }}
                   >
                     <option value="">Select role</option>
                     <option value="customer">Customer</option>
@@ -542,7 +615,10 @@ export default function AdminUsersPage() {
                       setShowEditForm(false);
                       setSelectedUser(null);
                     }}
-                    className="flex-1 border border-gray-300 text-gray-700 py-3 px-4 rounded-xl font-medium hover:bg-gray-50 transition-colors"
+                    className="flex-1 border py-3 px-4 rounded-xl font-medium transition-colors"
+                    style={{ borderColor: COLORS.border.secondary, color: COLORS.text.primary }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.background.secondary}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                   >
                     Cancel
                   </button>

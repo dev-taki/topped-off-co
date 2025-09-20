@@ -1158,7 +1158,16 @@ export default function MembersManagementPage() {
                 onChange={(e) => setSearchEmail(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
                 placeholder="Search by email..."
-                                      className="w-full px-4 py-3 pl-10 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#8c52ff] focus:border-transparent"
+                                      className="w-full px-4 py-3 pl-10 border rounded-xl focus:ring-2 focus:border-transparent"
+                                      style={{ borderColor: COLORS.border.secondary }}
+                                      onFocus={(e) => {
+                                        e.target.style.borderColor = COLORS.primary.main;
+                                        e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
+                                      }}
+                                      onBlur={(e) => {
+                                        e.target.style.borderColor = COLORS.border.secondary;
+                                        e.target.style.boxShadow = 'none';
+                                      }}
               />
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <svg className="h-5 w-5 [style-color-gray-400]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1179,9 +1188,9 @@ export default function MembersManagementPage() {
               <button
                 onClick={handleClearSearch}
                 className="px-4 py-3 rounded-xl font-medium transition-colors"
-                style={{ backgroundColor: '#737373', color: '#f5f5f5' }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#525252'}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#737373'}
+                style={{ backgroundColor: COLORS.secondary.main, color: COLORS.success.text }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.secondary.hover}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.secondary.main}
               >
                 Clear
               </button>
@@ -1191,7 +1200,7 @@ export default function MembersManagementPage() {
 
         {/* Error Message */}
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl">
+          <div className="mb-4 p-3 rounded-xl" style={{ backgroundColor: COLORS.background.secondary, borderColor: COLORS.error.main, border: '1px solid' }}>
             <p className="text-sm" style={{ color: COLORS.error.main }}>{error}</p>
           </div>
         )}
@@ -1221,18 +1230,28 @@ export default function MembersManagementPage() {
                 </div>
                 <div className="flex items-center space-x-2">
                   {subscription.business_id !== BUSINESS_ID && (
-                    <span className="text-xs bg-gray-100 px-2 py-1 rounded" style={{ color: COLORS.text.secondary }}>
+                    <span className="text-xs px-2 py-1 rounded" style={{ backgroundColor: COLORS.border.light, color: COLORS.text.secondary }}>
                       Other Business
                     </span>
                   )}
                   <button
                     onClick={() => handleEditSubscription(subscription)}
                     disabled={subscription.business_id !== BUSINESS_ID}
-                    className={`p-2 rounded-lg transition-colors ${
-                      subscription.business_id === BUSINESS_ID
-                        ? 'hover:bg-gray-100'
-                        : 'cursor-not-allowed'
-                    }`}
+                    className="p-2 rounded-lg transition-colors"
+                    style={{ 
+                      cursor: subscription.business_id === BUSINESS_ID ? 'pointer' : 'not-allowed',
+                      opacity: subscription.business_id === BUSINESS_ID ? 1 : 0.5
+                    }}
+                    onMouseEnter={(e) => {
+                      if (subscription.business_id === BUSINESS_ID) {
+                        e.currentTarget.style.backgroundColor = COLORS.border.light;
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (subscription.business_id === BUSINESS_ID) {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                      }
+                    }}
                     title={subscription.business_id !== BUSINESS_ID ? 'You can only edit subscriptions from your own business' : 'Edit subscription'}
                   >
                     <Edit className="h-5 w-5" />
@@ -1242,7 +1261,7 @@ export default function MembersManagementPage() {
 
               {/* Credits Section */}
               <div className="mb-4">
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-100">
+                <div className="rounded-xl p-4 border" style={{ backgroundColor: COLORS.background.secondary, borderColor: COLORS.border.light }}>
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <div className="flex items-center space-x-2 mb-1">
@@ -1269,7 +1288,7 @@ export default function MembersManagementPage() {
 
               {/* Date Information */}
               <div className="mb-4">
-                <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                <div className="rounded-lg p-3 border" style={{ backgroundColor: COLORS.background.secondary, borderColor: COLORS.border.secondary }}>
                   <h4 className="text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>Subscription Dates</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                     <div>
@@ -1286,9 +1305,9 @@ export default function MembersManagementPage() {
                     </div>
                   </div>
                   {subscription.cancellation_data && (
-                    <div className="mt-3 pt-3 border-t border-gray-200">
+                    <div className="mt-3 pt-3" style={{ borderTop: `1px solid ${COLORS.border.secondary}` }}>
                       <span style={{ color: COLORS.text.secondary }}>Cancellation Data:</span>
-                      <div className="mt-1 p-2 bg-red-50 border border-red-200 rounded text-xs">
+                      <div className="mt-1 p-2 rounded text-xs" style={{ backgroundColor: COLORS.background.secondary, borderColor: COLORS.error.main, border: '1px solid' }}>
                         <pre className="whitespace-pre-wrap break-words" style={{ color: COLORS.error.main }}>
                           {JSON.stringify(subscription.cancellation_data, null, 2)}
                         </pre>
@@ -1309,7 +1328,7 @@ export default function MembersManagementPage() {
 
         {filteredSubscriptions.length === 0 && !loading && (
           <div className="text-center py-8">
-            <Users className="h-12 w-12 [style-color-gray-400] mx-auto mb-4" />
+            <Users className="h-12 w-12 mx-auto mb-4" style={{ color: COLORS.text.secondary }} />
             <p style={{ color: COLORS.text.secondary }}>
               {searchEmail ? `No subscriptions found for email "${searchEmail}".` : 'No subscriptions found. Create your first subscription to get started.'}
             </p>
@@ -1320,13 +1339,15 @@ export default function MembersManagementPage() {
       {/* Create User & Subscription Form Modal */}
       {showCreateForm && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+          <div className="rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto" style={{ backgroundColor: COLORS.background.primary }}>
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-bold" style={{ color: COLORS.text.primary }}>Create New User & Subscription</h2>
                 <button
                   onClick={() => setShowCreateForm(false)}
-                  className="p-2 hover:bg-gray-100"
+                  className="p-2 transition-colors"
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.border.light}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                 >
                   <X className="h-6 w-6" />
                 </button>
@@ -1342,7 +1363,16 @@ export default function MembersManagementPage() {
                     value={createFormData.name}
                     onChange={(e) => setCreateFormData({...createFormData, name: e.target.value})}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
+                    style={{ borderColor: COLORS.border.secondary }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = COLORS.success.main;
+                      e.target.style.boxShadow = `0 0 0 2px ${COLORS.success.main}20`;
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = COLORS.border.secondary;
+                      e.target.style.boxShadow = 'none';
+                    }}
                     placeholder="Enter full name"
                   />
                 </div>
@@ -1356,7 +1386,16 @@ export default function MembersManagementPage() {
                     value={createFormData.email}
                     onChange={(e) => setCreateFormData({...createFormData, email: e.target.value})}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
+                    style={{ borderColor: COLORS.border.secondary }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = COLORS.success.main;
+                      e.target.style.boxShadow = `0 0 0 2px ${COLORS.success.main}20`;
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = COLORS.border.secondary;
+                      e.target.style.boxShadow = 'none';
+                    }}
                     placeholder="Enter email address"
                   />
                 </div>
@@ -1370,12 +1409,21 @@ export default function MembersManagementPage() {
                     value={createFormData.password}
                     onChange={(e) => setCreateFormData({...createFormData, password: e.target.value})}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
+                    style={{ borderColor: COLORS.border.secondary }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = COLORS.success.main;
+                      e.target.style.boxShadow = `0 0 0 2px ${COLORS.success.main}20`;
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = COLORS.border.secondary;
+                      e.target.style.boxShadow = 'none';
+                    }}
                     placeholder="Enter password"
                   />
                 </div>
 
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                <div className="rounded-lg p-3" style={{ backgroundColor: COLORS.background.secondary, borderColor: COLORS.border.light, border: '1px solid' }}>
                   <p className="text-sm" style={{ color: COLORS.text.secondary }}>
                     <strong>Note:</strong> This will create a new user account and automatically create a subscription.
                   </p>
@@ -1388,7 +1436,16 @@ export default function MembersManagementPage() {
                     value={createFormData.status}
                     onChange={(e) => setCreateFormData({...createFormData, status: e.target.value})}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
+                    style={{ borderColor: COLORS.border.secondary }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = COLORS.primary.main;
+                      e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = COLORS.border.secondary;
+                      e.target.style.boxShadow = 'none';
+                    }}
                   >
                     <option value="ACTIVE">Active</option>
                     <option value="INACTIVE">Inactive</option>
@@ -1404,7 +1461,16 @@ export default function MembersManagementPage() {
                     value={createFormData.start_date}
                     onChange={(e) => setCreateFormData({...createFormData, start_date: e.target.value})}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
+                    style={{ borderColor: COLORS.border.secondary }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = COLORS.primary.main;
+                      e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = COLORS.border.secondary;
+                      e.target.style.boxShadow = 'none';
+                    }}
                   />
                 </div>
 
@@ -1417,7 +1483,16 @@ export default function MembersManagementPage() {
                     min="0"
                     value={createFormData.available_credit}
                     onChange={(e) => setCreateFormData({...createFormData, available_credit: parseInt(e.target.value) || 0})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
+                    style={{ borderColor: COLORS.border.secondary }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = COLORS.primary.main;
+                      e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = COLORS.border.secondary;
+                      e.target.style.boxShadow = 'none';
+                    }}
                     placeholder="0"
                   />
                   <p className="text-xs mt-1" style={{ color: COLORS.text.secondary }}>Enter amount to reduce from current credits</p>
@@ -1429,8 +1504,10 @@ export default function MembersManagementPage() {
                   <button
                     type="button"
                     onClick={() => setShowCreateForm(false)}
-                    className="flex-1 border border-gray-300 py-3 px-4 rounded-xl font-medium hover:bg-gray-50 transition-colors"
-                    style={{ color: COLORS.text.primary }}
+                    className="flex-1 border py-3 px-4 rounded-xl font-medium transition-colors"
+                    style={{ borderColor: COLORS.border.secondary, color: COLORS.text.primary }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.background.secondary}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                   >
                     Cancel
                   </button>
@@ -1464,13 +1541,15 @@ export default function MembersManagementPage() {
       {/* Edit Subscription Form Modal */}
       {showEditForm && selectedSubscription && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+          <div className="rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto" style={{ backgroundColor: COLORS.background.primary }}>
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-bold" style={{ color: COLORS.text.primary }}>Edit Subscription</h2>
                 <button
                   onClick={() => setShowEditForm(false)}
-                  className="p-2 hover:bg-gray-100"
+                  className="p-2 transition-colors"
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.border.light}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                 >
                   <X className="h-6 w-6" />
                 </button>
@@ -1478,7 +1557,7 @@ export default function MembersManagementPage() {
 
               <form onSubmit={handleUpdateSubscription} className="space-y-4">
                 {/* User Information */}
-                <div className="bg-gray-50 rounded-lg p-4 mb-4">
+                <div className="rounded-lg p-4 mb-4" style={{ backgroundColor: COLORS.background.secondary }}>
                   <h3 className="text-sm font-medium mb-3" style={{ color: COLORS.text.primary }}>User Information</h3>
                   <div className="space-y-2">
                     <div>
@@ -1489,8 +1568,8 @@ export default function MembersManagementPage() {
                         type="email"
                         value={selectedSubscription.email}
                         disabled
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm"
-                        style={{ color: COLORS.text.secondary }}
+                        className="w-full px-3 py-2 border rounded-lg text-sm"
+                        style={{ borderColor: COLORS.border.secondary, backgroundColor: COLORS.background.primary, color: COLORS.text.secondary }}
                       />
                     </div>
                     <div>
@@ -1501,8 +1580,8 @@ export default function MembersManagementPage() {
                         type="text"
                         value={selectedSubscription.user_id}
                         disabled
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm font-mono"
-                        style={{ color: COLORS.text.secondary }}
+                        className="w-full px-3 py-2 border rounded-lg text-sm font-mono"
+                        style={{ borderColor: COLORS.border.secondary, backgroundColor: COLORS.background.primary, color: COLORS.text.secondary }}
                       />
                     </div>
                     <div>
@@ -1513,8 +1592,8 @@ export default function MembersManagementPage() {
                         type="text"
                         value={selectedSubscription.object_id}
                         disabled
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm font-mono"
-                        style={{ color: COLORS.text.secondary }}
+                        className="w-full px-3 py-2 border rounded-lg text-sm font-mono"
+                        style={{ borderColor: COLORS.border.secondary, backgroundColor: COLORS.background.primary, color: COLORS.text.secondary }}
                       />
                     </div>
                   </div>
@@ -1530,7 +1609,16 @@ export default function MembersManagementPage() {
                       value={editFormData.status}
                       onChange={(e) => setEditFormData({...editFormData, status: e.target.value})}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#8c52ff] focus:border-transparent"
+                      className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
+                      style={{ borderColor: COLORS.border.secondary }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = COLORS.primary.main;
+                        e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = COLORS.border.secondary;
+                        e.target.style.boxShadow = 'none';
+                      }}
                     >
                       <option value="">Select Status</option>
                       <option value="ACTIVE">Active</option>
@@ -1549,7 +1637,16 @@ export default function MembersManagementPage() {
                       value={editFormData.start_date}
                       onChange={(e) => setEditFormData({...editFormData, start_date: e.target.value})}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#8c52ff] focus:border-transparent"
+                      className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
+                      style={{ borderColor: COLORS.border.secondary }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = COLORS.primary.main;
+                        e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = COLORS.border.secondary;
+                        e.target.style.boxShadow = 'none';
+                      }}
                     />
                   </div>
 
@@ -1562,7 +1659,16 @@ export default function MembersManagementPage() {
                       min="0"
                       value={editFormData.available_credit}
                       onChange={(e) => setEditFormData({...editFormData, available_credit: parseInt(e.target.value) || 0})}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
+                    style={{ borderColor: COLORS.border.secondary }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = COLORS.primary.main;
+                      e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = COLORS.border.secondary;
+                      e.target.style.boxShadow = 'none';
+                    }}
                       placeholder="0"
                     />
                     <p className="text-xs mt-1" style={{ color: COLORS.text.secondary }}>Set the available credits for this user</p>
@@ -1577,11 +1683,11 @@ export default function MembersManagementPage() {
                       min="0"
                       value={selectedSubscription.subscription_amount}
                       disabled
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-gray-50"
-                      style={{ color: COLORS.text.secondary }}
+                      className="w-full px-4 py-3 border rounded-xl"
+                      style={{ borderColor: COLORS.border.secondary, backgroundColor: COLORS.background.secondary, color: COLORS.text.secondary }}
                       placeholder="0"
                     />
-                    <p className="text-xs text-gray-500 mt-1">Monthly subscription amount in cents (read-only)</p>
+                    <p className="text-xs mt-1" style={{ color: COLORS.text.secondary }}>Monthly subscription amount in cents (read-only)</p>
                   </div>
                 </div>
 
@@ -1591,8 +1697,10 @@ export default function MembersManagementPage() {
                   <button
                     type="button"
                     onClick={() => setShowEditForm(false)}
-                    className="flex-1 border border-gray-300 py-3 px-4 rounded-xl font-medium hover:bg-gray-50 transition-colors"
-                    style={{ color: COLORS.text.primary }}
+                    className="flex-1 border py-3 px-4 rounded-xl font-medium transition-colors"
+                    style={{ borderColor: COLORS.border.secondary, color: COLORS.text.primary }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.background.secondary}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                   >
                     Cancel
                   </button>
@@ -1626,15 +1734,17 @@ export default function MembersManagementPage() {
       {/* Card Subscription Modal */}
       {showCardForm && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+          <div className="rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto" style={{ backgroundColor: COLORS.background.primary }}>
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold text-gray-900">
+                <h2 className="text-xl font-bold" style={{ color: COLORS.text.primary }}>
                   {isCardMode ? 'Create Subscription with Card' : 'Create Subscription without Card'}
                 </h2>
                 <button
                   onClick={() => setShowCardForm(false)}
-                  className="p-2 hover:bg-gray-100"
+                  className="p-2 transition-colors"
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.border.light}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                 >
                   <X className="h-6 w-6" />
                 </button>
@@ -1656,7 +1766,16 @@ export default function MembersManagementPage() {
                           onChange={(e) => setUserSearchEmail(e.target.value)}
                           onKeyPress={(e) => e.key === 'Enter' && handleUserSearch()}
                           placeholder="Search by email..."
-                          className="w-full px-3 py-2 pl-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8c52ff] focus:border-transparent text-sm"
+                          className="w-full px-3 py-2 pl-8 border rounded-lg focus:ring-2 focus:border-transparent text-sm"
+                          style={{ borderColor: COLORS.border.secondary }}
+                          onFocus={(e) => {
+                            e.target.style.borderColor = COLORS.primary.main;
+                            e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
+                          }}
+                          onBlur={(e) => {
+                            e.target.style.borderColor = COLORS.border.secondary;
+                            e.target.style.boxShadow = 'none';
+                          }}
                         />
                         <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
                           <svg className="h-4 w-4 [style-color-gray-400]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1677,15 +1796,15 @@ export default function MembersManagementPage() {
                     </div>
 
                     {/* Users List */}
-                    <div className="max-h-40 overflow-y-auto border border-gray-200 rounded-lg">
+                    <div className="max-h-40 overflow-y-auto border rounded-lg" style={{ borderColor: COLORS.border.secondary }}>
                       {isLoadingUsers ? (
                         <div className="p-4 text-center">
                           <InlineLoader size="sm" />
-                          <p className="text-sm text-gray-500 mt-2">Loading users...</p>
+                          <p className="text-sm mt-2" style={{ color: COLORS.text.secondary }}>Loading users...</p>
                         </div>
                       ) : users.length === 0 ? (
                         <div className="p-4 text-center">
-                          <p className="text-sm text-gray-500">No users found</p>
+                          <p className="text-sm" style={{ color: COLORS.text.secondary }}>No users found</p>
                         </div>
                       ) : (
                         <div className="space-y-1">
@@ -1694,18 +1813,31 @@ export default function MembersManagementPage() {
                               key={user.id}
                               type="button"
                               onClick={() => setSelectedUser(user)}
-                              className={`w-full text-left p-3 hover:bg-gray-50 transition-colors ${
-                                selectedUser?.id === user.id ? 'bg-blue-50 border-l-4 border-blue-500' : ''
-                              }`}
+                              className="w-full text-left p-3 transition-colors"
+                              style={{ 
+                                backgroundColor: selectedUser?.id === user.id ? COLORS.background.secondary : 'transparent',
+                                borderLeft: selectedUser?.id === user.id ? `4px solid ${COLORS.primary.main}` : 'none'
+                              }}
+                              onMouseEnter={(e) => {
+                                if (selectedUser?.id !== user.id) {
+                                  e.currentTarget.style.backgroundColor = COLORS.border.light;
+                                }
+                              }}
+                              onMouseLeave={(e) => {
+                                if (selectedUser?.id !== user.id) {
+                                  e.currentTarget.style.backgroundColor = 'transparent';
+                                }
+                              }}
                             >
                               <div className="flex items-center justify-between">
                                 <div>
-                                  <p className="font-medium text-gray-900 text-sm">{user.name}</p>
-                                  <p className="text-gray-600 text-xs">{user.email}</p>
+                                  <p className="font-medium text-sm" style={{ color: COLORS.text.primary }}>{user.name}</p>
+                                  <p className="text-xs" style={{ color: COLORS.text.secondary }}>{user.email}</p>
                                 </div>
-                                <span className={`px-2 py-1 text-xs rounded-full ${
-                                  user.role === 'admin' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'
-                                }`}>
+                                <span className="px-2 py-1 text-xs rounded-full" style={{ 
+                                  backgroundColor: user.role === 'admin' ? COLORS.border.light : COLORS.border.light,
+                                  color: user.role === 'admin' ? COLORS.primary.main : COLORS.text.secondary
+                                }}>
                                   {user.role}
                                 </span>
                               </div>
@@ -1718,7 +1850,10 @@ export default function MembersManagementPage() {
                               type="button"
                               onClick={handleUserLoadMore}
                               disabled={isLoadingUsers}
-                              className="w-full p-2 text-center text-sm text-blue-600 hover:bg-blue-50 disabled:opacity-50"
+                              className="w-full p-2 text-center text-sm disabled:opacity-50 transition-colors"
+                              style={{ color: COLORS.primary.main }}
+                              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.border.light}
+                              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                             >
                               {isLoadingUsers ? 'Loading...' : 'Load More Users'}
                             </button>
@@ -1752,7 +1887,16 @@ export default function MembersManagementPage() {
                       value={cardFormData.plan_variation_id}
                       onChange={(e) => handlePlanVariationChange(e.target.value)}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#8c52ff] focus:border-transparent"
+                      className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
+                      style={{ borderColor: COLORS.border.secondary }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = COLORS.primary.main;
+                        e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = COLORS.border.secondary;
+                        e.target.style.boxShadow = 'none';
+                      }}
                     >
                       <option value="">Choose a subscription plan...</option>
                       {subscriptionVariations.map((variation, index) => (
@@ -1771,7 +1915,7 @@ export default function MembersManagementPage() {
 
 
 
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                <div className="rounded-lg p-3" style={{ backgroundColor: COLORS.background.secondary, borderColor: COLORS.border.light, border: '1px solid' }}>
                   <p className="text-sm" style={{ color: COLORS.text.secondary }}>
                     <strong>Note:</strong> This will create a subscription with card payment for the selected user.
                   </p>
@@ -1781,8 +1925,10 @@ export default function MembersManagementPage() {
                   <button
                     type="button"
                     onClick={() => setShowCardForm(false)}
-                    className="flex-1 border border-gray-300 py-3 px-4 rounded-xl font-medium hover:bg-gray-50 transition-colors"
-                    style={{ color: COLORS.text.primary }}
+                    className="flex-1 border py-3 px-4 rounded-xl font-medium transition-colors"
+                    style={{ borderColor: COLORS.border.secondary, color: COLORS.text.primary }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.background.secondary}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                   >
                     Cancel
                   </button>
@@ -1817,13 +1963,15 @@ export default function MembersManagementPage() {
       {/* Square Payment Form Modal */}
       {showPaymentForm && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+          <div className="rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto" style={{ backgroundColor: COLORS.background.primary }}>
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold text-gray-900">Payment Information</h2>
+                <h2 className="text-xl font-bold" style={{ color: COLORS.text.primary }}>Payment Information</h2>
                 <button
                   onClick={() => setShowPaymentForm(false)}
-                  className="p-2 hover:bg-gray-100"
+                  className="p-2 transition-colors"
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.border.light}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                 >
                   <X className="h-6 w-6" />
                 </button>
@@ -1918,8 +2066,10 @@ export default function MembersManagementPage() {
                   <button
                     type="button"
                     onClick={() => setShowPaymentForm(false)}
-                    className="flex-1 border border-gray-300 py-3 px-4 rounded-xl font-medium hover:bg-gray-50 transition-colors"
-                    style={{ color: COLORS.text.primary }}
+                    className="flex-1 border py-3 px-4 rounded-xl font-medium transition-colors"
+                    style={{ borderColor: COLORS.border.secondary, color: COLORS.text.primary }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.background.secondary}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                   >
                     Back
                   </button>

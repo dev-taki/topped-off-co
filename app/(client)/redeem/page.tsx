@@ -236,12 +236,12 @@ export default function RedeemPage() {
               New Redeem Request
             </button>
           ) : (
-            <div className="rounded-xl p-4 text-center" style={{ backgroundColor: '#FEF3C7', borderColor: COLORS.warning.main, border: '1px solid' }}>
+            <div className="rounded-xl p-4 text-center" style={{ backgroundColor: COLORS.background.secondary, borderColor: COLORS.warning.main, border: '1px solid' }}>
               <div className="flex items-center justify-center space-x-2 mb-2">
                 <AlertCircle className="h-5 w-5" style={{ color: COLORS.warning.main }} />
-                <span className="font-medium" style={{ color: '#D97706' }}>No Credits Available</span>
+                <span className="font-medium" style={{ color: COLORS.warning.main }}>No Credits Available</span>
               </div>
-              <p className="text-sm" style={{ color: '#D97706' }}>You need subscription credits to create redeem requests. Please check your subscription plans.</p>
+              <p className="text-sm" style={{ color: COLORS.warning.main }}>You need subscription credits to create redeem requests. Please check your subscription plans.</p>
             </div>
           )}
         </div>
@@ -338,7 +338,7 @@ export default function RedeemPage() {
                 </div>
 
                 {/* Credit Information */}
-                <div className="rounded-lg p-4 mb-4" style={{ backgroundColor: '#fafafa' }}>
+                <div className="rounded-lg p-4 mb-4" style={{ backgroundColor: COLORS.background.secondary }}>
                   <div className="flex items-center justify-between">
                     <span className="text-sm" style={{ color: COLORS.text.secondary }}>Available Credits:</span>
                     <span className="text-lg font-semibold" style={{ color: COLORS.primary.main }}>{getTotalCredits()}</span>
@@ -347,12 +347,12 @@ export default function RedeemPage() {
 
                 {/* Warning message when no credits are available */}
                 {!canRedeem() && (
-                  <div className="border rounded-lg p-3 mb-4" style={{ backgroundColor: '#FEF3C7', borderColor: COLORS.warning.main }}>
+                  <div className="border rounded-lg p-3 mb-4" style={{ backgroundColor: COLORS.background.secondary, borderColor: COLORS.warning.main }}>
                     <div className="flex items-center space-x-2">
                       <AlertCircle className="h-4 w-4" style={{ color: COLORS.warning.main }} />
-                      <span className="text-sm font-medium" style={{ color: '#D97706' }}>No credits available</span>
+                      <span className="text-sm font-medium" style={{ color: COLORS.warning.main }}>No credits available</span>
                     </div>
-                    <p className="text-xs mt-1" style={{ color: '#D97706' }}>You need subscription credits to create redeem requests. Please check your subscription plans.</p>
+                    <p className="text-xs mt-1" style={{ color: COLORS.warning.main }}>You need subscription credits to create redeem requests. Please check your subscription plans.</p>
                   </div>
                 )}
 
@@ -366,7 +366,7 @@ export default function RedeemPage() {
                       color: COLORS.text.secondary,
                       backgroundColor: 'transparent'
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#fafafa'}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.background.secondary}
                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                   >
                     Cancel
@@ -376,8 +376,8 @@ export default function RedeemPage() {
                     disabled={submitting || !canRedeem()}
                     className="flex-1 py-3 px-4 rounded-xl font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                     style={{ 
-                      backgroundColor: canRedeem() ? COLORS.primary.main : '#d1d5db', 
-                      color: canRedeem() ? COLORS.success.text : '#737373'
+                      backgroundColor: canRedeem() ? COLORS.primary.main : COLORS.primary.disabled, 
+                      color: canRedeem() ? COLORS.success.text : COLORS.text.secondary
                     }}
                     onMouseEnter={(e) => {
                       if (canRedeem() && !submitting) {

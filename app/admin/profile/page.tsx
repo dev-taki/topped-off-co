@@ -223,7 +223,7 @@ export default function AdminProfilePage() {
           {!isEditing ? (
             <>
               <div className="text-center mb-6">
-                <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#f5f5f5' }}>
+                <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: COLORS.border.light }}>
                   <User className="h-10 w-10" style={{ color: COLORS.primary.main }} />
                 </div>
                 <h3 className="text-lg font-semibold mb-1" style={{ color: COLORS.text.primary }}>{adminProfile?.name || 'Admin User'}</h3>
@@ -232,7 +232,7 @@ export default function AdminProfilePage() {
 
               {/* Profile Information */}
               <div className="space-y-4">
-                <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: '#fafafa' }}>
+                <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: COLORS.background.secondary }}>
                   <Mail className="h-5 w-5 mr-3" style={{ color: COLORS.text.secondary }} />
                   <div>
                     <p className="text-sm" style={{ color: COLORS.text.secondary }}>Email</p>
@@ -240,7 +240,7 @@ export default function AdminProfilePage() {
                   </div>
                 </div>
 
-                <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: '#fafafa' }}>
+                <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: COLORS.background.secondary }}>
                   <Shield className="h-5 w-5 mr-3" style={{ color: COLORS.text.secondary }} />
                   <div>
                     <p className="text-sm" style={{ color: COLORS.text.secondary }}>Role</p>
@@ -248,7 +248,7 @@ export default function AdminProfilePage() {
                   </div>
                 </div>
 
-                <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: '#fafafa' }}>
+                <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: COLORS.background.secondary }}>
                   <Calendar className="h-5 w-5 mr-3" style={{ color: COLORS.text.secondary }} />
                   <div>
                     <p className="text-sm" style={{ color: COLORS.text.secondary }}>Member Since</p>
@@ -284,7 +284,7 @@ export default function AdminProfilePage() {
                     e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = '#d1d5db';
+                    e.target.style.borderColor = COLORS.border.secondary;
                     e.target.style.boxShadow = 'none';
                   }}
                   placeholder="Enter your full name"
@@ -312,7 +312,7 @@ export default function AdminProfilePage() {
                     e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = '#d1d5db';
+                    e.target.style.borderColor = COLORS.border.secondary;
                     e.target.style.boxShadow = 'none';
                   }}
                   placeholder="Enter your email address"
@@ -340,7 +340,7 @@ export default function AdminProfilePage() {
                     e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = '#d1d5db';
+                    e.target.style.borderColor = COLORS.border.secondary;
                     e.target.style.boxShadow = 'none';
                   }}
                   placeholder="Enter new password"
@@ -368,7 +368,7 @@ export default function AdminProfilePage() {
                       e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
                     }}
                     onBlur={(e) => {
-                      e.target.style.borderColor = '#d1d5db';
+                      e.target.style.borderColor = COLORS.border.secondary;
                       e.target.style.boxShadow = 'none';
                     }}
                     placeholder="Confirm new password"
@@ -382,11 +382,11 @@ export default function AdminProfilePage() {
                   onClick={handleCancel}
                   className="flex-1 py-2 px-4 rounded-lg font-medium transition-colors flex items-center justify-center"
                   style={{ 
-                    backgroundColor: '#e5e5e5', 
+                    backgroundColor: COLORS.border.secondary, 
                     color: COLORS.text.primary 
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#d4d4d4'}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#e5e5e5'}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.border.primary}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.border.secondary}
                 >
                   <X className="h-4 w-4 mr-2" />
                   Cancel
@@ -435,9 +435,9 @@ export default function AdminProfilePage() {
           className="w-full py-4 px-4 rounded-xl font-medium transition-colors flex items-center justify-center"
           style={{ 
             backgroundColor: COLORS.error.main, 
-            color: '#FFFFFF' 
+            color: COLORS.error.text 
           }}
-          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#DC2626'}
+          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.error.dark}
           onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.error.main}
         >
           <LogOut className="h-5 w-5 mr-2" />

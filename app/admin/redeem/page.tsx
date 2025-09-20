@@ -2,15 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { CreditCard, CheckCircle, XCircle, Clock, User, Calendar } from 'lucide-react';
+import { CreditCard, CheckCircle, XCircle, Clock } from 'lucide-react';
 import { AdminAuthService } from '../../services/adminAuthService';
-import { AuthService } from '../../services/authService';
 import { AdminService } from '../../services/adminService';
-import { useAppDispatch } from '../../store/hooks';
 import AdminBottomNav from '../../components/AdminBottomNav';
 import AdminHeader from '../../components/AdminHeader';
 import { CardLoader, ButtonLoader } from '../../components/common/Loader';
-import { ErrorDisplay } from '../../components/common/ErrorDisplay';
 import { showToast } from '../../utils/toast';
 import { COLORS } from '../../config/colors';
 
@@ -28,12 +25,10 @@ interface RedemptionRequest {
 
 export default function AdminRedeemPage() {
   const router = useRouter();
-  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(true);
   const [redemptionRequests, setRedemptionRequests] = useState<RedemptionRequest[]>([]);
   const [processingId, setProcessingId] = useState<string | null>(null);
   
-  const BUSINESS_ID = AuthService.getBusinessId();
 
   useEffect(() => {
     if (!AdminAuthService.isAuthenticated()) {
@@ -95,10 +90,10 @@ export default function AdminRedeemPage() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'pending': return 'text-yellow-600 bg-yellow-100';
-      case 'approved': return 'text-green-600 bg-green-100';
-      case 'rejected': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case 'pending': return `text-[${COLORS.warning.main}] bg-[${COLORS.warning.main}20]`;
+      case 'approved': return `text-[${COLORS.success.main}] bg-[${COLORS.success.main}20]`;
+      case 'rejected': return `text-[${COLORS.error.main}] bg-[${COLORS.error.main}20]`;
+      default: return `text-[${COLORS.text.secondary}] bg-[${COLORS.border.light}]`;
     }
   };
 

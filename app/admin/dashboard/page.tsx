@@ -110,7 +110,7 @@ export default function AdminDashboardPage() {
               style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
             >
               <div className="flex flex-col items-center text-center">
-                <div className="p-3 rounded-lg mb-3" style={{ backgroundColor: '#f5f5f5' }}>
+                <div className="p-3 rounded-lg mb-3" style={{ backgroundColor: COLORS.border.light }}>
                   <User className="h-6 w-6" style={{ color: COLORS.primary.main }} />
                 </div>
                 <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Users</span>
@@ -123,7 +123,7 @@ export default function AdminDashboardPage() {
               style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
             >
               <div className="flex flex-col items-center text-center">
-                <div className="p-3 rounded-lg mb-3" style={{ backgroundColor: '#f5f5f5' }}>
+                <div className="p-3 rounded-lg mb-3" style={{ backgroundColor: COLORS.border.light }}>
                   <Users className="h-6 w-6" style={{ color: COLORS.primary.main }} />
                 </div>
                 <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Manage Members</span>
@@ -136,7 +136,7 @@ export default function AdminDashboardPage() {
               style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
             >
               <div className="flex flex-col items-center text-center">
-                <div className="p-3 rounded-lg mb-3" style={{ backgroundColor: '#f5f5f5' }}>
+                <div className="p-3 rounded-lg mb-3" style={{ backgroundColor: COLORS.border.light }}>
                   <Gift className="h-6 w-6" style={{ color: COLORS.primary.main }} />
                 </div>
                 <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Redemption</span>
@@ -149,7 +149,7 @@ export default function AdminDashboardPage() {
               style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
             >
               <div className="flex flex-col items-center text-center">
-                <div className="p-3 rounded-lg mb-3" style={{ backgroundColor: '#f5f5f5' }}>
+                <div className="p-3 rounded-lg mb-3" style={{ backgroundColor: COLORS.border.light }}>
                   <BarChart3 className="h-6 w-6" style={{ color: COLORS.primary.main }} />
                 </div>
                 <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Client View</span>
