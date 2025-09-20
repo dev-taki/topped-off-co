@@ -15,8 +15,15 @@
 // NEXT_PUBLIC_PWA_NAME=Topped Off Co.
 // NEXT_PUBLIC_PWA_SHORT_NAME=ToppedOffCo
 // NEXT_PUBLIC_PWA_DESCRIPTION=Topped Off Co. App
-// NEXT_PUBLIC_PWA_ICON_192=/mobile-icon.png
-// NEXT_PUBLIC_PWA_ICON_512=/mobile-icon.png
+// NEXT_PUBLIC_PWA_ICON_192=https://cdn.example.com/mobile-icon.png
+// NEXT_PUBLIC_PWA_ICON_512=https://cdn.example.com/mobile-icon.png
+
+// Logo Configuration (Dynamic):
+// NEXT_PUBLIC_LOGO_TYPE=text
+// NEXT_PUBLIC_LOGO_TEXT_MAIN=Topped
+// NEXT_PUBLIC_LOGO_TEXT_SUB=off co.
+// NEXT_PUBLIC_LOGO_TAGLINE=luxury designs
+// NEXT_PUBLIC_LOGO_IMAGE_PATH=https://cdn.example.com/logo.png
 //
 // Color Configuration:
 // NEXT_PUBLIC_PRIMARY_COLOR=#3B3B3B

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface LogoProps {
   size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
@@ -15,12 +16,27 @@ export const Logo: React.FC<LogoProps> = ({
   showTagline = false,
   color = 'default'
 }) => {
+  // Check if using image logo or text logo
+  const logoType = process.env.NEXT_PUBLIC_LOGO_TYPE!; // 'text' or 'image'
+  const logoImagePath = process.env.NEXT_PUBLIC_LOGO_IMAGE_PATH!; // Path to image file
+  const logoTextMain = process.env.NEXT_PUBLIC_LOGO_TEXT_MAIN!; // Main text (e.g., "Topped")
+  const logoTextSub = process.env.NEXT_PUBLIC_LOGO_TEXT_SUB!; // Sub text (e.g., "off co.")
+  const logoTagline = process.env.NEXT_PUBLIC_LOGO_TAGLINE!; // Tagline (e.g., "luxury designs")
+
   const sizeClasses = {
     sm: 'text-lg',
     md: 'text-2xl',
     lg: 'text-3xl',
     xl: 'text-4xl',
     '2xl': 'text-5xl'
+  };
+
+  const imageSizeClasses = {
+    sm: { width: 80, height: 40 },
+    md: { width: 120, height: 60 },
+    lg: { width: 160, height: 80 },
+    xl: { width: 200, height: 100 },
+    '2xl': { width: 240, height: 120 }
   };
 
   const taglineSizeClasses = {
@@ -48,18 +64,45 @@ export const Logo: React.FC<LogoProps> = ({
 
   const colors = colorClasses[color];
 
+  // If using image logo
+  if (logoType === 'image') {
+    const imageSize = imageSizeClasses[size];
+    const isExternalUrl = logoImagePath.startsWith('http');
+    
+    return (
+      <div className={`text-center ${className}`}>
+        <div className="flex justify-center">
+          <Image
+            src={logoImagePath}
+            alt={process.env.NEXT_PUBLIC_PWA_NAME!}
+            width={imageSize.width}
+            height={imageSize.height}
+            className="object-contain"
+            priority
+            unoptimized={isExternalUrl} // Disable optimization for external URLs
+          />
+        </div>
+        {showTagline && logoTagline && (
+          <div className={`font-medium ${taglineSizeClasses[size]} ${colors.tagline} mt-2 uppercase`} style={{ letterSpacing: '0.8em', fontFamily: 'var(--font-family-montserrat)' }}>
+            {logoTagline}
+          </div>
+        )}
+      </div>
+    );
+  }
+
   if (variant === 'minimal') {
     return (
       <div className={`text-center ${className}`}>
         <div className={`hatton-ultralight text-[64.5px] ${colors.main} leading-none uppercase`}>
-          Topped
+          {logoTextMain}
         </div>
         <div className={`hatton-ultralight text-[64.5px] ${colors.main} leading-none uppercase -mt-1`}>
-          off co.
+          {logoTextSub}
         </div>
-        {showTagline && (
+        {showTagline && logoTagline && (
           <div className={`font-medium text-[11.2px] ${colors.tagline} mt-1 uppercase`} style={{ letterSpacing: '0.8em', fontFamily: 'var(--font-family-montserrat)' }}>
-            luxury designs
+            {logoTagline}
           </div>
         )}
       </div>
@@ -70,14 +113,14 @@ export const Logo: React.FC<LogoProps> = ({
     return (
       <div className={`text-center ${className}`}>
         <div className={`hatton-ultralight text-[64.5px] ${colors.main} leading-none uppercase`}>
-          Topped
+          {logoTextMain}
         </div>
         <div className={`hatton-ultralight text-[64.5px] ${colors.main} leading-none uppercase -mt-1`}>
-          off co.
+          {logoTextSub}
         </div>
-        {showTagline && (
+        {showTagline && logoTagline && (
           <div className={`font-medium text-[11.2px] ${colors.tagline} mt-1 uppercase`} style={{ letterSpacing: '0.8em', fontFamily: 'var(--font-family-montserrat)' }}>
-            luxury designs
+            {logoTagline}
           </div>
         )}
       </div>
@@ -88,14 +131,14 @@ export const Logo: React.FC<LogoProps> = ({
   return (
     <div className={`text-center ${className}`}>
       <div className={`hatton-ultralight text-[64.5px] ${colors.main} leading-none uppercase`}>
-        Topped
+        {logoTextMain}
       </div>
       <div className={`hatton-ultralight text-[64.5px] ${colors.main} leading-none uppercase -mt-1`}>
-        off co.
+        {logoTextSub}
       </div>
-      {showTagline && (
+      {showTagline && logoTagline && (
         <div className={`font-medium text-[11.2px] ${colors.tagline} mt-1 uppercase`} style={{ letterSpacing: '0.8em', fontFamily: 'var(--font-family-montserrat)' }}>
-          luxury designs
+          {logoTagline}
         </div>
       )}
     </div>

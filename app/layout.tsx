@@ -22,11 +22,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/mobile-icon.png", sizes: "192x192", type: "image/png" },
-      { url: "/mobile-icon.png", sizes: "512x512", type: "image/png" },
+      { url: process.env.NEXT_PUBLIC_PWA_ICON_192!, sizes: "192x192", type: "image/png" },
+      { url: process.env.NEXT_PUBLIC_PWA_ICON_512!, sizes: "512x512", type: "image/png" },
     ],
     apple: [
-      { url: "/mobile-icon.png", sizes: "192x192", type: "image/png" },
+      { url: process.env.NEXT_PUBLIC_PWA_ICON_192!, sizes: "192x192", type: "image/png" },
     ],
   },
 };
@@ -51,7 +51,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content={process.env.NEXT_PUBLIC_PWA_NAME!} />
         <meta name="mobile-web-app-capable" content="yes" />
-        <link rel="apple-touch-icon" href="/mobile-icon.png" />
+        <link rel="apple-touch-icon" href={process.env.NEXT_PUBLIC_PWA_ICON_192!} />
       </head>
       <body
         className={`${youngSerif.variable} ${bitter.variable} antialiased`}
