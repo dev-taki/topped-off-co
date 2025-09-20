@@ -68,7 +68,7 @@ export class AdminAuthService {
   }
 
   static setAuthToken(token: string): void {
-    setCookie('topped-off-co', token, 7); // Store for 7 days (same cookie as client)
+    setCookie(process.env.NEXT_PUBLIC_COOKIE_AUTH_TOKEN!, token, 7); // Store for 7 days (same cookie as client)
     // Clear PWA install dismiss flag on successful authentication
     if (typeof window !== 'undefined') {
       localStorage.removeItem('pwa-install-dismissed');
@@ -76,23 +76,23 @@ export class AdminAuthService {
   }
 
   static setRole(role: string): void {
-    setCookie('topped-off-co_role', role, 7); // Store role for 7 days
+    setCookie(process.env.NEXT_PUBLIC_COOKIE_USER_ROLE!, role, 7); // Store role for 7 days
   }
 
   static getRole(): string | null {
-    return getCookie('topped-off-co_role');
+    return getCookie(process.env.NEXT_PUBLIC_COOKIE_USER_ROLE!);
   }
 
   static removeRole(): void {
-    removeCookie('topped-off-co_role');
+    removeCookie(process.env.NEXT_PUBLIC_COOKIE_USER_ROLE!);
   }
 
   static getAuthToken(): string | null {
-    return getCookie('topped-off-co');
+    return getCookie(process.env.NEXT_PUBLIC_COOKIE_AUTH_TOKEN!);
   }
 
   static removeAuthToken(): void {
-    removeCookie('topped-off-co');
+    removeCookie(process.env.NEXT_PUBLIC_COOKIE_AUTH_TOKEN!);
     this.removeRole();
   }
 

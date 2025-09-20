@@ -9,13 +9,13 @@ import { Toaster } from "react-hot-toast";
 
 
 export const metadata: Metadata = {
-      title: "Topped Off Co. - Your Adventure Begins Here",
-    description: "Join Topped Off Co. and start your journey today. Secure authentication and comprehensive admin panel.",
-  manifest: "/manifest.json",
+      title: `${process.env.NEXT_PUBLIC_PWA_NAME!} - Your Adventure Begins Here`,
+    description: process.env.NEXT_PUBLIC_PWA_DESCRIPTION!,
+  manifest: "/manifest",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Topped Off Co.",
+    title: process.env.NEXT_PUBLIC_PWA_NAME!,
   },
   formatDetection: {
     telephone: false,
@@ -36,7 +36,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: "#3B3B3B",
+  themeColor: process.env.NEXT_PUBLIC_PRIMARY_COLOR!,
 };
 
 export default function RootLayout({
@@ -49,7 +49,7 @@ export default function RootLayout({
       <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Topped Off Co." />
+        <meta name="apple-mobile-web-app-title" content={process.env.NEXT_PUBLIC_PWA_NAME!} />
         <meta name="mobile-web-app-capable" content="yes" />
         <link rel="apple-touch-icon" href="/mobile-icon.png" />
       </head>
@@ -93,7 +93,7 @@ export default function RootLayout({
               
               if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js')
+                  navigator.serviceWorker.register('/sw.js', { scope: '/' })
                     .then(function(registration) {
                       console.log('SW registered: ', registration);
                     })

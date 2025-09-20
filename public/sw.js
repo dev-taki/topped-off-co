@@ -1,4 +1,4 @@
-const CACHE_NAME = 'topped-off-co-v1';
+const CACHE_NAME = `${process.env.NEXT_PUBLIC_PWA_SHORT_NAME}-v1`;
 const urlsToCache = [
   '/',
   '/login',
