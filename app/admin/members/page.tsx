@@ -17,8 +17,8 @@ import { COLORS } from '../../config/colors';
 const BUSINESS_ID = AuthService.getBusinessId();
 
 const SQUARE_CONFIG = {
-  applicationId: 'sq0idp-kMtm2Q79PLnqxFMcwlTmcg',
-  locationId: 'LBGJZKB82ED85',
+  applicationId: process.env.NEXT_PUBLIC_SQUARE_APPLICATION_ID!,
+  locationId: process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID!,
 };
 
 const COUNTRIES = [

@@ -140,7 +140,7 @@ export default function HomePage() {
             <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-3" style={{ backgroundColor: COLORS.primary.main }}>
               <Plus className="h-6 w-6" style={{ color: COLORS.success.text }} />
             </div>
-            <h3 className="font-semibold mb-1" style={{ color: COLORS.text.primary }}>New Quest</h3>
+            <h3 className="font-semibold mb-1" style={{ color: COLORS.text.primary }}>Redeem</h3>
             <p className="text-sm" style={{ color: COLORS.text.secondary }}>Start a new adventure</p>
           </button>
           
