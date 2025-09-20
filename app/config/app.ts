@@ -53,8 +53,8 @@ export const APP_CONFIG = {
   
   // Storage Configuration
   storage: {
-    authTokenKey: 'topped-off-co',
-    userRoleKey: 'topped-off-co_role',
+    authTokenKey: process.env.NEXT_PUBLIC_COOKIE_AUTH_TOKEN,
+    userRoleKey: process.env.NEXT_PUBLIC_COOKIE_USER_ROLE ,
     themeKey: 'theme',
     preferencesKey: 'user-preferences',
   },
@@ -68,9 +68,9 @@ export const APP_CONFIG = {
   
   // PWA Configuration
   pwa: {
-    name: 'Topped Off Co.',
-    shortName: 'ToppedOffCo',
-    description: 'Topped Off Co. App',
+    name: process.env.NEXT_PUBLIC_PWA_NAME!,
+    shortName: process.env.NEXT_PUBLIC_PWA_SHORT_NAME!,
+    description: process.env.NEXT_PUBLIC_PWA_DESCRIPTION!,
     themeColor: COLORS.primary.main,
     backgroundColor: COLORS.background.primary,
     display: 'standalone',

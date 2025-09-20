@@ -7,6 +7,15 @@
 // NEXT_PUBLIC_BUSINESS_ID=your-business-id
 // NEXT_PUBLIC_API_BASE_URL=https://your-api-url.com
 //
+// Cookie Configuration:
+// NEXT_PUBLIC_COOKIE_AUTH_TOKEN=topped-off-co
+// NEXT_PUBLIC_COOKIE_USER_ROLE=topped-off-co_role
+//
+// PWA Configuration:
+// NEXT_PUBLIC_PWA_NAME=Topped Off Co.
+// NEXT_PUBLIC_PWA_SHORT_NAME=ToppedOffCo
+// NEXT_PUBLIC_PWA_DESCRIPTION=Topped Off Co. App
+//
 // Color Configuration:
 // NEXT_PUBLIC_PRIMARY_COLOR=#3B3B3B
 // NEXT_PUBLIC_PRIMARY_HOVER=#333333
@@ -39,18 +48,18 @@
 export const COLORS = {
   // Primary Colors - Most used colors
   primary: {
-    main: process.env.NEXT_PUBLIC_PRIMARY_COLOR || '#3B3B3B',
-    hover: process.env.NEXT_PUBLIC_PRIMARY_HOVER || '#333333',
-    dark: process.env.NEXT_PUBLIC_PRIMARY_DARK || '#2D2D2D',
-    disabled: process.env.NEXT_PUBLIC_PRIMARY_DISABLED || '#d1d5db',
+    main: process.env.NEXT_PUBLIC_PRIMARY_COLOR!,
+    hover: process.env.NEXT_PUBLIC_PRIMARY_HOVER!,
+    dark: process.env.NEXT_PUBLIC_PRIMARY_DARK!,
+    disabled: process.env.NEXT_PUBLIC_PRIMARY_DISABLED!,
   },
   
   // Secondary Colors - Supporting colors
   secondary: {
-    main: process.env.NEXT_PUBLIC_SECONDARY_COLOR || '#6B7280',
-    hover: process.env.NEXT_PUBLIC_SECONDARY_HOVER || '#5B6366',
-    dark: process.env.NEXT_PUBLIC_SECONDARY_DARK || '#4B5563',
-    disabled: process.env.NEXT_PUBLIC_SECONDARY_DISABLED || '#d1d5db',
+    main: process.env.NEXT_PUBLIC_SECONDARY_COLOR!,
+    hover: process.env.NEXT_PUBLIC_SECONDARY_HOVER!,
+    dark: process.env.NEXT_PUBLIC_SECONDARY_DARK!,
+    disabled: process.env.NEXT_PUBLIC_SECONDARY_DISABLED!,
   },
   
   // Status Colors - Static (as requested)
@@ -74,23 +83,23 @@ export const COLORS = {
   
   // Background Colors - Heavily used
   background: {
-    primary: process.env.NEXT_PUBLIC_BACKGROUND_PRIMARY || '#FFFFFF',
-    secondary: process.env.NEXT_PUBLIC_BACKGROUND_SECONDARY || '#F9FAFB',
+    primary: process.env.NEXT_PUBLIC_BACKGROUND_PRIMARY!,
+    secondary: process.env.NEXT_PUBLIC_BACKGROUND_SECONDARY!,
   },
   
   // Border Colors - Centralized
   border: {
-    primary: process.env.NEXT_PUBLIC_BORDER_PRIMARY || '#e5e5e5',
-    secondary: process.env.NEXT_PUBLIC_BORDER_SECONDARY || '#d1d5db',
-    light: process.env.NEXT_PUBLIC_BORDER_LIGHT || '#f5f5f5',
+    primary: process.env.NEXT_PUBLIC_BORDER_PRIMARY!,
+    secondary: process.env.NEXT_PUBLIC_BORDER_SECONDARY!,
+    light: process.env.NEXT_PUBLIC_BORDER_LIGHT!,
   },
   
   // Text Colors - Heavily used
   text: {
-    primary: process.env.NEXT_PUBLIC_TEXT_PRIMARY || '#000000',
-    primaryHover: process.env.NEXT_PUBLIC_TEXT_PRIMARY_HOVER || '#1F2937',
-    secondary: process.env.NEXT_PUBLIC_TEXT_SECONDARY || '#3B3B3B',
-    secondaryHover: process.env.NEXT_PUBLIC_TEXT_SECONDARY_HOVER || '#111827',
+    primary: process.env.NEXT_PUBLIC_TEXT_PRIMARY!,
+    primaryHover: process.env.NEXT_PUBLIC_TEXT_PRIMARY_HOVER!,
+    secondary: process.env.NEXT_PUBLIC_TEXT_SECONDARY!,
+    secondaryHover: process.env.NEXT_PUBLIC_TEXT_SECONDARY_HOVER!,
   },
 } as const;
 

@@ -3,8 +3,10 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const authToken = request.cookies.get('topped-off-co')?.value;
-  const adminRole = request.cookies.get('topped-off-co_role')?.value;
+  const authTokenKey = process.env.NEXT_PUBLIC_COOKIE_AUTH_TOKEN!;
+  const userRoleKey = process.env.NEXT_PUBLIC_COOKIE_USER_ROLE!;
+  const authToken = request.cookies.get(authTokenKey)?.value;
+  const adminRole = request.cookies.get(userRoleKey)?.value;
 
   // Redirect authenticated users away from login/signup pages
   if ((pathname === '/login' || pathname === '/signup') && authToken) {
