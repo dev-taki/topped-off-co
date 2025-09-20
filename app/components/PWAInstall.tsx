@@ -89,7 +89,7 @@ export default function PWAInstall({ showAfterAuth = false }: PWAInstallProps) {
               <Download className="h-5 w-5" style={{ color: COLORS.primary.main }} />
             </div>
             <div>
-              <h3 className="text-sm font-semibold" style={{ color: COLORS.text.primary }}>Install Topped Off Co.</h3>
+              <h3 className="text-sm font-semibold" style={{ color: COLORS.text.primary }}>Install {process.env.NEXT_PUBLIC_PWA_NAME!}</h3>
               <p className="text-xs" style={{ color: COLORS.text.secondary }}>Add to home screen for quick access</p>
             </div>
           </div>

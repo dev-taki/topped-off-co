@@ -8,6 +8,7 @@ import { signup, clearError } from '../store/slices/authSlice';
 import { ButtonLoader } from '../components/common/Loader';
 import { ErrorDisplay } from '../components/common/ErrorDisplay';
 import { Logo } from '../components/Logo';
+import PWAInstall from '../components/PWAInstall';
 import { SignupData } from '../types';
 import { User, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { AuthService } from '../services/authService';
@@ -198,6 +199,9 @@ export default function SignupPage() {
           </p>
         </div>
       </div>
+
+      {/* PWA Install Prompt - Only show after successful signup */}
+      <PWAInstall showAfterAuth={true} />
     </div>
   );
 }

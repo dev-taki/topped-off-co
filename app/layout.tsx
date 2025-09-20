@@ -58,7 +58,6 @@ export default function RootLayout({
       >
         <Providers>
           {children}
-          <PWAInstall showAfterAuth={true} />
         </Providers>
         <Toaster
           position="top-center"

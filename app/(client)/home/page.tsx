@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { fetchUserSubscriptions } from '../../store/slices/subscriptionSlice';
 import { AuthService } from '../../services/authService';
 import { Logo } from '../../components/Logo';
+import PWAInstall from '../../components/PWAInstall';
 import { COLORS } from '../../config/colors';
 
 export default function HomePage() {
@@ -182,6 +183,8 @@ export default function HomePage() {
         </div>
       </div>
 
+      {/* PWA Install Prompt - Only show after login */}
+      <PWAInstall showAfterAuth={true} />
     </div>
   );
 }
