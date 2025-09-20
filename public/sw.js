@@ -1,4 +1,12 @@
-const CACHE_NAME = `${process.env.NEXT_PUBLIC_PWA_SHORT_NAME}-v1`;
+// Dynamic cache name - will be set by the app
+let CACHE_NAME = 'ToppedOffCo-v1';
+
+// Get cache name from manifest
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SET_CACHE_NAME') {
+    CACHE_NAME = event.data.cacheName;
+  }
+});
 const urlsToCache = [
   '/',
   '/login',
@@ -14,7 +22,7 @@ const urlsToCache = [
   '/admin/users',
   '/admin/members',
   '/manifest.json',
-  '/mobile-icon.svg'
+  '/mobile-icon.png'
 ];
 
 // Install event

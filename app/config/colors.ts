@@ -11,10 +11,12 @@
 // NEXT_PUBLIC_COOKIE_AUTH_TOKEN=topped-off-co
 // NEXT_PUBLIC_COOKIE_USER_ROLE=topped-off-co_role
 //
-// PWA Configuration:
+// PWA Configuration (Icon Dynamic Only):
 // NEXT_PUBLIC_PWA_NAME=Topped Off Co.
 // NEXT_PUBLIC_PWA_SHORT_NAME=ToppedOffCo
 // NEXT_PUBLIC_PWA_DESCRIPTION=Topped Off Co. App
+// NEXT_PUBLIC_PWA_ICON_192=/mobile-icon.png
+// NEXT_PUBLIC_PWA_ICON_512=/mobile-icon.png
 //
 // Color Configuration:
 // NEXT_PUBLIC_PRIMARY_COLOR=#3B3B3B

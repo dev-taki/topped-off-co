@@ -9,8 +9,8 @@ import { Toaster } from "react-hot-toast";
 
 
 export const metadata: Metadata = {
-      title: `${process.env.NEXT_PUBLIC_PWA_NAME!} - Your Adventure Begins Here`,
-    description: process.env.NEXT_PUBLIC_PWA_DESCRIPTION!,
+  title: `${process.env.NEXT_PUBLIC_PWA_NAME!} - Your Adventure Begins Here`,
+  description: process.env.NEXT_PUBLIC_PWA_DESCRIPTION!,
   manifest: "/manifest",
   appleWebApp: {
     capable: true,
@@ -96,6 +96,13 @@ export default function RootLayout({
                   navigator.serviceWorker.register('/sw.js', { scope: '/' })
                     .then(function(registration) {
                       console.log('SW registered: ', registration);
+                      // Send dynamic cache name to service worker
+                      if (registration.active) {
+                        registration.active.postMessage({
+                          type: 'SET_CACHE_NAME',
+                          cacheName: '${process.env.NEXT_PUBLIC_PWA_SHORT_NAME!}-v1'
+                        });
+                      }
                     })
                     .catch(function(registrationError) {
                       console.log('SW registration failed: ', registrationError);

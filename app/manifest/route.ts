@@ -15,13 +15,13 @@ export async function GET() {
     categories: ['business', 'productivity'],
     icons: [
       {
-        src: '/mobile-icon.png',
+        src: process.env.NEXT_PUBLIC_PWA_ICON_192!,
         sizes: '192x192',
         type: 'image/png',
         purpose: 'any maskable'
       },
       {
-        src: '/mobile-icon.png',
+        src: process.env.NEXT_PUBLIC_PWA_ICON_512!,
         sizes: '512x512',
         type: 'image/png',
         purpose: 'any maskable'
@@ -35,7 +35,7 @@ export async function GET() {
         url: '/admin/dashboard',
         icons: [
           {
-            src: '/mobile-icon.png',
+            src: process.env.NEXT_PUBLIC_PWA_ICON_192!,
             sizes: '192x192'
           }
         ]
@@ -47,7 +47,7 @@ export async function GET() {
         url: '/admin/profile',
         icons: [
           {
-            src: '/mobile-icon.png',
+            src: process.env.NEXT_PUBLIC_PWA_ICON_192!,
             sizes: '192x192'
           }
         ]
@@ -59,7 +59,7 @@ export async function GET() {
         url: '/plans',
         icons: [
           {
-            src: '/mobile-icon.png',
+            src: process.env.NEXT_PUBLIC_PWA_ICON_192!,
             sizes: '192x192'
           }
         ]
@@ -71,7 +71,7 @@ export async function GET() {
         url: '/redeem',
         icons: [
           {
-            src: '/mobile-icon.png',
+            src: process.env.NEXT_PUBLIC_PWA_ICON_192!,
             sizes: '192x192'
           }
         ]
