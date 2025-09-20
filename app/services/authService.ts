@@ -75,11 +75,11 @@ export class AuthService {
 
   // Configuration methods
   static getApiBaseUrl(): string {
-    return API_CONFIG.BASE_URL;
+    return process.env.NEXT_PUBLIC_API_BASE_URL!;
   }
 
   static getBusinessId(): string {
-    return API_CONFIG.BUSINESS_ID;
+    return process.env.NEXT_PUBLIC_BUSINESS_ID!;
   }
 }
 

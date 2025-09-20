@@ -4,7 +4,7 @@ import { API_CONFIG } from '../config/api';
  * Get the business ID from environment variables or fallback to default
  */
 export const getBusinessId = (): string => {
-  return API_CONFIG.BUSINESS_ID;
+  return API_CONFIG.BUSINESS_ID!;
 };
 
 /**
@@ -46,12 +46,12 @@ export const isProduction = (): boolean => {
  * Get app name from environment variables
  */
 export const getAppName = (): string => {
-  return process.env.NEXT_PUBLIC_APP_NAME || 'Topped Off Co.';
+  return process.env.NEXT_PUBLIC_APP_NAME!;
 };
 
 /**
  * Get app description from environment variables
  */
 export const getAppDescription = (): string => {
-  return process.env.NEXT_PUBLIC_APP_DESCRIPTION || 'Your Adventure Begins Here';
+  return process.env.NEXT_PUBLIC_APP_DESCRIPTION!;
 };
