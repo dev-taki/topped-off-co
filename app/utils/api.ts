@@ -1,6 +1,5 @@
-import { API_CONFIG, API_ENDPOINTS, HTTP_METHODS, HTTP_STATUS } from '../config/api';
+import { API_CONFIG, HTTP_METHODS, HTTP_STATUS } from '../config/api';
 import { getCookie, STORAGE_KEYS } from './storage';
-import { ApiResponse, ErrorResponse } from '../types';
 import { showToast } from './toast';
 
 // Global fetch interceptor to handle 401 errors
@@ -71,14 +70,6 @@ export const getAuthHeaders = (): Record<string, string> => {
   return headers;
 };
 
-// Create timeout promise
-const createTimeoutPromise = (timeout: number): Promise<never> => {
-  return new Promise((_, reject) => {
-    setTimeout(() => {
-      reject(new ApiError('Request timeout', 408));
-    }, timeout);
-  });
-};
 
 // Retry logic
 const retryRequest = async <T>(
