@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useNavigation, useAppDispatch } from '../../store/hooks';
 import { setCurrentPage, toggleSidebar } from '../../store/slices/navigationSlice';
 import { Menu, X } from 'lucide-react';
+import { COLORS } from '../../config/colors';
 
 export const Navigation: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -43,8 +44,8 @@ export const Navigation: React.FC = () => {
                 onClick={() => handlePageChange(item.href)}
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                   currentPage === item.href
-                    ? 'text-[#8c52ff] bg-[#8c52ff] bg-opacity-10'
-                    : 'text-gray-700 hover:text-[#8c52ff] hover:bg-[#8c52ff] hover:bg-opacity-10'
+                    ? 'text-gray-700 bg-gray-100 bg-opacity-10'
+                    : 'text-gray-700 hover:text-gray-700 hover:bg-gray-100 hover:bg-opacity-10'
                 }`}
               >
                 {item.label}
@@ -56,7 +57,7 @@ export const Navigation: React.FC = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={handleToggleSidebar}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-[#8c52ff] hover:bg-[#8c52ff] hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#8c52ff]"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-700 hover:bg-gray-100 hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#8c52ff]"
             >
               {sidebarOpen ? (
                 <X className="block h-6 w-6" />
@@ -82,8 +83,8 @@ export const Navigation: React.FC = () => {
                 }}
                 className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
                   currentPage === item.href
-                    ? 'text-[#8c52ff] bg-[#8c52ff] bg-opacity-10'
-                    : 'text-gray-700 hover:text-[#8c52ff] hover:bg-[#8c52ff] hover:bg-opacity-10'
+                    ? 'text-gray-700 bg-gray-100 bg-opacity-10'
+                    : 'text-gray-700 hover:text-gray-700 hover:bg-gray-100 hover:bg-opacity-10'
                 }`}
               >
                 {item.label}

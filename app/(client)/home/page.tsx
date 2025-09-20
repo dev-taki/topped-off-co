@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { fetchUserSubscriptions } from '../../store/slices/subscriptionSlice';
 import { AuthService } from '../../services/authService';
 import { Logo } from '../../components/Logo';
+import { COLORS } from '../../config/colors';
 
 export default function HomePage() {
   const router = useRouter();
@@ -30,9 +31,9 @@ export default function HomePage() {
 
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: COLORS.background.secondary }}>
       {/* Full Width Welcome Banner */}
-      <div className="w-full p-6 text-brand-white relative overflow-hidden animate-gradient-flow rounded-b-3xl border-b-4 border-brand-white">
+      <div className="w-full p-6 relative overflow-hidden animate-gradient-flow rounded-b-3xl border-b-4" style={{ backgroundColor: COLORS.primary.main, color: COLORS.success.text, borderColor: COLORS.success.text }}>
         {/* Animated Floral Watermark Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-4 left-4 w-16 h-16 animate-float-slow">
@@ -72,8 +73,8 @@ export default function HomePage() {
           <div className="mb-4">
             <Logo variant="default" color="white" size="lg" className="mb-4" />
           </div>
-          <h1 className="text-2xl font-bold mb-2">Welcome Back, {user?.name || 'Adventurer'}!</h1>
-          <p className="text-gray-200">Ready to continue your adventure?</p>
+          <h1 className="text-2xl font-bold mb-2" style={{ color: COLORS.success.text }}>Welcome Back, {user?.name || 'Adventurer'}!</h1>
+          <p style={{ color: COLORS.success.text, opacity: 0.8 }}>Ready to continue your adventure?</p>
         </div>
       </div>
       
@@ -82,43 +83,43 @@ export default function HomePage() {
 
         {/* Active Subscriptions */}
         {userSubscriptions && userSubscriptions.length > 0 && (
-          <div className="bg-brand-white rounded-xl p-6 shadow-sm border border-gray-100 mb-6">
-            <h2 className="text-lg font-semibold text-brand-black mb-4">Your Active Subscriptions</h2>
+          <div className="rounded-xl p-6 shadow-sm border mb-6" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}>
+            <h2 className="text-lg font-semibold mb-4" style={{ color: COLORS.text.primary }}>Your Active Subscriptions</h2>
             <div className="space-y-4">
               {userSubscriptions
                 .filter(sub => sub.status === 'ACTIVE')
                 .map((subscription) => (
-                  <div key={subscription.id} className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-4">
+                  <div key={subscription.id} className="rounded-xl p-4 border" style={{ backgroundColor: '#DCFCE7', borderColor: COLORS.success.main }}>
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                          <CreditCard className="h-5 w-5 text-green-600" />
+                        <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#DCFCE7' }}>
+                          <CreditCard className="h-5 w-5" style={{ color: COLORS.success.main }} />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-green-800">Active Subscription</h3>
-                          <p className="text-sm text-green-600">Started {new Date(subscription.start_date).toLocaleDateString()}</p>
+                          <h3 className="font-semibold" style={{ color: COLORS.text.primary }}>Active Subscription</h3>
+                          <p className="text-sm" style={{ color: COLORS.text.secondary }}>Started {new Date(subscription.start_date).toLocaleDateString()}</p>
                         </div>
                       </div>
-                      <span className="px-3 py-1 text-xs rounded-full bg-green-100 text-green-600 font-medium">
+                      <span className="px-3 py-1 text-xs rounded-full font-medium" style={{ backgroundColor: COLORS.success.main, color: COLORS.success.text }}>
                         ACTIVE
                       </span>
                     </div>
                     
                     {/* Credits Display */}
                     <div className="grid grid-cols-2 gap-4 mt-4">
-                      <div className="bg-brand-white rounded-lg p-3 border border-green-200">
+                      <div className="rounded-lg p-3 border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.success.main }}>
                         <div className="flex items-center space-x-2">
-                          <CreditCard className="h-4 w-4 text-green-600" />
-                          <span className="text-sm font-medium text-green-800">Subscriber Credits</span>
+                          <CreditCard className="h-4 w-4" style={{ color: COLORS.success.main }} />
+                          <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Subscriber Credits</span>
                         </div>
-                        <div className="text-xl font-bold text-green-600 mt-1">{subscription.available_credit}</div>
+                        <div className="text-xl font-bold mt-1" style={{ color: COLORS.text.primary }}>{subscription.available_credit}</div>
                       </div>
-                      <div className="bg-brand-white rounded-lg p-3 border border-green-200">
+                      <div className="rounded-lg p-3 border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.success.main }}>
                         <div className="flex items-center space-x-2">
-                          <Users className="h-4 w-4 text-green-600" />
-                          <span className="text-sm font-medium text-green-800">Guest Credits</span>
+                          <Users className="h-4 w-4" style={{ color: COLORS.success.main }} />
+                          <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Guest Credits</span>
                         </div>
-                        <div className="text-xl font-bold text-green-600 mt-1">{subscription.gift_credit}</div>
+                        <div className="text-xl font-bold mt-1" style={{ color: COLORS.text.primary }}>{subscription.gift_credit}</div>
                       </div>
                     </div>
                   </div>
@@ -131,46 +132,52 @@ export default function HomePage() {
         <div className="grid grid-cols-2 gap-4 mb-6">
           <button 
             onClick={() => router.push('/redeem')}
-            className="bg-brand-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition-shadow w-full text-left"
+            className="rounded-xl p-4 shadow-sm border hover:shadow-md transition-shadow w-full text-left"
+            style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
+            onMouseEnter={(e) => e.currentTarget.style.borderColor = COLORS.primary.main}
+            onMouseLeave={(e) => e.currentTarget.style.borderColor = '#e5e5e5'}
           >
-            <div className="w-12 h-12 bg-brand-primary rounded-lg flex items-center justify-center mb-3">
-              <Plus className="h-6 w-6 text-brand-white" />
+            <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-3" style={{ backgroundColor: COLORS.primary.main }}>
+              <Plus className="h-6 w-6" style={{ color: COLORS.success.text }} />
             </div>
-            <h3 className="font-semibold text-brand-black mb-1">New Quest</h3>
-            <p className="text-sm text-brand-primary">Start a new adventure</p>
+            <h3 className="font-semibold mb-1" style={{ color: COLORS.text.primary }}>New Quest</h3>
+            <p className="text-sm" style={{ color: COLORS.text.secondary }}>Start a new adventure</p>
           </button>
           
           <button 
             onClick={() => router.push('/plans')}
-            className="bg-brand-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition-shadow w-full text-left"
+            className="rounded-xl p-4 shadow-sm border hover:shadow-md transition-shadow w-full text-left"
+            style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
+            onMouseEnter={(e) => e.currentTarget.style.borderColor = COLORS.secondary.main}
+            onMouseLeave={(e) => e.currentTarget.style.borderColor = '#e5e5e5'}
           >
-            <div className="w-12 h-12 bg-brand-primary rounded-lg flex items-center justify-center mb-3">
-              <Calendar className="h-6 w-6 text-brand-white" />
+            <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-3" style={{ backgroundColor: COLORS.secondary.main }}>
+              <Calendar className="h-6 w-6" style={{ color: COLORS.success.text }} />
             </div>
-            <h3 className="font-semibold text-brand-black mb-1">Available Plans</h3>
-            <p className="text-sm text-brand-primary">View subscription plans</p>
+            <h3 className="font-semibold mb-1" style={{ color: COLORS.text.primary }}>Available Plans</h3>
+            <p className="text-sm" style={{ color: COLORS.text.secondary }}>View subscription plans</p>
           </button>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-3 gap-4">
-          <div className="bg-brand-white rounded-xl p-4 text-center shadow-sm border border-gray-100">
-            <div className="text-2xl font-bold text-brand-primary mb-1">
+          <div className="rounded-xl p-4 text-center shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}>
+            <div className="text-2xl font-bold mb-1" style={{ color: COLORS.text.primary }}>
               {userSubscriptions ? userSubscriptions.reduce((total, sub) => total + sub.available_credit + sub.gift_credit, 0) : 0}
             </div>
-            <div className="text-xs text-brand-primary">Total Credits</div>
+            <div className="text-xs" style={{ color: COLORS.text.secondary }}>Total Credits</div>
           </div>
-          <div className="bg-brand-white rounded-xl p-4 text-center shadow-sm border border-gray-100">
-            <div className="text-2xl font-bold text-brand-primary mb-1">
+          <div className="rounded-xl p-4 text-center shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}>
+            <div className="text-2xl font-bold mb-1" style={{ color: COLORS.text.primary }}>
               {userSubscriptions ? userSubscriptions.reduce((total, sub) => total + sub.available_credit, 0) : 0}
             </div>
-            <div className="text-xs text-brand-primary">Subscriber Credits</div>
+            <div className="text-xs" style={{ color: COLORS.text.secondary }}>Subscriber Credits</div>
           </div>
-          <div className="bg-brand-white rounded-xl p-4 text-center shadow-sm border border-gray-100">
-            <div className="text-2xl font-bold text-brand-primary mb-1">
+          <div className="rounded-xl p-4 text-center shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}>
+            <div className="text-2xl font-bold mb-1" style={{ color: COLORS.text.primary }}>
               {userSubscriptions ? userSubscriptions.reduce((total, sub) => total + sub.gift_credit, 0) : 0}
             </div>
-            <div className="text-xs text-brand-primary">Guest Credits</div>
+            <div className="text-xs" style={{ color: COLORS.text.secondary }}>Guest Credits</div>
           </div>
         </div>
       </div>

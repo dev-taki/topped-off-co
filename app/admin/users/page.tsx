@@ -261,7 +261,7 @@ export default function AdminUsersPage() {
           <button
             onClick={() => setShowCreateForm(true)}
             className="px-4 py-2 rounded-xl transition-colors flex items-center"
-            style={{ backgroundColor: COLORS.primary.main, color: COLORS.primary.text }}
+            style={{ backgroundColor: COLORS.primary.main, color: COLORS.success.text }}
             onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
           >
@@ -282,7 +282,7 @@ export default function AdminUsersPage() {
                 placeholder="Search by email..."
                 className="w-full px-4 py-3 pl-10 border rounded-xl focus:ring-2 focus:border-transparent"
                 style={{ 
-                  borderColor: COLORS.neutral.gray[300],
+                  borderColor: COLORS.border.secondary,
                   backgroundColor: COLORS.background.primary,
                   color: COLORS.text.primary
                 }}
@@ -291,12 +291,12 @@ export default function AdminUsersPage() {
                   e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
                 }}
                 onBlur={(e) => {
-                  e.target.style.borderColor = COLORS.neutral.gray[300];
+                  e.target.style.borderColor = COLORS.border.secondary;
                   e.target.style.boxShadow = 'none';
                 }}
               />
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5" style={{ color: COLORS.neutral.gray[400] }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5" style={{ color: '#9ca3af' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
@@ -304,7 +304,7 @@ export default function AdminUsersPage() {
             <button
               onClick={handleSearch}
               className="px-4 py-3 rounded-xl font-medium transition-colors"
-              style={{ backgroundColor: COLORS.primary.main, color: COLORS.primary.text }}
+              style={{ backgroundColor: COLORS.primary.main, color: COLORS.success.text }}
               onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
             >
@@ -314,9 +314,9 @@ export default function AdminUsersPage() {
               <button
                 onClick={handleClearSearch}
                 className="px-4 py-3 rounded-xl font-medium transition-colors"
-                style={{ backgroundColor: COLORS.neutral.gray[500], color: COLORS.neutral.gray[100] }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.neutral.gray[600]}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.neutral.gray[500]}
+                style={{ backgroundColor: '#737373', color: '#f5f5f5' }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#525252'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#737373'}
               >
                 Clear
               </button>
@@ -329,14 +329,14 @@ export default function AdminUsersPage() {
         {/* Users List */}
         <div className="space-y-4">
           {filteredUsers.length === 0 ? (
-            <div className="rounded-xl p-8 text-center shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
-              <User className="h-16 w-16 mx-auto mb-4" style={{ color: COLORS.neutral.gray[400] }} />
+            <div className="rounded-xl p-8 text-center shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}>
+              <User className="h-16 w-16 mx-auto mb-4" style={{ color: '#9ca3af' }} />
               <h3 className="text-xl font-medium mb-2" style={{ color: COLORS.text.primary }}>No Users Found</h3>
               <p className="mb-4" style={{ color: COLORS.text.secondary }}>Create your first user account to get started.</p>
               <button
                 onClick={() => setShowCreateForm(true)}
                 className="px-6 py-3 rounded-xl transition-colors"
-                style={{ backgroundColor: COLORS.primary.main, color: COLORS.primary.text }}
+                style={{ backgroundColor: COLORS.primary.main, color: COLORS.success.text }}
                 onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
               >
@@ -352,7 +352,7 @@ export default function AdminUsersPage() {
                       <User className="h-5 w-5 text-[#3B3B3B]" />
                       <h3 className="text-lg font-semibold text-gray-900">{user.name}</h3>
                       <span className={`px-2 py-1 text-xs rounded-full ${
-                        user.role === 'admin' ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-gray-800'
+                        user.role === 'admin' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'
                       }`}>
                         {user.role}
                       </span>
@@ -448,7 +448,10 @@ export default function AdminUsersPage() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="flex-1 bg-[#3B3B3B] text-white py-3 px-4 rounded-xl font-medium hover:bg-[#525252] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                    className="flex-1 py-3 px-4 rounded-xl font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                    style={{ backgroundColor: COLORS.primary.main, color: COLORS.success.text }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
                   >
                     {submitting ? (
                       <>
@@ -546,7 +549,10 @@ export default function AdminUsersPage() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="flex-1 bg-[#3B3B3B] text-white py-3 px-4 rounded-xl font-medium hover:bg-[#525252] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                    className="flex-1 py-3 px-4 rounded-xl font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                    style={{ backgroundColor: COLORS.primary.main, color: COLORS.success.text }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
                   >
                     {submitting ? (
                       <>

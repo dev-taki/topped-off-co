@@ -11,6 +11,7 @@ import { Logo } from '../components/Logo';
 import { SignupData } from '../types';
 import { User, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { AuthService } from '../services/authService';
+import { COLORS } from '../config/colors';
 
 export default function SignupPage() {
   const dispatch = useAppDispatch();
@@ -173,7 +174,10 @@ export default function SignupPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex justify-center py-4 px-4 border border-transparent rounded-lg text-sm font-montserrat font-medium text-brand-white bg-brand-black hover:bg-brand-primary focus:outline-none focus:ring-0 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wide"
+            className="w-full flex justify-center py-4 px-4 border border-transparent rounded-lg text-sm font-montserrat font-medium focus:outline-none focus:ring-0 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wide"
+            style={{ backgroundColor: COLORS.primary.main, color: COLORS.success.text }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
           >
             {loading ? <ButtonLoader size="sm" /> : 'Create Account'}
           </button>

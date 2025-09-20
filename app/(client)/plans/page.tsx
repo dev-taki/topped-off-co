@@ -114,7 +114,7 @@ export default function PlansPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3B3B3B]"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2" style={{ borderColor: COLORS.primary.main }}></div>
       </div>
     );
   }
@@ -127,18 +127,18 @@ export default function PlansPage() {
 
         {/* Active Subscription Warning */}
         {hasActiveSubscription() && (
-          <div className="mb-6 p-6 rounded-xl shadow-sm" style={{ backgroundColor: COLORS.warning.light, borderColor: COLORS.warning.main }}>
+          <div className="mb-6 p-6 rounded-xl shadow-sm border" style={{ backgroundColor: '#FEF3C7', borderColor: COLORS.warning.main }}>
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: COLORS.warning.main }}>
-                  <CreditCard className="h-5 w-5" style={{ color: COLORS.warning.text }} />
+                  <CreditCard className="h-5 w-5" style={{ color: '#FFFFFF' }} />
                 </div>
               </div>
               <div className="ml-4">
-                <h3 className="text-lg font-semibold" style={{ color: COLORS.warning.dark }}>
+                <h3 className="text-lg font-semibold" style={{ color: '#D97706' }}>
                   Active Subscription Detected
                 </h3>
-                <p className="mt-1" style={{ color: COLORS.warning.dark }}>
+                <p className="mt-1" style={{ color: '#D97706' }}>
                   You already have an active subscription. Please cancel your current subscription before subscribing to a new plan.
                 </p>
               </div>
@@ -150,18 +150,18 @@ export default function PlansPage() {
         {plans.length > 0 && (
           <div className="space-y-8">
             {plans.map((plan, planIndex) => (
-              <div key={plan.object_id} className="rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+              <div key={plan.object_id} className="rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}>
                 {/* Plan Header */}
-                <div className="p-8 relative overflow-hidden" style={{ backgroundColor: planIndex % 2 === 0 ? COLORS.primary.main : COLORS.accent.purple }}>
+                <div className="p-8 relative overflow-hidden" style={{ backgroundColor: planIndex % 2 === 0 ? COLORS.primary.main : COLORS.secondary.main }}>
                   <div className="absolute inset-0" style={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}></div>
                   <div className="relative z-10">
                     <div className="flex items-center justify-between mb-3">
-                      <h2 className="text-3xl font-bold" style={{ color: COLORS.primary.text }}>{plan.name}</h2>
+                      <h2 className="text-3xl font-bold" style={{ color: planIndex % 2 === 0 ? COLORS.success.text : COLORS.success.text }}>{plan.name}</h2>
                       <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}>
-                        <Star className="h-6 w-6" style={{ color: COLORS.primary.text }} />
+                        <Star className="h-6 w-6" style={{ color: planIndex % 2 === 0 ? COLORS.success.text : COLORS.success.text }} />
                       </div>
                     </div>
-                    <p className="text-lg" style={{ color: COLORS.primary.text, opacity: 0.9 }}>
+                    <p className="text-lg" style={{ color: planIndex % 2 === 0 ? COLORS.success.text : COLORS.success.text, opacity: 0.9 }}>
                       {getPlanVariations(plan.object_id).length} variation{getPlanVariations(plan.object_id).length !== 1 ? 's' : ''} available
                     </p>
                   </div>
@@ -173,15 +173,15 @@ export default function PlansPage() {
                     <div
                       key={`${plan.object_id}-${variation.object_id}-${index}`}
                       className="rounded-xl p-6 hover:shadow-lg transition-all duration-300 border"
-                      style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}
+                      style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
                     >
                       <div className="mb-6">
                         <div className="flex items-center justify-between mb-4">
                           <h3 className="text-xl font-bold" style={{ color: COLORS.text.primary }}>
                             {variation.name}
                           </h3>
-                          <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: COLORS.accent.blue }}>
-                            <Calendar className="h-4 w-4" style={{ color: COLORS.primary.text }} />
+                          <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: COLORS.secondary.main }}>
+                            <Calendar className="h-4 w-4" style={{ color: COLORS.success.text }} />
                           </div>
                         </div>
                         
@@ -191,8 +191,8 @@ export default function PlansPage() {
                             <img
                               src={variation.image_link}
                               alt={`${variation.name} plan image`}
-                              className="w-full h-48 object-cover rounded-xl"
-                              style={{ borderColor: COLORS.neutral.gray[200] }}
+                              className="w-full h-48 object-cover rounded-xl border"
+                              style={{ borderColor: COLORS.border.primary }}
                               onError={(e) => {
                                 // Hide image if it fails to load
                                 e.currentTarget.style.display = 'none';
@@ -202,14 +202,14 @@ export default function PlansPage() {
                         )}
                         
                         {/* Price and Billing Info */}
-                        <div className="rounded-xl p-5 mb-4" style={{ backgroundColor: COLORS.neutral.gray[50], borderColor: COLORS.neutral.gray[200] }}>
+                        <div className="rounded-xl p-5 mb-4 border" style={{ backgroundColor: '#fafafa', borderColor: COLORS.border.primary }}>
                           <div className="flex items-center justify-between mb-3">
                             <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Monthly Price:</span>
                             <span className="text-2xl font-bold" style={{ color: COLORS.primary.main }}>${(variation.amount / 100).toFixed(2)}</span>
                           </div>
                           <div className="flex items-center justify-between mb-3">
                             <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Billing Cycle:</span>
-                            <span className="text-sm font-semibold px-3 py-1 rounded-full" style={{ backgroundColor: COLORS.accent.blue, color: COLORS.primary.text }}>{variation.cadence.toLowerCase()}</span>
+                            <span className="text-sm font-semibold px-3 py-1 rounded-full" style={{ backgroundColor: COLORS.secondary.main, color: COLORS.success.text }}>{variation.cadence.toLowerCase()}</span>
                           </div>
                           {/* <div className="flex items-center justify-between">
                             <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Credits per Month:</span>
@@ -234,8 +234,8 @@ export default function PlansPage() {
                         disabled={hasActiveSubscription()}
                         className="w-full py-4 px-6 rounded-xl font-semibold flex items-center justify-center transition-all duration-300"
                         style={{
-                          backgroundColor: hasActiveSubscription() ? COLORS.neutral.gray[300] : COLORS.primary.main,
-                          color: hasActiveSubscription() ? COLORS.neutral.gray[500] : COLORS.primary.text,
+                          backgroundColor: hasActiveSubscription() ? '#d4d4d4' : COLORS.primary.main,
+                          color: hasActiveSubscription() ? '#737373' : COLORS.success.text,
                           cursor: hasActiveSubscription() ? 'not-allowed' : 'pointer',
                         }}
                         onMouseEnter={(e) => {
@@ -263,8 +263,8 @@ export default function PlansPage() {
         {/* No Plans Available */}
         {plans.length === 0 && !loading && (
           <div className="text-center py-16">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6" style={{ backgroundColor: COLORS.neutral.gray[100] }}>
-              <CreditCard className="h-10 w-10" style={{ color: COLORS.neutral.gray[400] }} />
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6" style={{ backgroundColor: '#f5f5f5' }}>
+              <CreditCard className="h-10 w-10" style={{ color: '#a3a3a3' }} />
             </div>
             <h3 className="text-2xl font-bold mb-3" style={{ color: COLORS.text.primary }}>No Plans Available</h3>
             <p className="text-lg" style={{ color: COLORS.text.secondary }}>Check back later for subscription plans</p>
@@ -276,12 +276,12 @@ export default function PlansPage() {
       {/* Payment Form Modal - Higher Priority */}
       {showPaymentForm && selectedVariation && (
         <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999]" style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
-          <div className="rounded-2xl max-w-md w-full max-h-[80vh] overflow-y-auto shadow-2xl" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[100] }}>
+          <div className="rounded-2xl max-w-md w-full max-h-[80vh] overflow-y-auto shadow-2xl border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.light }}>
             <div className="p-8">
               <div className="flex justify-between items-center mb-6">
                 <div className="flex items-center">
                   <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3" style={{ backgroundColor: COLORS.primary.main }}>
-                    <CreditCard className="h-5 w-5" style={{ color: COLORS.primary.text }} />
+                    <CreditCard className="h-5 w-5" style={{ color: COLORS.success.text }} />
                   </div>
                   <h3 className="text-xl font-bold" style={{ color: COLORS.text.primary }}>
                     Subscribe to {selectedVariation.name}
@@ -290,15 +290,15 @@ export default function PlansPage() {
                 <button
                   onClick={handlePaymentCancel}
                   className="p-2 rounded-full transition-colors"
-                  style={{ color: COLORS.neutral.gray[400] }}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.neutral.gray[100]}
+                  style={{ color: '#a3a3a3' }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                 >
                   ✕
                 </button>
               </div>
               
-              <div className="mb-6 p-5 rounded-xl" style={{ backgroundColor: COLORS.neutral.gray[50], borderColor: COLORS.neutral.gray[200] }}>
+              <div className="mb-6 p-5 rounded-xl border" style={{ backgroundColor: '#fafafa', borderColor: COLORS.border.primary }}>
                 <div className="text-sm" style={{ color: COLORS.text.secondary }}>
                   <div className="font-semibold mb-2" style={{ color: COLORS.text.primary }}>Plan Details:</div>
                   <div className="flex justify-between items-center mb-2">
@@ -308,7 +308,7 @@ export default function PlansPage() {
                   {selectedVariation.credit > 0 && (
                     <div className="flex justify-between items-center">
                       <span>Credits:</span>
-                      <span className="font-bold" style={{ color: COLORS.accent.green }}>{selectedVariation.credit} per {selectedVariation.cadence.toLowerCase()}</span>
+                      <span className="font-bold" style={{ color: COLORS.secondary.main }}>{selectedVariation.credit} per {selectedVariation.cadence.toLowerCase()}</span>
                     </div>
                   )}
                 </div>

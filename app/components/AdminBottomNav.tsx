@@ -2,6 +2,7 @@
 
 import { useRouter, usePathname } from 'next/navigation';
 import { Home, User, Gift } from 'lucide-react';
+import { COLORS } from '../config/colors';
 
 export default function AdminBottomNav() {
   const router = useRouter();
@@ -19,11 +20,11 @@ export default function AdminBottomNav() {
           onClick={() => router.push('/admin/dashboard')}
           className={`flex flex-col items-center py-2 px-4 rounded-lg transition-colors ${
             isActive('/admin/dashboard') 
-              ? 'text-[#3B3B3B] bg-[#f5f5f5]' 
+              ? 'text-gray-700 bg-gray-100' 
               : 'text-gray-600 hover:text-gray-900'
           }`}
         >
-          <Home className={`h-6 w-6 mb-1 ${isActive('/admin/dashboard') ? 'text-[#3B3B3B]' : 'text-gray-600'}`} />
+          <Home className={`h-6 w-6 mb-1 ${isActive('/admin/dashboard') ? 'text-gray-700' : 'text-gray-600'}`} />
           <span className="text-xs font-medium">Home</span>
         </button>
 
@@ -32,11 +33,11 @@ export default function AdminBottomNav() {
           onClick={() => router.push('/admin/profile')}
           className={`flex flex-col items-center py-2 px-4 rounded-lg transition-colors ${
             isActive('/admin/profile') 
-              ? 'text-[#3B3B3B] bg-[#f5f5f5]' 
+              ? 'text-gray-700 bg-gray-100' 
               : 'text-gray-600 hover:text-gray-900'
           }`}
         >
-          <User className={`h-6 w-6 mb-1 ${isActive('/admin/profile') ? 'text-[#3B3B3B]' : 'text-gray-600'}`} />
+          <User className={`h-6 w-6 mb-1 ${isActive('/admin/profile') ? 'text-gray-700' : 'text-gray-600'}`} />
           <span className="text-xs font-medium">Profile</span>
         </button>
 
@@ -45,11 +46,11 @@ export default function AdminBottomNav() {
           onClick={() => router.push('/admin/redeem')}
           className={`flex flex-col items-center py-2 px-4 rounded-lg transition-colors ${
             isActive('/admin/redeem') 
-              ? 'text-[#3B3B3B] bg-[#f5f5f5]' 
+              ? 'text-gray-700 bg-gray-100' 
               : 'text-gray-600 hover:text-gray-900'
           }`}
         >
-          <Gift className={`h-6 w-6 mb-1 ${isActive('/admin/redeem') ? 'text-[#3B3B3B]' : 'text-gray-600'}`} />
+          <Gift className={`h-6 w-6 mb-1 ${isActive('/admin/redeem') ? 'text-gray-700' : 'text-gray-600'}`} />
           <span className="text-xs font-medium">Redeem</span>
         </button>
       </div>

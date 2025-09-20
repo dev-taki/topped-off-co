@@ -193,10 +193,10 @@ export default function RedeemPage() {
 
         {/* Credit Balance Display */}
         <div className="flex justify-center mb-6">
-          <div className="rounded-xl p-6 shadow-sm border max-w-sm w-full" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+          <div className="rounded-xl p-6 shadow-sm border max-w-sm w-full" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}>
             <div className="flex items-center space-x-4 mb-4">
               <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: COLORS.primary.main }}>
-                <CreditCard className="h-6 w-6" style={{ color: COLORS.primary.text }} />
+                <CreditCard className="h-6 w-6" style={{ color: COLORS.success.text }} />
               </div>
               <div>
                 <h3 className="text-lg font-semibold" style={{ color: COLORS.text.primary }}>Available Credits</h3>
@@ -227,7 +227,7 @@ export default function RedeemPage() {
               className="px-6 py-3 rounded-xl font-medium transition-colors flex items-center"
               style={{ 
                 backgroundColor: COLORS.primary.main, 
-                color: COLORS.primary.text 
+                color: COLORS.success.text 
               }}
               onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
@@ -236,12 +236,12 @@ export default function RedeemPage() {
               New Redeem Request
             </button>
           ) : (
-            <div className="rounded-xl p-4 text-center" style={{ backgroundColor: COLORS.warning.light, borderColor: COLORS.warning.main, border: '1px solid' }}>
+            <div className="rounded-xl p-4 text-center" style={{ backgroundColor: '#FEF3C7', borderColor: COLORS.warning.main, border: '1px solid' }}>
               <div className="flex items-center justify-center space-x-2 mb-2">
                 <AlertCircle className="h-5 w-5" style={{ color: COLORS.warning.main }} />
-                <span className="font-medium" style={{ color: COLORS.warning.dark }}>No Credits Available</span>
+                <span className="font-medium" style={{ color: '#D97706' }}>No Credits Available</span>
               </div>
-              <p className="text-sm" style={{ color: COLORS.warning.dark }}>You need subscription credits to create redeem requests. Please check your subscription plans.</p>
+              <p className="text-sm" style={{ color: '#D97706' }}>You need subscription credits to create redeem requests. Please check your subscription plans.</p>
             </div>
           )}
         </div>
@@ -251,8 +251,8 @@ export default function RedeemPage() {
         {/* Redeem Items List */}
         <div className="space-y-4">
           {redeemItems.length === 0 ? (
-            <div className="rounded-xl p-8 text-center shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
-              <CreditCard className="h-16 w-16 mx-auto mb-4" style={{ color: COLORS.neutral.gray[400] }} />
+            <div className="rounded-xl p-8 text-center shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}>
+              <CreditCard className="h-16 w-16 mx-auto mb-4" style={{ color: COLORS.text.secondary }} />
               <h3 className="text-xl font-medium mb-2" style={{ color: COLORS.text.primary }}>No Redeem Requests</h3>
               <p style={{ color: COLORS.text.secondary }}>Start by creating your first redeem request.</p>
             </div>
@@ -262,7 +262,7 @@ export default function RedeemPage() {
                 key={item.id}
                 ref={index === redeemItems.length - 1 ? lastRedeemElementRef : null}
                 className="rounded-xl p-6 shadow-sm border"
-                style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}
+                style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
               >
                 <div className="space-y-3">
                   {/* Header */}
@@ -315,14 +315,14 @@ export default function RedeemPage() {
         {showAddForm && (
           <div className="fixed inset-0 flex items-center justify-center p-4 pb-12 z-50" style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
             <div className="rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto" style={{ backgroundColor: COLORS.background.primary }}>
-              <div className="p-6 border-b flex justify-between items-center" style={{ borderColor: COLORS.neutral.gray[200] }}>
+              <div className="p-6 border-b flex justify-between items-center" style={{ borderColor: COLORS.border.primary }}>
                 <h2 className="text-xl font-bold" style={{ color: COLORS.text.primary }}>New Redeem Request</h2>
                 <button
                   onClick={() => setShowAddForm(false)}
                   className="p-2 transition-colors"
-                  style={{ color: COLORS.neutral.gray[400] }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = COLORS.neutral.gray[600]}
-                  onMouseLeave={(e) => e.currentTarget.style.color = COLORS.neutral.gray[400]}
+                  style={{ color: COLORS.text.secondary }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = COLORS.text.primary}
+                  onMouseLeave={(e) => e.currentTarget.style.color = COLORS.text.secondary}
                 >
                   ✕
                 </button>
@@ -338,7 +338,7 @@ export default function RedeemPage() {
                 </div>
 
                 {/* Credit Information */}
-                <div className="rounded-lg p-4 mb-4" style={{ backgroundColor: COLORS.neutral.gray[50] }}>
+                <div className="rounded-lg p-4 mb-4" style={{ backgroundColor: '#fafafa' }}>
                   <div className="flex items-center justify-between">
                     <span className="text-sm" style={{ color: COLORS.text.secondary }}>Available Credits:</span>
                     <span className="text-lg font-semibold" style={{ color: COLORS.primary.main }}>{getTotalCredits()}</span>
@@ -347,12 +347,12 @@ export default function RedeemPage() {
 
                 {/* Warning message when no credits are available */}
                 {!canRedeem() && (
-                  <div className="border rounded-lg p-3 mb-4" style={{ backgroundColor: COLORS.warning.light, borderColor: COLORS.warning.main }}>
+                  <div className="border rounded-lg p-3 mb-4" style={{ backgroundColor: '#FEF3C7', borderColor: COLORS.warning.main }}>
                     <div className="flex items-center space-x-2">
                       <AlertCircle className="h-4 w-4" style={{ color: COLORS.warning.main }} />
-                      <span className="text-sm font-medium" style={{ color: COLORS.warning.dark }}>No credits available</span>
+                      <span className="text-sm font-medium" style={{ color: '#D97706' }}>No credits available</span>
                     </div>
-                    <p className="text-xs mt-1" style={{ color: COLORS.warning.dark }}>You need subscription credits to create redeem requests. Please check your subscription plans.</p>
+                    <p className="text-xs mt-1" style={{ color: '#D97706' }}>You need subscription credits to create redeem requests. Please check your subscription plans.</p>
                   </div>
                 )}
 
@@ -362,11 +362,11 @@ export default function RedeemPage() {
                     onClick={() => setShowAddForm(false)}
                     className="flex-1 border py-3 px-4 rounded-xl font-medium transition-colors"
                     style={{ 
-                      borderColor: COLORS.neutral.gray[300], 
+                      borderColor: COLORS.border.secondary, 
                       color: COLORS.text.secondary,
                       backgroundColor: 'transparent'
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.neutral.gray[50]}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#fafafa'}
                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                   >
                     Cancel
@@ -376,8 +376,8 @@ export default function RedeemPage() {
                     disabled={submitting || !canRedeem()}
                     className="flex-1 py-3 px-4 rounded-xl font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                     style={{ 
-                      backgroundColor: canRedeem() ? COLORS.primary.main : COLORS.neutral.gray[300], 
-                      color: canRedeem() ? COLORS.primary.text : COLORS.neutral.gray[500]
+                      backgroundColor: canRedeem() ? COLORS.primary.main : '#d1d5db', 
+                      color: canRedeem() ? COLORS.success.text : '#737373'
                     }}
                     onMouseEnter={(e) => {
                       if (canRedeem() && !submitting) {

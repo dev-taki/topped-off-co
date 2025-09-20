@@ -1098,7 +1098,7 @@ export default function MembersManagementPage() {
   };
 
   const getStatusColor = (status: string) => {
-    return status === 'ACTIVE' ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-600';
+    return status === 'ACTIVE' ? 'bg-green-100' : 'bg-gray-100';
   };
 
       if (loading || subscriptionsLoading) {
@@ -1128,7 +1128,7 @@ export default function MembersManagementPage() {
           <button
             onClick={() => handleCreateSubscriptionWithCard()}
             className="w-full py-3 px-4 rounded-xl font-medium transition-colors flex items-center justify-center"
-            style={{ backgroundColor: COLORS.primary.main, color: COLORS.primary.text }}
+            style={{ backgroundColor: COLORS.primary.main, color: COLORS.success.text }}
             onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
           >
@@ -1161,7 +1161,7 @@ export default function MembersManagementPage() {
                                       className="w-full px-4 py-3 pl-10 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#8c52ff] focus:border-transparent"
               />
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5 [style-color-gray-400]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
@@ -1169,7 +1169,7 @@ export default function MembersManagementPage() {
             <button
               onClick={handleSearch}
               className="px-4 py-3 rounded-xl font-medium transition-colors"
-              style={{ backgroundColor: COLORS.primary.main, color: COLORS.primary.text }}
+              style={{ backgroundColor: COLORS.primary.main, color: COLORS.success.text }}
               onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
             >
@@ -1179,9 +1179,9 @@ export default function MembersManagementPage() {
               <button
                 onClick={handleClearSearch}
                 className="px-4 py-3 rounded-xl font-medium transition-colors"
-                style={{ backgroundColor: COLORS.neutral.gray[500], color: COLORS.neutral.gray[100] }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.neutral.gray[600]}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.neutral.gray[500]}
+                style={{ backgroundColor: '#737373', color: '#f5f5f5' }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#525252'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#737373'}
               >
                 Clear
               </button>
@@ -1192,14 +1192,14 @@ export default function MembersManagementPage() {
         {/* Error Message */}
         {error && (
           <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl">
-            <p className="text-sm text-red-600">{error}</p>
+            <p className="text-sm" style={{ color: COLORS.error.main }}>{error}</p>
           </div>
         )}
 
         {/* Subscriptions List */}
         <div className="space-y-4">
           {filteredSubscriptions.map((subscription) => (
-            <div key={subscription.id} className="rounded-xl shadow-sm p-4 border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+            <div key={subscription.id} className="rounded-xl shadow-sm p-4 border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}>
               <div className="flex justify-between items-start mb-4">
                 <div className="flex-1">
                   <div className="flex items-center space-x-2 mb-2">
@@ -1221,7 +1221,7 @@ export default function MembersManagementPage() {
                 </div>
                 <div className="flex items-center space-x-2">
                   {subscription.business_id !== BUSINESS_ID && (
-                    <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                    <span className="text-xs bg-gray-100 px-2 py-1 rounded" style={{ color: COLORS.text.secondary }}>
                       Other Business
                     </span>
                   )}
@@ -1230,8 +1230,8 @@ export default function MembersManagementPage() {
                     disabled={subscription.business_id !== BUSINESS_ID}
                     className={`p-2 rounded-lg transition-colors ${
                       subscription.business_id === BUSINESS_ID
-                        ? 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                        : 'text-gray-400 cursor-not-allowed'
+                        ? 'hover:bg-gray-100'
+                        : 'cursor-not-allowed'
                     }`}
                     title={subscription.business_id !== BUSINESS_ID ? 'You can only edit subscriptions from your own business' : 'Edit subscription'}
                   >
@@ -1246,20 +1246,20 @@ export default function MembersManagementPage() {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <div className="flex items-center space-x-2 mb-1">
-                        <CreditCard className="h-4 w-4 text-blue-600" />
-                        <span className="text-sm font-medium text-blue-700">Available Credits</span>
+                        <CreditCard className="h-4 w-4" style={{ color: COLORS.text.primary }} />
+                        <span className="text-sm font-medium" style={{ color: COLORS.text.primary }}>Available Credits</span>
                       </div>
-                      <div className="text-2xl font-bold text-blue-800">{subscription.available_credit}</div>
-                      <div className="text-xs text-blue-600 mt-1">
+                      <div className="text-2xl font-bold" style={{ color: COLORS.text.primary }}>{subscription.available_credit}</div>
+                      <div className="text-xs mt-1" style={{ color: COLORS.text.secondary }}>
                         Credits remaining for redemption
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-xs text-blue-600 mb-1">Subscription</div>
-                      <div className="text-sm font-semibold text-blue-800">
+                      <div className="text-xs mb-1" style={{ color: COLORS.text.secondary }}>Subscription</div>
+                      <div className="text-sm font-semibold" style={{ color: COLORS.text.primary }}>
                         ${(subscription.subscription_amount / 100).toFixed(2)}
                       </div>
-                      <div className="text-xs text-blue-600">
+                      <div className="text-xs" style={{ color: COLORS.text.secondary }}>
                         per {subscription.cadence.toLowerCase()}
                       </div>
                     </div>
@@ -1270,26 +1270,26 @@ export default function MembersManagementPage() {
               {/* Date Information */}
               <div className="mb-4">
                 <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
-                  <h4 className="text-sm font-medium text-gray-700 mb-2">Subscription Dates</h4>
+                  <h4 className="text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>Subscription Dates</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                     <div>
-                      <span className="text-gray-600">Start Date:</span>
-                      <span className="ml-2 font-medium text-gray-800">
+                      <span style={{ color: COLORS.text.secondary }}>Start Date:</span>
+                      <span className="ml-2 font-medium" style={{ color: COLORS.text.primary }}>
                         {subscription.start_date ? formatDate(subscription.start_date) : 'Not set'}
                       </span>
                     </div>
                     <div>
-                      <span className="text-gray-600">End Date:</span>
-                      <span className="ml-2 font-medium text-gray-800">
+                      <span style={{ color: COLORS.text.secondary }}>End Date:</span>
+                      <span className="ml-2 font-medium" style={{ color: COLORS.text.primary }}>
                         {subscription.end_date ? formatDate(subscription.end_date) : 'Not set'}
                       </span>
                     </div>
                   </div>
                   {subscription.cancellation_data && (
                     <div className="mt-3 pt-3 border-t border-gray-200">
-                      <span className="text-gray-600">Cancellation Data:</span>
+                      <span style={{ color: COLORS.text.secondary }}>Cancellation Data:</span>
                       <div className="mt-1 p-2 bg-red-50 border border-red-200 rounded text-xs">
-                        <pre className="text-red-700 whitespace-pre-wrap break-words">
+                        <pre className="whitespace-pre-wrap break-words" style={{ color: COLORS.error.main }}>
                           {JSON.stringify(subscription.cancellation_data, null, 2)}
                         </pre>
                       </div>
@@ -1299,7 +1299,7 @@ export default function MembersManagementPage() {
               </div>
 
               {/* Additional Info */}
-              <div className="text-xs text-gray-500 space-y-1">
+              <div className="text-xs space-y-1" style={{ color: COLORS.text.secondary }}>
                 <p>Location ID: {subscription.location_id}</p>
                 <p>Plan Variation ID: {subscription.plan_variation_id}</p>
               </div>
@@ -1309,8 +1309,8 @@ export default function MembersManagementPage() {
 
         {filteredSubscriptions.length === 0 && !loading && (
           <div className="text-center py-8">
-            <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-600">
+            <Users className="h-12 w-12 [style-color-gray-400] mx-auto mb-4" />
+            <p style={{ color: COLORS.text.secondary }}>
               {searchEmail ? `No subscriptions found for email "${searchEmail}".` : 'No subscriptions found. Create your first subscription to get started.'}
             </p>
           </div>
@@ -1323,10 +1323,10 @@ export default function MembersManagementPage() {
           <div className="bg-white rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold text-gray-900">Create New User & Subscription</h2>
+                <h2 className="text-xl font-bold" style={{ color: COLORS.text.primary }}>Create New User & Subscription</h2>
                 <button
                   onClick={() => setShowCreateForm(false)}
-                  className="p-2 text-gray-600 hover:text-gray-900"
+                  className="p-2 hover:bg-gray-100"
                 >
                   <X className="h-6 w-6" />
                 </button>
@@ -1334,7 +1334,7 @@ export default function MembersManagementPage() {
 
               <form onSubmit={handleCreateUserAndSubscriptionSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>
                     Full Name *
                   </label>
                   <input
@@ -1348,7 +1348,7 @@ export default function MembersManagementPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>
                     Email Address *
                   </label>
                   <input
@@ -1362,7 +1362,7 @@ export default function MembersManagementPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>
                     Password *
                   </label>
                   <input
@@ -1376,12 +1376,12 @@ export default function MembersManagementPage() {
                 </div>
 
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                  <p className="text-sm text-blue-700">
+                  <p className="text-sm" style={{ color: COLORS.text.secondary }}>
                     <strong>Note:</strong> This will create a new user account and automatically create a subscription.
                   </p>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>
                     Status *
                   </label>
                   <select
@@ -1396,7 +1396,7 @@ export default function MembersManagementPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>
                     Start Date *
                   </label>
                   <input
@@ -1409,7 +1409,7 @@ export default function MembersManagementPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>
                     Reduce Subscriber Credits
                   </label>
                   <input
@@ -1420,7 +1420,7 @@ export default function MembersManagementPage() {
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="0"
                   />
-                  <p className="text-xs text-gray-500 mt-1">Enter amount to reduce from current credits</p>
+                  <p className="text-xs mt-1" style={{ color: COLORS.text.secondary }}>Enter amount to reduce from current credits</p>
                 </div>
 
 
@@ -1429,14 +1429,18 @@ export default function MembersManagementPage() {
                   <button
                     type="button"
                     onClick={() => setShowCreateForm(false)}
-                    className="flex-1 border border-gray-300 text-gray-700 py-3 px-4 rounded-xl font-medium hover:bg-gray-50 transition-colors"
+                    className="flex-1 border border-gray-300 py-3 px-4 rounded-xl font-medium hover:bg-gray-50 transition-colors"
+                    style={{ color: COLORS.text.primary }}
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="flex-1 bg-[#8c52ff] text-white py-3 px-4 rounded-xl font-medium hover:bg-[#7a47e6] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                    className="flex-1 py-3 px-4 rounded-xl font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                    style={{ backgroundColor: COLORS.primary.main, color: COLORS.success.text }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
                   >
                     {submitting ? (
                       <>
@@ -1463,10 +1467,10 @@ export default function MembersManagementPage() {
           <div className="bg-white rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold text-gray-900">Edit Subscription</h2>
+                <h2 className="text-xl font-bold" style={{ color: COLORS.text.primary }}>Edit Subscription</h2>
                 <button
                   onClick={() => setShowEditForm(false)}
-                  className="p-2 text-gray-600 hover:text-gray-900"
+                  className="p-2 hover:bg-gray-100"
                 >
                   <X className="h-6 w-6" />
                 </button>
@@ -1475,39 +1479,42 @@ export default function MembersManagementPage() {
               <form onSubmit={handleUpdateSubscription} className="space-y-4">
                 {/* User Information */}
                 <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                  <h3 className="text-sm font-medium text-gray-700 mb-3">User Information</h3>
+                  <h3 className="text-sm font-medium mb-3" style={{ color: COLORS.text.primary }}>User Information</h3>
                   <div className="space-y-2">
                     <div>
-                      <label className="block text-xs font-medium text-gray-600 mb-1">
+                      <label className="block text-xs font-medium mb-1" style={{ color: COLORS.text.secondary }}>
                         Email
                       </label>
                       <input
                         type="email"
                         value={selectedSubscription.email}
                         disabled
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-600 text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm"
+                        style={{ color: COLORS.text.secondary }}
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-gray-600 mb-1">
+                      <label className="block text-xs font-medium mb-1" style={{ color: COLORS.text.secondary }}>
                         User ID
                       </label>
                       <input
                         type="text"
                         value={selectedSubscription.user_id}
                         disabled
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-600 text-sm font-mono"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm font-mono"
+                        style={{ color: COLORS.text.secondary }}
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-gray-600 mb-1">
+                      <label className="block text-xs font-medium mb-1" style={{ color: COLORS.text.secondary }}>
                         Subscription ID
                       </label>
                       <input
                         type="text"
                         value={selectedSubscription.object_id}
                         disabled
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-600 text-sm font-mono"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm font-mono"
+                        style={{ color: COLORS.text.secondary }}
                       />
                     </div>
                   </div>
@@ -1516,7 +1523,7 @@ export default function MembersManagementPage() {
                 {/* Subscription Details */}
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>
                       Subscription Status *
                     </label>
                     <select
@@ -1534,7 +1541,7 @@ export default function MembersManagementPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>
                       Start Date *
                     </label>
                     <input
@@ -1547,7 +1554,7 @@ export default function MembersManagementPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>
                       Available Credits
                     </label>
                     <input
@@ -1558,11 +1565,11 @@ export default function MembersManagementPage() {
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="0"
                     />
-                    <p className="text-xs text-gray-500 mt-1">Set the available credits for this user</p>
+                    <p className="text-xs mt-1" style={{ color: COLORS.text.secondary }}>Set the available credits for this user</p>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>
                       Subscription Amount (cents)
                     </label>
                     <input
@@ -1570,7 +1577,8 @@ export default function MembersManagementPage() {
                       min="0"
                       value={selectedSubscription.subscription_amount}
                       disabled
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-gray-50 text-gray-600"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-gray-50"
+                      style={{ color: COLORS.text.secondary }}
                       placeholder="0"
                     />
                     <p className="text-xs text-gray-500 mt-1">Monthly subscription amount in cents (read-only)</p>
@@ -1583,14 +1591,18 @@ export default function MembersManagementPage() {
                   <button
                     type="button"
                     onClick={() => setShowEditForm(false)}
-                    className="flex-1 border border-gray-300 text-gray-700 py-3 px-4 rounded-xl font-medium hover:bg-gray-50 transition-colors"
+                    className="flex-1 border border-gray-300 py-3 px-4 rounded-xl font-medium hover:bg-gray-50 transition-colors"
+                    style={{ color: COLORS.text.primary }}
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="flex-1 bg-[#8c52ff] text-white py-3 px-4 rounded-xl font-medium hover:bg-[#7a47e6] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                    className="flex-1 py-3 px-4 rounded-xl font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                    style={{ backgroundColor: COLORS.primary.main, color: COLORS.success.text }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
                   >
                     {submitting ? (
                       <>
@@ -1622,7 +1634,7 @@ export default function MembersManagementPage() {
                 </h2>
                 <button
                   onClick={() => setShowCardForm(false)}
-                  className="p-2 text-gray-600 hover:text-gray-900"
+                  className="p-2 hover:bg-gray-100"
                 >
                   <X className="h-6 w-6" />
                 </button>
@@ -1631,7 +1643,7 @@ export default function MembersManagementPage() {
               <form onSubmit={handleCardSubscriptionSubmit} className="space-y-4">
                 {/* User Selection */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>
                     Choose User for Subscription *
                   </label>
                   <div className="space-y-2">
@@ -1647,7 +1659,7 @@ export default function MembersManagementPage() {
                           className="w-full px-3 py-2 pl-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8c52ff] focus:border-transparent text-sm"
                         />
                         <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
-                          <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="h-4 w-4 [style-color-gray-400]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                           </svg>
                         </div>
@@ -1656,7 +1668,7 @@ export default function MembersManagementPage() {
                         type="button"
                         onClick={handleUserSearch}
                         className="px-3 py-2 rounded-lg font-medium transition-colors text-sm"
-                        style={{ backgroundColor: COLORS.primary.main, color: COLORS.primary.text }}
+                        style={{ backgroundColor: COLORS.primary.main, color: COLORS.success.text }}
                         onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
                         onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
                       >
@@ -1692,7 +1704,7 @@ export default function MembersManagementPage() {
                                   <p className="text-gray-600 text-xs">{user.email}</p>
                                 </div>
                                 <span className={`px-2 py-1 text-xs rounded-full ${
-                                  user.role === 'admin' ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-gray-800'
+                                  user.role === 'admin' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'
                                 }`}>
                                   {user.role}
                                 </span>
@@ -1727,7 +1739,7 @@ export default function MembersManagementPage() {
 
                 {/* Plan Variation Selection */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>
                     Choose Subscription Plan *
                   </label>
                   {isLoadingVariations ? (
@@ -1760,7 +1772,7 @@ export default function MembersManagementPage() {
 
 
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                  <p className="text-sm text-blue-700">
+                  <p className="text-sm" style={{ color: COLORS.text.secondary }}>
                     <strong>Note:</strong> This will create a subscription with card payment for the selected user.
                   </p>
                 </div>
@@ -1769,7 +1781,8 @@ export default function MembersManagementPage() {
                   <button
                     type="button"
                     onClick={() => setShowCardForm(false)}
-                    className="flex-1 border border-gray-300 text-gray-700 py-3 px-4 rounded-xl font-medium hover:bg-gray-50 transition-colors"
+                    className="flex-1 border border-gray-300 py-3 px-4 rounded-xl font-medium hover:bg-gray-50 transition-colors"
+                    style={{ color: COLORS.text.primary }}
                   >
                     Cancel
                   </button>
@@ -1777,7 +1790,10 @@ export default function MembersManagementPage() {
                     type="button"
                     disabled={submitting || !selectedUser || !cardFormData.plan_variation_id}
                     onClick={isCardMode ? () => setShowPaymentForm(true) : handleSubscriptionWithoutCard}
-                    className="flex-1 bg-[#8c52ff] text-white py-3 px-4 rounded-xl font-medium hover:bg-[#7a47e6] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                    className="flex-1 py-3 px-4 rounded-xl font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                    style={{ backgroundColor: COLORS.primary.main, color: COLORS.success.text }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
                   >
                     {isCardMode ? (
                       <>
@@ -1807,7 +1823,7 @@ export default function MembersManagementPage() {
                 <h2 className="text-xl font-bold text-gray-900">Payment Information</h2>
                 <button
                   onClick={() => setShowPaymentForm(false)}
-                  className="p-2 text-gray-600 hover:text-gray-900"
+                  className="p-2 hover:bg-gray-100"
                 >
                   <X className="h-6 w-6" />
                 </button>
@@ -1817,11 +1833,11 @@ export default function MembersManagementPage() {
               {selectedUser && (
                 <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
                   <p className="text-sm font-medium text-blue-800">Selected User:</p>
-                  <p className="text-sm text-blue-700">{selectedUser.name} ({selectedUser.email})</p>
+                  <p className="text-sm" style={{ color: COLORS.text.secondary }}>{selectedUser.name} ({selectedUser.email})</p>
                   {cardFormData.plan_variation_id && (
                     <>
                       <p className="text-sm font-medium text-blue-800 mt-2">Selected Plan:</p>
-                      <p className="text-sm text-blue-700">
+                      <p className="text-sm" style={{ color: COLORS.text.secondary }}>
                         {subscriptionVariations.find(v => v.object_id === cardFormData.plan_variation_id)?.name}
                       </p>
                     </>
@@ -1832,7 +1848,7 @@ export default function MembersManagementPage() {
               <form onSubmit={handlePaymentSubmit} className="space-y-4">
                 {/* Square Card Container */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium mb-2" style={{ color: COLORS.text.primary }}>
                     Card Information
                   </label>
                   <div 
@@ -1902,14 +1918,18 @@ export default function MembersManagementPage() {
                   <button
                     type="button"
                     onClick={() => setShowPaymentForm(false)}
-                    className="flex-1 border border-gray-300 text-gray-700 py-3 px-4 rounded-xl font-medium hover:bg-gray-50 transition-colors"
+                    className="flex-1 border border-gray-300 py-3 px-4 rounded-xl font-medium hover:bg-gray-50 transition-colors"
+                    style={{ color: COLORS.text.primary }}
                   >
                     Back
                   </button>
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="flex-1 bg-[#8c52ff] text-white py-3 px-4 rounded-xl font-medium hover:bg-[#7a47e6] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                    className="flex-1 py-3 px-4 rounded-xl font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                    style={{ backgroundColor: COLORS.primary.main, color: COLORS.success.text }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
                   >
                     {submitting ? (
                       <>

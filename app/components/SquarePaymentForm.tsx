@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { PaymentService, CardData } from '../services/paymentService';
 import { AuthService } from '../services/authService';
 import { ButtonLoader } from './common/Loader';
+import { COLORS } from '../config/colors';
 
 interface SquarePaymentFormProps {
   planVariationId: string;
@@ -459,7 +460,10 @@ export default function SquarePaymentForm({ planVariationId, amount, onSuccess, 
         <button
           type="submit"
           disabled={loading}
-                      className="w-full bg-[#8c52ff] text-white py-3 px-4 rounded-xl font-medium hover:bg-[#7a47e6] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                      className="w-full py-3 px-4 rounded-xl font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                      style={{ backgroundColor: COLORS.primary.main, color: COLORS.success.text }}
+                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
+                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
         >
                           {loading ? (
                   <>

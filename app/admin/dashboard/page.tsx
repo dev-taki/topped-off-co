@@ -82,14 +82,14 @@ export default function AdminDashboardPage() {
         <div className="mb-6">
           <h3 className="text-lg font-semibold mb-4" style={{ color: COLORS.text.primary }}>Subscription Overview</h3>
           <div className="grid grid-cols-2 gap-4">
-            <div className="rounded-xl p-4 shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+            <div className="rounded-xl p-4 shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}>
               <div>
                 <p className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Subscribers</p>
                 <p className="text-2xl font-bold" style={{ color: COLORS.primary.main }}>{subscriptionStats.totalUsers}</p>
               </div>
             </div>
 
-            <div className="rounded-xl p-4 shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+            <div className="rounded-xl p-4 shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}>
               <div>
                 <p className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Revenue</p>
                 <p className="text-2xl font-bold" style={{ color: COLORS.success.main }}>
@@ -107,10 +107,10 @@ export default function AdminDashboardPage() {
             <button 
               onClick={() => router.push('/admin/users')}
               className="rounded-xl shadow-sm p-4 border hover:shadow-md transition-shadow"
-              style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}
+              style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
             >
               <div className="flex flex-col items-center text-center">
-                <div className="p-3 rounded-lg mb-3" style={{ backgroundColor: COLORS.neutral.gray[100] }}>
+                <div className="p-3 rounded-lg mb-3" style={{ backgroundColor: '#f5f5f5' }}>
                   <User className="h-6 w-6" style={{ color: COLORS.primary.main }} />
                 </div>
                 <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Users</span>
@@ -120,10 +120,10 @@ export default function AdminDashboardPage() {
             <button 
               onClick={() => router.push('/admin/members')}
               className="rounded-xl shadow-sm p-4 border hover:shadow-md transition-shadow"
-              style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}
+              style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
             >
               <div className="flex flex-col items-center text-center">
-                <div className="p-3 rounded-lg mb-3" style={{ backgroundColor: COLORS.neutral.gray[100] }}>
+                <div className="p-3 rounded-lg mb-3" style={{ backgroundColor: '#f5f5f5' }}>
                   <Users className="h-6 w-6" style={{ color: COLORS.primary.main }} />
                 </div>
                 <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Manage Members</span>
@@ -133,10 +133,10 @@ export default function AdminDashboardPage() {
             <button 
               onClick={() => router.push('/admin/redeem')}
               className="rounded-xl shadow-sm p-4 border hover:shadow-md transition-shadow"
-              style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}
+              style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
             >
               <div className="flex flex-col items-center text-center">
-                <div className="p-3 rounded-lg mb-3" style={{ backgroundColor: COLORS.neutral.gray[100] }}>
+                <div className="p-3 rounded-lg mb-3" style={{ backgroundColor: '#f5f5f5' }}>
                   <Gift className="h-6 w-6" style={{ color: COLORS.primary.main }} />
                 </div>
                 <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Redemption</span>
@@ -146,10 +146,10 @@ export default function AdminDashboardPage() {
             <button 
               onClick={() => router.push('/plans')}
               className="rounded-xl shadow-sm p-4 border hover:shadow-md transition-shadow"
-              style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}
+              style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
             >
               <div className="flex flex-col items-center text-center">
-                <div className="p-3 rounded-lg mb-3" style={{ backgroundColor: COLORS.neutral.gray[100] }}>
+                <div className="p-3 rounded-lg mb-3" style={{ backgroundColor: '#f5f5f5' }}>
                   <BarChart3 className="h-6 w-6" style={{ color: COLORS.primary.main }} />
                 </div>
                 <span className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Client View</span>

@@ -82,10 +82,10 @@ export default function PWAInstall({ showAfterAuth = false }: PWAInstallProps) {
 
   return (
     <div className="fixed bottom-4 left-4 right-4 z-50">
-      <div className="rounded-xl shadow-lg border p-4" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+      <div className="rounded-xl shadow-lg border p-4" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}>
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center">
-            <div className="w-10 h-10 rounded-lg flex items-center justify-center mr-3" style={{ backgroundColor: COLORS.neutral.gray[100] }}>
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center mr-3" style={{ backgroundColor: COLORS.border.light }}>
               <Download className="h-5 w-5" style={{ color: COLORS.primary.main }} />
             </div>
             <div>
@@ -96,9 +96,9 @@ export default function PWAInstall({ showAfterAuth = false }: PWAInstallProps) {
           <button
             onClick={handleDismiss}
             className="p-1 transition-colors"
-            style={{ color: COLORS.neutral.gray[400] }}
-            onMouseEnter={(e) => e.currentTarget.style.color = COLORS.neutral.gray[600]}
-            onMouseLeave={(e) => e.currentTarget.style.color = COLORS.neutral.gray[400]}
+            style={{ color: '#9ca3af' }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#525252'}
+            onMouseLeave={(e) => e.currentTarget.style.color = '#9ca3af'}
           >
             <X className="h-4 w-4" />
           </button>
@@ -109,7 +109,7 @@ export default function PWAInstall({ showAfterAuth = false }: PWAInstallProps) {
             className="flex-1 text-sm font-medium py-2 px-4 rounded-lg transition-colors"
             style={{ 
               backgroundColor: COLORS.primary.main, 
-              color: COLORS.primary.text 
+              color: COLORS.success.text 
             }}
             onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
@@ -122,10 +122,10 @@ export default function PWAInstall({ showAfterAuth = false }: PWAInstallProps) {
             style={{ 
               backgroundColor: 'transparent',
               color: COLORS.text.secondary,
-              borderColor: COLORS.neutral.gray[300],
+              borderColor: COLORS.border.secondary,
               border: '1px solid'
             }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.neutral.gray[50]}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#fafafa'}
             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
           >
             Not Now

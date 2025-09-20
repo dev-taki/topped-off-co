@@ -18,7 +18,7 @@ export const getPrimaryColorClasses = {
   // Background styles
   background: {
     primary: `bg-[${COLORS.primary.main}]`,
-    primaryLight: `bg-[${COLORS.primary.light}]`,
+    primaryLight: `bg-[${COLORS.border.light}]`,
     secondary: `bg-[${COLORS.secondary.main}]`,
   },
   
@@ -40,13 +40,13 @@ export const buttonClasses = {
   primary: `bg-[${COLORS.primary.main}] text-white py-3 px-4 rounded-xl font-medium hover:bg-[${COLORS.primary.hover}] transition-colors disabled:opacity-50 disabled:cursor-not-allowed`,
   secondary: `bg-[${COLORS.secondary.main}] text-white py-3 px-4 rounded-xl font-medium hover:bg-[${COLORS.secondary.hover}] transition-colors disabled:opacity-50 disabled:cursor-not-allowed`,
   outline: `border border-[${COLORS.primary.main}] text-[${COLORS.primary.main}] py-3 px-4 rounded-xl font-medium hover:bg-[${COLORS.primary.main}] hover:text-white transition-colors`,
-  ghost: `text-[${COLORS.primary.main}] py-3 px-4 rounded-xl font-medium hover:bg-[${COLORS.primary.light}] hover:bg-opacity-10 transition-colors`,
+  ghost: `text-[${COLORS.primary.main}] py-3 px-4 rounded-xl font-medium hover:bg-[${COLORS.border.light}] hover:bg-opacity-10 transition-colors`,
 };
 
 // Get CSS custom properties for inline styles
 export const getPrimaryColorStyle = () => ({
   '--color-primary': COLORS.primary.main,
   '--color-primary-hover': COLORS.primary.hover,
-  '--color-primary-light': COLORS.primary.light,
+  '--color-primary-light': COLORS.border.light,
   '--color-primary-dark': COLORS.primary.dark,
 } as React.CSSProperties);

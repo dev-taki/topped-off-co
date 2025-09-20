@@ -74,7 +74,7 @@ export default function ClientProfilePage() {
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
             <div className="w-20 h-20 rounded-full flex items-center justify-center" style={{ backgroundColor: COLORS.primary.main }}>
-              <User className="h-10 w-10" style={{ color: COLORS.primary.text }} />
+              <User className="h-10 w-10" style={{ color: COLORS.success.text }} />
             </div>
           </div>
           <h1 className="text-2xl font-bold mb-2" style={{ color: COLORS.text.primary }}>Profile</h1>
@@ -82,7 +82,7 @@ export default function ClientProfilePage() {
         </div>
 
         {/* User Info Card */}
-        <div className="rounded-xl p-6 shadow-sm border mb-6" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+        <div className="rounded-xl p-6 shadow-sm border mb-6" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}>
           <h3 className="text-lg font-semibold mb-4" style={{ color: COLORS.text.primary }}>Account Information</h3>
           <div className="space-y-4">
             <div>
@@ -107,11 +107,11 @@ export default function ClientProfilePage() {
           <button
             onClick={() => router.push('/plans')}
             className="w-full rounded-xl p-4 shadow-sm border hover:shadow-md transition-shadow flex items-center justify-between"
-            style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}
+            style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
           >
             <div className="flex items-center">
-              <div className="p-2 rounded-lg mr-4" style={{ backgroundColor: COLORS.accent.blue + '1A' }}>
-                <CreditCard className="h-6 w-6" style={{ color: COLORS.accent.blue }} />
+              <div className="p-2 rounded-lg mr-4" style={{ backgroundColor: '#EFF6FF' }}>
+                <CreditCard className="h-6 w-6" style={{ color: '#3B82F6' }} />
               </div>
               <div className="text-left">
                 <p className="font-medium" style={{ color: COLORS.text.primary }}>Subscription Plans</p>
@@ -123,10 +123,10 @@ export default function ClientProfilePage() {
           <button
             onClick={() => router.push('/redeem')}
             className="w-full rounded-xl p-4 shadow-sm border hover:shadow-md transition-shadow flex items-center justify-between"
-            style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}
+            style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
           >
             <div className="flex items-center">
-              <div className="p-2 rounded-lg mr-4" style={{ backgroundColor: COLORS.success.light }}>
+              <div className="p-2 rounded-lg mr-4" style={{ backgroundColor: '#DCFCE7' }}>
                 <Calendar className="h-6 w-6" style={{ color: COLORS.success.main }} />
               </div>
               <div className="text-left">
@@ -144,11 +144,11 @@ export default function ClientProfilePage() {
           <button
             onClick={() => router.push('/settings')}
             className="w-full rounded-xl p-4 shadow-sm border hover:shadow-md transition-shadow flex items-center justify-between"
-            style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}
+            style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}
           >
             <div className="flex items-center">
-              <div className="p-2 rounded-lg mr-4" style={{ backgroundColor: COLORS.neutral.gray[100] }}>
-                <Settings className="h-6 w-6" style={{ color: COLORS.neutral.gray[600] }} />
+              <div className="p-2 rounded-lg mr-4" style={{ backgroundColor: '#f5f5f5' }}>
+                <Settings className="h-6 w-6" style={{ color: COLORS.text.secondary }} />
               </div>
               <div className="text-left">
                 <p className="font-medium" style={{ color: COLORS.text.primary }}>Settings</p>
@@ -161,15 +161,15 @@ export default function ClientProfilePage() {
             onClick={handleLogout}
             disabled={isLoading}
             className="w-full rounded-xl p-4 shadow-sm border hover:shadow-md transition-shadow flex items-center justify-between"
-            style={{ backgroundColor: COLORS.error.light, borderColor: COLORS.error.main }}
+            style={{ backgroundColor: '#FEF2F2', borderColor: COLORS.error.main }}
           >
             <div className="flex items-center">
-              <div className="p-2 rounded-lg mr-4" style={{ backgroundColor: COLORS.error.main + '1A' }}>
+              <div className="p-2 rounded-lg mr-4" style={{ backgroundColor: '#FEF2F2' }}>
                 <LogOut className="h-6 w-6" style={{ color: COLORS.error.main }} />
               </div>
               <div className="text-left">
-                <p className="font-medium" style={{ color: COLORS.error.dark }}>Logout</p>
-                <p className="text-sm" style={{ color: COLORS.error.dark }}>Sign out of your account</p>
+                <p className="font-medium" style={{ color: COLORS.error.main }}>Logout</p>
+                <p className="text-sm" style={{ color: COLORS.error.main }}>Sign out of your account</p>
               </div>
             </div>
           </button>

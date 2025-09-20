@@ -139,7 +139,7 @@ export default function AdminRedeemPage() {
         {/* Statistics */}
         <div className="mb-6">
           <div className="grid grid-cols-3 gap-4">
-            <div className="rounded-xl p-4 shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+            <div className="rounded-xl p-4 shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}>
               <div>
                 <p className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Pending</p>
                 <p className="text-2xl font-bold" style={{ color: COLORS.warning.main }}>
@@ -148,7 +148,7 @@ export default function AdminRedeemPage() {
               </div>
             </div>
 
-            <div className="rounded-xl p-4 shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+            <div className="rounded-xl p-4 shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}>
               <div>
                 <p className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Approved</p>
                 <p className="text-2xl font-bold" style={{ color: COLORS.success.main }}>
@@ -157,7 +157,7 @@ export default function AdminRedeemPage() {
               </div>
             </div>
 
-            <div className="rounded-xl p-4 shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+            <div className="rounded-xl p-4 shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}>
               <div>
                 <p className="text-sm font-medium" style={{ color: COLORS.text.secondary }}>Total</p>
                 <p className="text-2xl font-bold" style={{ color: COLORS.primary.main }}>
@@ -173,13 +173,13 @@ export default function AdminRedeemPage() {
           <h3 className="text-lg font-semibold" style={{ color: COLORS.text.primary }}>Redemption Requests</h3>
           
           {redemptionRequests.length === 0 ? (
-            <div className="rounded-xl p-8 text-center shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
-              <CreditCard className="h-12 w-12 mx-auto mb-4" style={{ color: COLORS.neutral.gray[400] }} />
+            <div className="rounded-xl p-8 text-center shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}>
+              <CreditCard className="h-12 w-12 mx-auto mb-4" style={{ color: COLORS.text.secondary }} />
               <p style={{ color: COLORS.text.secondary }}>No redemption requests found</p>
             </div>
           ) : (
             redemptionRequests.map((request) => (
-              <div key={request.id} className="rounded-xl p-6 shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+              <div key={request.id} className="rounded-xl p-6 shadow-sm border" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}>
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
@@ -216,7 +216,7 @@ export default function AdminRedeemPage() {
                 </div>
 
                 {request.status === 'pending' && (
-                  <div className="flex gap-3 pt-4 border-t" style={{ borderColor: COLORS.neutral.gray[200] }}>
+                  <div className="flex gap-3 pt-4 border-t" style={{ borderColor: COLORS.border.primary }}>
                     <button
                       onClick={() => handleApprove(request.id)}
                       disabled={processingId === request.id}

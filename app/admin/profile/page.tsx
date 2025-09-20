@@ -204,14 +204,14 @@ export default function AdminProfilePage() {
       {/* Main Content */}
       <main className="p-4 pb-24">
         {/* Profile Card */}
-        <div className="rounded-xl shadow-sm p-6 border mb-6" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.neutral.gray[200] }}>
+        <div className="rounded-xl shadow-sm p-6 border mb-6" style={{ backgroundColor: COLORS.background.primary, borderColor: COLORS.border.primary }}>
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold" style={{ color: COLORS.text.primary }}>Profile Information</h2>
             {!isEditing && (
               <button
                 onClick={() => setIsEditing(true)}
                 className="p-2 rounded-lg transition-colors"
-                style={{ backgroundColor: COLORS.primary.main, color: COLORS.primary.text }}
+                style={{ backgroundColor: COLORS.primary.main, color: COLORS.success.text }}
                 onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.hover}
                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.primary.main}
               >
@@ -223,7 +223,7 @@ export default function AdminProfilePage() {
           {!isEditing ? (
             <>
               <div className="text-center mb-6">
-                <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: COLORS.neutral.gray[100] }}>
+                <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#f5f5f5' }}>
                   <User className="h-10 w-10" style={{ color: COLORS.primary.main }} />
                 </div>
                 <h3 className="text-lg font-semibold mb-1" style={{ color: COLORS.text.primary }}>{adminProfile?.name || 'Admin User'}</h3>
@@ -232,7 +232,7 @@ export default function AdminProfilePage() {
 
               {/* Profile Information */}
               <div className="space-y-4">
-                <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: COLORS.neutral.gray[50] }}>
+                <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: '#fafafa' }}>
                   <Mail className="h-5 w-5 mr-3" style={{ color: COLORS.text.secondary }} />
                   <div>
                     <p className="text-sm" style={{ color: COLORS.text.secondary }}>Email</p>
@@ -240,7 +240,7 @@ export default function AdminProfilePage() {
                   </div>
                 </div>
 
-                <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: COLORS.neutral.gray[50] }}>
+                <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: '#fafafa' }}>
                   <Shield className="h-5 w-5 mr-3" style={{ color: COLORS.text.secondary }} />
                   <div>
                     <p className="text-sm" style={{ color: COLORS.text.secondary }}>Role</p>
@@ -248,7 +248,7 @@ export default function AdminProfilePage() {
                   </div>
                 </div>
 
-                <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: COLORS.neutral.gray[50] }}>
+                <div className="flex items-center p-3 rounded-lg" style={{ backgroundColor: '#fafafa' }}>
                   <Calendar className="h-5 w-5 mr-3" style={{ color: COLORS.text.secondary }} />
                   <div>
                     <p className="text-sm" style={{ color: COLORS.text.secondary }}>Member Since</p>
@@ -275,7 +275,7 @@ export default function AdminProfilePage() {
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent"
                   style={{ 
-                    borderColor: COLORS.neutral.gray[300],
+                    borderColor: COLORS.border.secondary,
                     backgroundColor: COLORS.background.primary,
                     color: COLORS.text.primary
                   }}
@@ -284,7 +284,7 @@ export default function AdminProfilePage() {
                     e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = COLORS.neutral.gray[300];
+                    e.target.style.borderColor = '#d1d5db';
                     e.target.style.boxShadow = 'none';
                   }}
                   placeholder="Enter your full name"
@@ -303,7 +303,7 @@ export default function AdminProfilePage() {
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent"
                   style={{ 
-                    borderColor: COLORS.neutral.gray[300],
+                    borderColor: COLORS.border.secondary,
                     backgroundColor: COLORS.background.primary,
                     color: COLORS.text.primary
                   }}
@@ -312,7 +312,7 @@ export default function AdminProfilePage() {
                     e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = COLORS.neutral.gray[300];
+                    e.target.style.borderColor = '#d1d5db';
                     e.target.style.boxShadow = 'none';
                   }}
                   placeholder="Enter your email address"
@@ -331,7 +331,7 @@ export default function AdminProfilePage() {
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent"
                   style={{ 
-                    borderColor: COLORS.neutral.gray[300],
+                    borderColor: COLORS.border.secondary,
                     backgroundColor: COLORS.background.primary,
                     color: COLORS.text.primary
                   }}
@@ -340,7 +340,7 @@ export default function AdminProfilePage() {
                     e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = COLORS.neutral.gray[300];
+                    e.target.style.borderColor = '#d1d5db';
                     e.target.style.boxShadow = 'none';
                   }}
                   placeholder="Enter new password"
@@ -359,7 +359,7 @@ export default function AdminProfilePage() {
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent"
                     style={{ 
-                      borderColor: COLORS.neutral.gray[300],
+                      borderColor: COLORS.border.secondary,
                       backgroundColor: COLORS.background.primary,
                       color: COLORS.text.primary
                     }}
@@ -368,7 +368,7 @@ export default function AdminProfilePage() {
                       e.target.style.boxShadow = `0 0 0 2px ${COLORS.primary.main}20`;
                     }}
                     onBlur={(e) => {
-                      e.target.style.borderColor = COLORS.neutral.gray[300];
+                      e.target.style.borderColor = '#d1d5db';
                       e.target.style.boxShadow = 'none';
                     }}
                     placeholder="Confirm new password"
@@ -382,11 +382,11 @@ export default function AdminProfilePage() {
                   onClick={handleCancel}
                   className="flex-1 py-2 px-4 rounded-lg font-medium transition-colors flex items-center justify-center"
                   style={{ 
-                    backgroundColor: COLORS.neutral.gray[200], 
-                    color: COLORS.neutral.gray[800] 
+                    backgroundColor: '#e5e5e5', 
+                    color: COLORS.text.primary 
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.neutral.gray[300]}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.neutral.gray[200]}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#d4d4d4'}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#e5e5e5'}
                 >
                   <X className="h-4 w-4 mr-2" />
                   Cancel
@@ -397,7 +397,7 @@ export default function AdminProfilePage() {
                   className="flex-1 py-2 px-4 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                   style={{ 
                     backgroundColor: COLORS.primary.main, 
-                    color: COLORS.primary.text 
+                    color: COLORS.success.text 
                   }}
                   onMouseEnter={(e) => {
                     if (!updateLoading) {
@@ -435,9 +435,9 @@ export default function AdminProfilePage() {
           className="w-full py-4 px-4 rounded-xl font-medium transition-colors flex items-center justify-center"
           style={{ 
             backgroundColor: COLORS.error.main, 
-            color: COLORS.error.text 
+            color: '#FFFFFF' 
           }}
-          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.error.dark}
+          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#DC2626'}
           onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.error.main}
         >
           <LogOut className="h-5 w-5 mr-2" />
