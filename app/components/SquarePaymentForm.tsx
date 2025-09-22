@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { PaymentService, CardData } from '../services/paymentService';
 import { AuthService } from '../services/authService';
 import { ButtonLoader } from './common/Loader';
@@ -288,25 +288,7 @@ export default function SquarePaymentForm({ planVariationId, amount, onSuccess, 
   const cardRef = useRef<any>(null);
   const initializedRef = useRef(false);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.Square && !initializedRef.current) {
-      initializeSquare();
-    }
-
-    return () => {
-      // Cleanup function
-      if (cardRef.current) {
-        try {
-          cardRef.current.destroy();
-        } catch (error) {
-          console.log('Card cleanup error:', error);
-        }
-      }
-      initializedRef.current = false;
-    };
-  }, []);
-
-  const initializeSquare = async () => {
+  const initializeSquare = useCallback(async () => {
     try {
       if (!window.Square || initializedRef.current || !cardContainerRef.current) {
         return;
@@ -324,7 +306,25 @@ export default function SquarePaymentForm({ planVariationId, amount, onSuccess, 
       console.error('Failed to initialize Square:', error);
       onError('Failed to initialize payment system');
     }
-  };
+  }, [onError]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.Square && !initializedRef.current) {
+      initializeSquare();
+    }
+
+    return () => {
+      // Cleanup function
+      if (cardRef.current) {
+        try {
+          cardRef.current.destroy();
+        } catch (error) {
+          console.log('Card cleanup error:', error);
+        }
+      }
+      initializedRef.current = false;
+    };
+  }, [initializeSquare]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({

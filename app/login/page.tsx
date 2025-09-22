@@ -180,7 +180,7 @@ export default function LoginPage() {
         {/* Sign up link */}
         <div className="mt-8 text-center">
           <p className="text-sm font-montserrat" style={{ color: COLORS.text.secondary }}>
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Link
               href="/signup"
               className="font-montserrat transition-colors"

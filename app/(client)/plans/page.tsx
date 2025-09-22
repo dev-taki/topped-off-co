@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { CreditCard, Star, Calendar, Gift, User, Home, Clock } from 'lucide-react';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { PlansService, SubscriptionPlan, PlanVariation } from '../../services/plansService';
@@ -33,7 +34,7 @@ export default function PlansPage() {
 
     fetchPlans();
     dispatch(fetchUserSubscriptions(BUSINESS_ID));
-  }, [dispatch, router]);
+  }, [dispatch, router, BUSINESS_ID]);
 
   // Refresh data when component becomes visible (user navigates back)
   useEffect(() => {
@@ -54,7 +55,7 @@ export default function PlansPage() {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('focus', handleFocus);
     };
-  }, [dispatch]);
+  }, [dispatch, BUSINESS_ID]);
 
   const fetchPlans = async () => {
     try {
@@ -186,9 +187,11 @@ export default function PlansPage() {
                         {/* Plan Variation Image - Only show if image_link exists */}
                         {variation.image_link && (
                           <div className="mb-4">
-                            <img
+                            <Image
                               src={variation.image_link}
                               alt={`${variation.name} plan image`}
+                              width={400}
+                              height={192}
                               className="w-full h-48 object-cover rounded-xl border"
                               style={{ borderColor: COLORS.border.primary }}
                               onError={(e) => {

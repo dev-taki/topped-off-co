@@ -31,52 +31,8 @@ export default function RedeemPage() {
   const [updatingCredits, setUpdatingCredits] = useState(false);
 
   const observer = useRef<IntersectionObserver | undefined>(undefined);
-  const lastRedeemElementRef = useCallback((node: HTMLDivElement) => {
-    if (loadingMore) return;
-    if (observer.current) observer.current.disconnect();
-    observer.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && hasMore) {
-        loadMoreRedeemItems();
-      }
-    });
-    if (node) observer.current.observe(node);
-  }, [loadingMore, hasMore]);
-
-  useEffect(() => {
-    // Check authentication first
-    const token = AuthService.getAuthToken();
-    if (!token) {
-      router.push('/login');
-      return;
-    }
-
-    fetchRedeemItems();
-    dispatch(fetchUserSubscriptions(BUSINESS_ID));
-  }, [dispatch, router]);
-
-  // Clear redeem type selection when credits become 0
-  useEffect(() => {
-    if (redeemType === 'normal' && !canRedeemNormal()) {
-      setRedeemType(null);
-    }
-  }, [userSubscriptions, redeemType]);
-
-  const fetchRedeemItems = async () => {
-    try {
-      setLoading(true);
-      const data = await RedeemService.getRedeemItems(0, 5);
-      setRedeemItems(data);
-      setPage(0);
-      setHasMore(data.length === 5);
-    } catch (error: any) {
-      console.error('Error fetching redeem items:', error);
-      showToast.error(error.message || 'Failed to load redeem items');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const loadMoreRedeemItems = async () => {
+  
+  const loadMoreRedeemItems = useCallback(async () => {
     if (loadingMore || !hasMore) return;
     
     try {
@@ -97,19 +53,65 @@ export default function RedeemPage() {
     } finally {
       setLoadingMore(false);
     }
+  }, [loadingMore, hasMore, page]);
+  
+  const lastRedeemElementRef = useCallback((node: HTMLDivElement) => {
+    if (loadingMore) return;
+    if (observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && hasMore) {
+        loadMoreRedeemItems();
+      }
+    });
+    if (node) observer.current.observe(node);
+  }, [loadingMore, hasMore, loadMoreRedeemItems]);
+
+  useEffect(() => {
+    // Check authentication first
+    const token = AuthService.getAuthToken();
+    if (!token) {
+      router.push('/login');
+      return;
+    }
+
+    fetchRedeemItems();
+    dispatch(fetchUserSubscriptions(BUSINESS_ID));
+  }, [dispatch, router, BUSINESS_ID]);
+
+  const fetchRedeemItems = async () => {
+    try {
+      setLoading(true);
+      const data = await RedeemService.getRedeemItems(0, 5);
+      setRedeemItems(data);
+      setPage(0);
+      setHasMore(data.length === 5);
+    } catch (error: any) {
+      console.error('Error fetching redeem items:', error);
+      showToast.error(error.message || 'Failed to load redeem items');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const getTotalCredits = () => {
+
+  const getTotalCredits = useCallback(() => {
     return userSubscriptions.reduce((total, sub) => total + sub.available_credit, 0);
-  };
+  }, [userSubscriptions]);
 
   const canRedeem = () => {
     return getTotalCredits() > 0;
   };
 
-  const canRedeemNormal = () => {
+  const canRedeemNormal = useCallback(() => {
     return getTotalCredits() > 0;
-  };
+  }, [getTotalCredits]);
+
+  // Clear redeem type selection when credits become 0
+  useEffect(() => {
+    if (redeemType === 'normal' && !canRedeemNormal()) {
+      setRedeemType(null);
+    }
+  }, [redeemType, canRedeemNormal]);
 
   const handleAddRedeem = async () => {
     if (!canRedeem()) {
