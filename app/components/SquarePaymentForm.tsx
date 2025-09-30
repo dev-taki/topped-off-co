@@ -397,7 +397,7 @@ export default function SquarePaymentForm({ planVariationId, amount, onSuccess, 
       // Don't destroy Square on every render - only on unmount
       // This prevents the refresh issue
     };
-  }, []); // Empty dependency array - only run once on mount
+  }, [initializeSquare, onError]); // Include dependencies
 
   // Separate cleanup effect that only runs on unmount
   useEffect(() => {
@@ -452,6 +452,12 @@ export default function SquarePaymentForm({ planVariationId, amount, onSuccess, 
 
     if (!formData.cardHolderName.trim()) {
       onError('Please enter the cardholder name');
+      return;
+    }
+
+    // Validate Square configuration
+    if (!SQUARE_CONFIG.applicationId || !SQUARE_CONFIG.locationId) {
+      onError('Payment configuration error. Please contact support.');
       return;
     }
 

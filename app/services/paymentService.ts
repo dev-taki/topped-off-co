@@ -14,6 +14,7 @@ export interface SubscriptionData {
   business_id: string;
   plan_variation_id: string;
   card_id: string;
+  amount?: number;
 }
 
 export interface AddCardResponse {
